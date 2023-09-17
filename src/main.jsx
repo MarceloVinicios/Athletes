@@ -4,8 +4,8 @@ import App from './pages/App'
 import { Auth0Provider } from '@auth0/auth0-react';
 
 
-const domain = 'dev-srmhi2uvf5mcakdn.us.auth0.com';
-const clientId = 'hYl5bMrESyJr3Xq4i2UUND55qSKZQOuy';
+const domain = 'dev-41qajw3ehs0m7xmi.us.auth0.com';
+const clientId = 'FlhA6mo0PVovqqREnUcYP2J78gUUBaX6';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

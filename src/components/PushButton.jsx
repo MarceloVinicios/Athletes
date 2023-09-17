@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from '@chakra-ui/react'
 
 const PushButton = ({value, ...props}) => {
   return (
-    <Button colorScheme='blue' {...props}>{value}</Button>
+    <Button colorScheme= "yellow" size= 'sm' {...props}>{value}</Button>
   )
 }
 
