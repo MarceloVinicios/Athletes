@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import PushButton from "./PushButton";
+import styled from "styled-components";
+
+const Login = styled.a`
+  color: white;
+  font-size: 1rem;
+  &:hover {
+    transition: 0.3s;
+    color: #ffffffc5;
+  }
+`
 
 const LoginButton = () => {
-
-
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   return (
     !isAuthenticated && (
-      <PushButton value={'Sign in'} onClick={() => loginWithRedirect()} />
+      <Login onClick={() => loginWithRedirect()}>Entrar</Login>
     )
   );
 };
