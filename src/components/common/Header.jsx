@@ -27,7 +27,7 @@ const NavbarLinks = styled.ul`
   list-style: none;
   display: flex;
   gap: 20px;
-  
+
   @media (max-width: 500px) {
     display: none;
   }
