@@ -7,7 +7,7 @@ import SingUp from "./SingUp";
 const Header = styled.header`
   position: fixed;
   width: 100%;
-  padding:20px;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,9 +60,6 @@ const Navbar = () => {
           </LinkNavigation>
           <LinkNavigation>
             <SingUp />
-          </LinkNavigation>
-          <LinkNavigation>
-            <LogoutButton />
           </LinkNavigation>
         </NavbarLinks>
       </Navigation>
