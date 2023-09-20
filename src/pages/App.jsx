@@ -9,13 +9,13 @@ function App() {
   return (
     <BrowserRouter>
       <ChakraProvider>
-      
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/Publi" element={< Publication />} />
         </Routes>
-        
+
       </ChakraProvider>
     </BrowserRouter>
   );
