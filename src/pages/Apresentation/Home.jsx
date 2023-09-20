@@ -17,7 +17,8 @@ const ContentContainer = styled.article`
   align-items: center;
   gap: 30rem;
   padding-top: 3.4rem;
-  padding: 0 2rem;
+  padding: 2rem;
+  margin-bottom: 4rem;
 
   @media (max-width: 2300px) {
     gap: 20rem;
@@ -34,10 +35,12 @@ const ContentContainer = styled.article`
   @media (max-width: 1100px) {
     gap: 1.5rem;
     padding-top: 2rem;
+    margin-bottom: initial;
   }
 `;
 
-const SideBySideContainer = styled.div``;
+const SideBySideContainer = styled.div`
+`;
 
 const ContentTitle1 = styled.h1`
   color: #f7f9f8;
