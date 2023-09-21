@@ -1,27 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import LogoutButton from "./LogoutButton";
 import LoginButton from "./LoginButton";
 import SingUp from "./SingUp";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = styled.header`
-  position: fixed;
   width: 100%;
+  position: fixed;
   padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   color: #f7f9f8;
   background-color: #24292f;
   box-shadow: inset 2px -2px 4px#3a424d;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
 `
 
 const Navigation = styled.nav`
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
 `
 
 const NavbarLogo = styled.a`
   width: 46px;
+  justify-self: start;
 `;
 
 const NavbarLinks = styled.ul`
@@ -69,25 +78,40 @@ const ButtonLoading = styled.a`
   transition: 0.3s;
   filter: hue-rotate(10deg);
  }
+
+ @media (max-width: 500px) {
+    display: none;
+  }
 `
 
 const ImageProfile = styled.img`
   width: 48px;
   border-radius: 50%;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `
 
 const ContainerUser = styled.div`
   display: flex;
   align-items: center;
   gap: 3rem;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
 `
 
 const Search = styled.input`
-  max-width: 400px;
+  width: 300px;
   border-radius: 100px;
   padding: 7px 20px;
+  margin-right: 10px;
   border: 2px solid #F7F9F8;
   background: #263238;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
 
   &::before {
     content: "";
@@ -98,6 +122,10 @@ const Search = styled.input`
     background-repeat: no-repeat;
     padding-right: 20px;
     margin-top: 2px;
+  }
+
+  @media (max-width: 900px) {
+    display: none;
   }
 `
 
@@ -122,13 +150,11 @@ const Navbar = () => {
         </NavbarLinks>
       </Navigation>
 
+      {isAuthenticated && (<Search type="text" name="search" placeholder="Buscar"/>)}
       {isAuthenticated && (
         <ContainerUser>
-          <Search type="text" name="search" placeholder="Buscar"/>
-          <ContainerUser>
             <ButtonLoading href="#">Carregar</ButtonLoading>
             <ImageProfile src={user.picture} alt={user.name}/>
-          </ContainerUser>
         </ContainerUser>
       )}
     </Header>
