@@ -156,7 +156,7 @@ const Home = () => {
       </ContentContainer>
 
       <ContentContainer>
-        <ContentImg1 src="src\assets\images\Component 1.svg"></ContentImg1>
+        <ContentImg1 src="src\assets\images\Component 1.svg" alt="Jogadas Incríveis"></ContentImg1>
         <SideBySideContainer>
           <ContentTitle1>
             <ContentSpan>O QUE OFERECEMOS</ContentSpan>

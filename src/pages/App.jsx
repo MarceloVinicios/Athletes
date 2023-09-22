@@ -1,9 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./Apresentation/Home";
-import Header from "../components/common/Header";
-import NotFound from "../components/common/NotFound";
-import Teste from "./Teste"
+import Header from "../components/common/Header/Header";
+import NotFound from "../routes/NotFound";
+import Feed from "./Feed";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/teste" element={<Teste />} />
+          <Route path="/feed" element={<Feed />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ChakraProvider>
