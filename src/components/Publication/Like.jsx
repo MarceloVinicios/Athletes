@@ -18,7 +18,7 @@ function Like() {
        </Button>
     </div>
   )
-};
+}
 
 
 export default Like
