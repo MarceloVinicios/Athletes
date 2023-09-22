@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.1",
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -20,7 +21,7 @@
     "react-avatar-edit": "^1.2.0",
     "react-avatar-editor": "^13.0.0",
     "react-dom": "^18.2.0",
-    "react-image-crop": "^10.1.8",
+    "react-icons": "^4.11.0",
     "react-router-dom": "^6.16.0",
     "styled-components": "^6.0.7"
   },
