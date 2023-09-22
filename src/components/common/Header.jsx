@@ -13,7 +13,7 @@ const Header = styled.header`
   justify-content: space-between;
   color: #f7f9f8;
   background-color: #24292f;
-  box-shadow: inset 2px -2px 4px#3a424d;
+  box-shadow: inset 2px -2px 4px #3a424d;
 `
 
 const Navigation = styled.nav`
