@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Avatar } from '@chakra-ui/react';
+import { Avatar, Button, IconButton} from '@chakra-ui/react';
+import { LiaShareSquare, LiaComment, } from 'react-icons/lia'
+import Like from './Like';
+import MoreOptionsPubli from './MoreOptionsPubli';
 
 const PublicacaoContainer = styled.div`
   max-width: 600px;
@@ -10,10 +13,10 @@ const PublicacaoContainer = styled.div`
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.445);
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto auto; /* Quatro linhas para as seções */
+  grid-template-rows: auto auto auto auto;
   grid-template-areas:
     "usuarioInfo"
-    "opcoes"
+    "moreOptions"
     "midia"
     "interacao"
     "descricao";
@@ -39,21 +42,18 @@ const TempoPublicacao = styled.span`
 `;
 
 const Opcoes = styled.div`
-  grid-area: opcoes;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 10px;
-`;
-
-const Icone = styled.div`
-  margin: 0 5px;
-  cursor: pointer;
+  grid-area: moreOptions;
+  
+  justify-self: end;
+  padding: 5px;
 `;
 
 const Midia = styled.img`
   grid-area: midia;
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 570px;
   display: block;
 `;
 
@@ -61,11 +61,7 @@ const IconesInteracao = styled.div`
   grid-area: interacao;
   display: flex;
   align-items: center;
-  padding: 10px;
-`;
-
-const IconeInteracao = styled.div`
-  margin-right: 10px;
+  padding: 20px;
 `;
 
 const Descricao = styled.div`
@@ -81,15 +77,19 @@ const Publication = () => {
         <NomeUsuario>Nome do Usuário</NomeUsuario>
         <TempoPublicacao>há 30 minutos</TempoPublicacao>
          <Opcoes>
-          <Icone src="  \src\assets\images\MoreOptions.svg" />
+            <MoreOptionsPubli />
          </Opcoes>
       </UsuarioInfo>
 
-      <Midia src="src\assets\images\FotoTeste.jpg " alt="Conteúdo" />
+      <Midia src="src\assets\images\gayy.jpeg " alt="Conteúdo" />
       <IconesInteracao>
-        <IconeInteracao>Ícone 1</IconeInteracao>
-        <IconeInteracao>Ícone 2</IconeInteracao>
-        <IconeInteracao>Ícone 3</IconeInteracao>
+      <Like />
+      <Button flex='1' variant='ghost' leftIcon={<LiaComment />} fontSize={'24px'}>
+        Comment
+      </Button>
+      <Button flex='1' variant='ghost' leftIcon={<LiaShareSquare />} fontSize={'24px'}>
+        Share
+      </Button>
       </IconesInteracao>
       <Descricao>
         Descrição da publicação aqui...
