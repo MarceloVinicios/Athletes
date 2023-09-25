@@ -34,7 +34,7 @@ const Navbar = () => {
         <ContainerUser>
           <ButtonLoading href="#">Carregar</ButtonLoading>
           <ContainerMenu>
-            <ImageProfile src={user.picture} alt={user.name} />
+            <ImageProfile src={user.picture} alt="Perfil" />
             <MenuActive>
               <MdKeyboardArrowDown
                 size={"20px"}
