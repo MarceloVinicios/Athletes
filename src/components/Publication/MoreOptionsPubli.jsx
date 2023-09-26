@@ -16,7 +16,7 @@ import { MdInsertLink, MdFlag } from 'react-icons/md'
 
 export default function MoreOptionsPubli() {
   return (
-    
+
     <Flex justifyContent="center" mt={4}>
       <Popover placement="bottom" isLazy>
         <PopoverTrigger>
