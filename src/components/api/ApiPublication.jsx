@@ -1,14 +1,13 @@
 export const API_URL = 'http://localhost:4000';
 
-export function GetAll(body, token) {
+export function GetAll(token) {
   return {
     url: API_URL + '/publication',
     options: {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
+      }
     },
   };
 }
@@ -26,11 +25,11 @@ export function PostPublication(body, token) {
   };
 }
 
-export function UpdatePublication(body, token, id) {
+export function UpdatePublication(id, body, token) {
   return {
     url: API_URL + `/publication/${id}`,
     options: {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -39,15 +38,14 @@ export function UpdatePublication(body, token, id) {
   };
 }
 
-export function DeletePublication(body, token, id) {
+export function DeletePublication(id, token) {
   return {
     url: API_URL + `/publication/${id}`,
     options: {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
+      }
     },
   };
 }
