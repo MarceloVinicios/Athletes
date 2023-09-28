@@ -6,6 +6,7 @@ import Feed from "./Feed";
 import Public from "./../components/Publication/Publication";
 import NotFound from "../routes/NotFound";
 import SideBar from "../components/common/SideBar";
+import NewPublication from "../components/newPublication/NewPublication.style";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
           <Route path="feed" element={<Feed />} />
           <Route path="*" element={<NotFound />} />
           <Route path="public" element={<Public />} />
-          
+          <Route path="modal" element={<NewPublication />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
