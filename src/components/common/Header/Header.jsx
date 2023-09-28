@@ -32,7 +32,7 @@ const Navbar = () => {
       )}
       {isAuthenticated && (
         <ContainerUser>
-          <ButtonLoading href="#">Carregar</ButtonLoading>
+          <ButtonLoading  href="#">Carregar</ButtonLoading>
           <ContainerMenu>
             <ImageProfile src={user.picture} alt="Perfil" />
             <MenuActive>
