@@ -4,11 +4,13 @@ import { MdTravelExplore } from "react-icons/md";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { AiFillHome, AiFillStar } from "react-icons/ai";
 
-const Container = styled.div`
+const Container = styled.aside`
+  position: fixed;
   max-width: 250px;
   height: 100vh;
-  box-shadow: inset 2px -2px 4px#3a424d;
-  background-color: #24292f;
+  z-index: 1;
+  box-shadow: inset 2px -2px 10px #3a424d;
+  background-color: #263238;
 `
 
 const ListNotOrdered = styled.ul`
@@ -16,7 +18,7 @@ const ListNotOrdered = styled.ul`
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-  padding: 130px 20px;
+  padding: 120px 20px;
 `
 
 const List = styled.li`

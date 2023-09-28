@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   width: 100%;
-  position: fixed;
   padding: 20px;
   color: #f7f9f8;
-  background-color: #24292f;
+  position: fixed;
+  z-index: 2;
+  background-color: #263238;
   box-shadow: inset 2px -2px 4px#3a424d;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

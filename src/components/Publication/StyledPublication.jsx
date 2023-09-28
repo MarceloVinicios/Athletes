@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const PublicationContainer = styled.div`
   max-width: 600px;
-  margin: 20px auto;
+  margin: auto;
+  margin-top: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.445);
@@ -23,7 +24,7 @@ export const UserInformation = styled.div`
 `;
 
 export const NameUser = styled.span`
-  font-weight: bold; 
+  font-weight: bold;
 `;
 
 export const ContainerInformation = styled.div `
@@ -59,5 +60,10 @@ export const IconInteration = styled.div`
 
 export const Description = styled.div`
   grid-area: description;
-  padding: 0 10px  10px 10px;
+  padding: 0 20px  10px 20px;
 `;
+
+export const ButtonShow = styled.button`
+  color: blue;
+  margin-left: 5px;
+`

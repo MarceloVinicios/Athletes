@@ -12,9 +12,9 @@ function Like() {
         onClick={() => setLiked(!liked)}
       >
         {liked ? (
-          <MdStar fill="#ebc556" fontSize={"24px"} />
+         <MdStar fill="#ebc556" fontSize={"24px"} />
         ) : (
-          <MdStarBorder fontSize={"24px"} leftIcon />
+          <MdStarBorder fontSize={"24px"} />
         )}
         Gostei
       </Button>

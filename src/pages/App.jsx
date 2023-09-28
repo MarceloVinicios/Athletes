@@ -5,18 +5,21 @@ import Header from "../components/common/Header/Header";
 import Feed from "./Feed";
 import Public from "./../components/Publication/Publication";
 import NotFound from "../routes/NotFound";
-import NewPublication from "../components/newPublication/NewPublication";
+import SideBar from "../components/common/SideBar";
+
 
 function App() {
   return (
     <ChakraProvider>
       <BrowserRouter>
+        <Header />
+        <SideBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="feed" element={<Feed />} />
           <Route path="*" element={<NotFound />} />
           <Route path="public" element={<Public />} />
-          <Route path="newPub" element={<NewPublication  />} />
+          
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
