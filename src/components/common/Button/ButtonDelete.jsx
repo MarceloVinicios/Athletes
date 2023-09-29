@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
 import { DeletePublication } from "../../api/ApiPublication";
 
-const ButtonDelete = ({ id, urls, toastDelete }) => {
+const ButtonDelete = ({ id, urls, toastDelete, errorToast }) => {
   const { loading, error, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
 
@@ -17,6 +17,10 @@ const ButtonDelete = ({ id, urls, toastDelete }) => {
 
     if (response.status == 200) {
       toastDelete(true)
+    }else {
+      if (response.status == 500 || response.status == 404) {
+        errorToast(true)
+      }
     }
   }
 

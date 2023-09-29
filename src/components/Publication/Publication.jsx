@@ -20,6 +20,7 @@ import Toast from "../helper/Toast";
 const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublication, descriptionPublication}) => {
   const [showMore, setShowMore] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [errorToast, setErrorToast] = useState(false);
 
   const toggleContent = () => {
     setShowMore(!showMore);
@@ -39,22 +40,27 @@ const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublic
   const mediaType = mediaPublication ? getMediaType(mediaPublication) : null;
 
   function toastDelete(status) {
-    setShowToast(status)
+    setShowToast(status);
+  }
+
+  function errorToastShow(status) {
+    setErrorToast(status)
   }
 
   const handleCloseToast = () => {
     setShowToast(false)
+    setErrorToast(false)
   };
 
   return (
     <PublicationContainer>
-      {showToast && <Toast message="Publicação Apagada" onClose={handleCloseToast}/>}
+      {(showToast && <Toast message="Publicação Apagada" onClose={handleCloseToast} error={errorToast}/>) || (errorToast && <Toast message="Erro ao Apagar Publicação" onClose={handleCloseToast} error={errorToast}/>)}
       <UserInformation>
         <Avatar size="md" src={pictureUser} alt={nameUser}/>
         <NameUser>{nameUser}</NameUser>
         <ContainerInformation>
           <TimePublication>há 30 minutos</TimePublication>
-          <MoreOptionsPubli userId={userId} idPublication={publicationId} toastDelete={toastDelete}/>
+          <MoreOptionsPubli userId={userId} idPublication={publicationId} toastDelete={toastDelete} errorToast={errorToastShow}/>
         </ContainerInformation>
       </UserInformation>
 

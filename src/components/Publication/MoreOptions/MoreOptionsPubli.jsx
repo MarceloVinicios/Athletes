@@ -15,7 +15,12 @@ import ButtonDelete from "../../common/Button/ButtonDelete";
 import ButtonDenunciar from "../../common/Button/ButtonDenunciar";
 import ButtonCopy from "../../common/Button/ButtonCopy";
 
-export default function MoreOptionsPubli({ userId, idPublication, toastDelete}) {
+export default function MoreOptionsPubli({
+  userId,
+  idPublication,
+  toastDelete,
+  errorToast,
+}) {
   const { user } = useAuth0();
 
   return (
@@ -35,7 +40,11 @@ export default function MoreOptionsPubli({ userId, idPublication, toastDelete}) 
             <Stack>
               <ButtonCopy />
               {user.sub == userId ? (
-                <ButtonDelete id={idPublication} toastDelete={toastDelete}/>
+                <ButtonDelete
+                  id={idPublication}
+                  toastDelete={toastDelete}
+                  errorToast={errorToast}
+                />
               ) : (
                 <ButtonDenunciar />
               )}
