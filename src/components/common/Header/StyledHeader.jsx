@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const Header = styled.header`
   width: 100%;
   padding: 20px;
-  color: #f7f9f8;
+  top: 0;
+  z-index: 100;
   position: fixed;
-  z-index: 2;
   background-color: #263238;
+  color: #f7f9f8;
   box-shadow: inset 2px -2px 4px#3a424d;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

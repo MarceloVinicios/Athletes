@@ -1,6 +1,6 @@
 export const API_URL = 'http://localhost:4000';
 
-export function GetAll(token) {
+export function GetAllPublications(token) {
   return {
     url: API_URL + '/publication',
     options: {

@@ -11,6 +11,10 @@ const Container = styled.aside`
   z-index: 1;
   box-shadow: inset 2px -2px 10px #3a424d;
   background-color: #263238;
+
+  @media (max-width: 900px) {
+      display: none;
+  }
 `
 
 const ListNotOrdered = styled.ul`
@@ -18,7 +22,7 @@ const ListNotOrdered = styled.ul`
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-  padding: 120px 20px;
+  padding: 50px 15px;
 `
 
 const List = styled.li`
@@ -36,10 +40,6 @@ const List = styled.li`
     transition: 0.3s;
     background-color: #363d46;
   }
-`
-
-const IconList = styled.img`
-
 `
 
 const SideBar = () => {

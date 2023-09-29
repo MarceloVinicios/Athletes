@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@chakra-ui/react";
-import MoreOptionsPubli from "./MoreOptionsPubli";
+import MoreOptionsPubli from "./MoreOptions/MoreOptionsPubli";
 import {
   PublicationContainer,
   UserInformation,
@@ -15,9 +15,11 @@ import {
 import Like from "./Interation/Like";
 import Comments from "./Interation/Comments";
 import Share from "./Interation/Share";
+import Toast from "../helper/Toast";
 
-const Publication = ({ pictureUser, nameUser, mediaPublication, descriptionPublication }) => {
+const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublication, descriptionPublication}) => {
   const [showMore, setShowMore] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const toggleContent = () => {
     setShowMore(!showMore);
@@ -36,19 +38,28 @@ const Publication = ({ pictureUser, nameUser, mediaPublication, descriptionPubli
 
   const mediaType = mediaPublication ? getMediaType(mediaPublication) : null;
 
+  function toastDelete(status) {
+    setShowToast(status)
+  }
+
+  const handleCloseToast = () => {
+    setShowToast(false)
+  };
+
   return (
     <PublicationContainer>
+      {showToast && <Toast message="Publicação Apagada" onClose={handleCloseToast}/>}
       <UserInformation>
-        <Avatar size="md" src={pictureUser} />
+        <Avatar size="md" src={pictureUser} alt={nameUser}/>
         <NameUser>{nameUser}</NameUser>
         <ContainerInformation>
           <TimePublication>há 30 minutos</TimePublication>
-          <MoreOptionsPubli />
+          <MoreOptionsPubli userId={userId} idPublication={publicationId} toastDelete={toastDelete}/>
         </ContainerInformation>
       </UserInformation>
 
       {mediaType === 'video' && mediaPublication && (
-        <video controls>
+        <video controls autoPlay loop muted>
           <source src={mediaPublication} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -68,9 +79,9 @@ const Publication = ({ pictureUser, nameUser, mediaPublication, descriptionPubli
         <Description onClick={toggleContent} >
           {showMore ? descriptionPublication : descriptionPublication.slice(0, 111)}
           {descriptionPublication.length > 111 && !showMore && ' ...'}
-          <ButtonShow>
+          {descriptionPublication.length > 111 && <ButtonShow>
             {showMore ? 'Ler Menos' : 'Ler Mais'}
-          </ButtonShow>
+          </ButtonShow>}
         </Description>
       </div>
     </PublicationContainer>
