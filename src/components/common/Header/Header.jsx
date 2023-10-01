@@ -3,8 +3,14 @@ import LoginButton from "../../auth/LoginButton";
 import SingUp from "../../auth/SingUp";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ButtonLoading, ContainerMenu, ContainerUser, Header, ImageProfile, Search } from "./StyledHeader";
-import { LinkNavigation, LinkNavigationMenu, ListMenuNavigation, MenuActive, NavbarLinks, NavbarLogo, Navigation } from "./StyledNavBar";
+import { ContainerMenu, ContainerUser, Header, ImageProfile, Search } from "./StyledHeader";
+import { LinkNavigation,
+  LinkNavigationMenu,
+  ListMenuNavigation,
+  MenuActive,
+  NavbarLinks,
+  NavbarLogo, Navigation } from "./StyledNavBar";
+import ButtonModal from "../../NewPublication/ButtonModal";
 
 const Navbar = () => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
@@ -32,7 +38,8 @@ const Navbar = () => {
       )}
       {isAuthenticated && (
         <ContainerUser>
-          <ButtonLoading href="#">Carregar</ButtonLoading>
+          <ButtonLoading  href="#">Carregar</ButtonLoading>
+          <ButtonModal />
           <ContainerMenu>
             <ImageProfile src={user.picture} alt="Perfil" />
             <MenuActive>
