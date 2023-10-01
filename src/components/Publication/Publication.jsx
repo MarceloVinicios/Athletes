@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Avatar } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Avatar, Image } from "@chakra-ui/react";
 import MoreOptionsPubli from "./MoreOptions/MoreOptionsPubli";
 import {
   PublicationContainer,
@@ -56,7 +56,9 @@ const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublic
     <PublicationContainer>
       {(showToast && <Toast message="Publicação Apagada" onClose={handleCloseToast} error={errorToast}/>) || (errorToast && <Toast message="Erro ao Apagar Publicação" onClose={handleCloseToast} error={errorToast}/>)}
       <UserInformation>
-        <Avatar size="md" src={pictureUser} alt={nameUser}/>
+        <Avatar size="md">
+          <Image src={pictureUser} alt={nameUser} borderRadius='full'/>
+        </Avatar>
         <NameUser>{nameUser}</NameUser>
         <ContainerInformation>
           <TimePublication>há 30 minutos</TimePublication>

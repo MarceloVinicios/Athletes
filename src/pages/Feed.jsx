@@ -5,6 +5,7 @@ import { GetAllPublications } from "../components/api/ApiPublication";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Publication from "../components/Publication/Publication";
 import useFetch from "../components/hooks/useFetch";
+import Loading from "../components/helper/Loading";
 
 const Main = styled.main`
   height: 100%;
@@ -52,11 +53,16 @@ const Feed = () => {
       const token = await getAccessTokenSilently();
       const { url, options } = GetAllPublications(token);
       const { response, json } = await request(url, options);
+      console.log(token)
       setPublications(json.publicationData);
     }
     fetchPuliction();
   }, [getAccessTokenSilently, request]);
 
+
+  if (loading) {
+    return <Loading/>
+  }
   return (
     <Main>
       <SideBar />
@@ -78,4 +84,7 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default withAuthenticationRequired(Feed, {
+  onRedirecting: () => <Loading/>,
+});
+

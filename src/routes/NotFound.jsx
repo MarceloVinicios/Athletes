@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from "styled-components";
+import Loading from '../components/helper/Loading';
 
 const Main = styled.main`
   background-color: #24292f;
   color: #f7f9f8;
   padding-bottom: 2rem;
-  padding-top: 5rem;
   min-height: 100vh;
-  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,19 +57,19 @@ const ButtonFeed = styled.a`
 const NotFound = () => {
   return (
     <Main>
-      <Container>
-        <img src="src/assets/images/NotFound.svg" alt="Error 404" width={"300px"} />
-        <div>
-          <Title>
-            Ocorreu um problema
-          </Title>
-          <Paragraph>Página não encontrada</Paragraph>
-        </div>
-        <ButtonFeed href="/feed">
-          Acesse seu feed
-        </ButtonFeed>
-      </Container>
-    </Main>
+    <Container>
+      <img src="src/assets/images/NotFound.svg" alt="Error 404" width={"300px"} />
+      <div>
+        <Title>
+          Ocorreu um problema
+        </Title>
+        <Paragraph>Página não encontrada</Paragraph>
+      </div>
+      <ButtonFeed href="/feed">
+        Acesse seu feed
+      </ButtonFeed>
+    </Container>
+  </Main>
   )
 }
 
