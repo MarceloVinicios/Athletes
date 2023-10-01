@@ -38,20 +38,23 @@ const FormUpload = () => {
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
-      formData.append('file', FileInput);
+      formData.append('file', File);
 
-        async function fetchPuliction() {
+      async function fetchPublication() {
+        try {
           const token = await getAccessTokenSilently();
           const { url, options } = PostPublication(formData, token);
           const { response, json } = await request(url, options);
-          console.log('Arquivo enviado com sucesso!', json);
-        } try  (error) {
+          console.log("response", json);
+        } catch (error) {
           console.error('Erro ao enviar arquivo:', error);
         }
-        fetchPuliction();
       }
+
+      fetchPublication();
     }
-  
+  }
+
 
 
   return (
