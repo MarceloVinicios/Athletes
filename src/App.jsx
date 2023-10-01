@@ -14,7 +14,6 @@ function App() {
     <ChakraProvider>
       <BrowserRouter>
         <Header />
-        <SideBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="feed" element={<Feed />} />
