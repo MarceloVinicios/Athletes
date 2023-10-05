@@ -1,18 +1,20 @@
-import { Spinner } from "@chakra-ui/react";
 import React from "react";
 import { styled, keyframes } from "styled-components";
 
-const Main = styled.main`
-  background-color: #24292f;
+const Container = styled.div`
   color: #f7f9f8;
   padding-bottom: 2rem;
-  min-height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
 `;
+
 
 const spin = keyframes`
   from {
@@ -39,7 +41,7 @@ const JumpDotAnimation = keyframes`
     transform: translateY(0);
   }
   10% {
-    transform: translateY(-20px); /* Move para cima */
+    transform: translateY(-20px);
   }
   50% {
     transform: translateY(0);
@@ -51,7 +53,7 @@ const JumpDotAnimation2 = keyframes`
     transform: translateY(0);
   }
   20% {
-    transform: translateY(-20px); /* Move para cima */
+    transform: translateY(-20px);
   }
   50% {
     transform: translateY(0);
@@ -63,7 +65,7 @@ const JumpDotAnimation3 = keyframes`
     transform: translateY(0);
   }
   30% {
-    transform: translateY(-20px); /* Move para cima */
+    transform: translateY(-20px);
   }
   50% {
     transform: translateY(0);
@@ -85,13 +87,9 @@ const JumpDot3 = styled.span`
   animation: ${JumpDotAnimation3} 1.5s ease-in-out infinite;
 `;
 
-const DotContainer = styled.div`
-  display: flex;
-`;
-
 const Loading = () => {
   return (
-    <Main>
+    <Container>
       <AnimatedBall src="src\assets\animations\voleiLoading.svg" alt="" />
       <TextLoading>
         Carregando
@@ -99,7 +97,7 @@ const Loading = () => {
         <JumpDot2>.</JumpDot2>
         <JumpDot3>.</JumpDot3>
       </TextLoading>
-    </Main>
+    </Container>
   );
 };
 

@@ -1,30 +1,13 @@
 import styled from "styled-components";
 
-export const Main = styled.main`
-  background-color: #24292f;
-  color: #f7f9f8;
-  padding-bottom: 2rem;
-  padding-top: 5rem;
-`;
-
 export const ContentContainer = styled.article`
   max-width: 1800px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30rem;
-  padding-top: 3.4rem;
+  gap: 20rem;
   padding: 2rem;
-  margin-bottom: 4rem;
-
-  @media (max-width: 2300px) {
-    gap: 20rem;
-  }
-
-  @media (max-width: 1900px) {
-    gap: 10rem;
-  }
 
   @media (max-width: 1500px) {
     gap: 4rem;
@@ -37,14 +20,10 @@ export const ContentContainer = styled.article`
   }
 `;
 
-export const SideBySideContainer = styled.div`
-`;
-
 export const ContentTitle1 = styled.h1`
   color: #f7f9f8;
   font-weight: bold;
   font-size: 2.8rem;
-  white-space: nowrap;
   text-align: center;
   padding: 0 0 2rem;
 

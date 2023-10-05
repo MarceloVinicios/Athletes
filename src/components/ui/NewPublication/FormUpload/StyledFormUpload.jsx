@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const FormContainer = styled.div`
-  max-width: 400px;
-  margin: 0 auto;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const FileInput = styled.input`
@@ -17,7 +18,7 @@ color: #fff;
 cursor: pointer;
 font-size: 16px;
 padding: 10px 20px;
-margin-top: 10px;
+margin: 20px;
 display: inline-block;
 `;
 
@@ -37,12 +38,16 @@ export const PreviewContainer = styled.div`
 `;
 
 export const PreviewImage = styled.img`
-  max-width: 100%;
+  width: 100%;
+  min-height: 100px;
   max-height: 300px;
+  object-fit: contain;
 `;
 
 export const PreviewVideo = styled.video`
-  max-width: 100%;
+  width: 100%;
+  min-height: 100px;
   max-height: 300px;
+  object-fit: contain;
 `;
 

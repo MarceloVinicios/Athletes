@@ -16,12 +16,12 @@ export function PostPublication(body, token) {
   return {
     url: API_URL + '/publication',
     options: {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(body),
-    },
+      body: body,
+    }
   };
 }
 

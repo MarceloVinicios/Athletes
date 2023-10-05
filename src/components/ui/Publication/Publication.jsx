@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Avatar, Image } from "@chakra-ui/react";
-import MoreOptionsPubli from "./MoreOptions/MoreOptionsPubli";
+import MoreOptionsPubli from "../../ui/Publication/MoreOptions/MoreOptionsPubli";
 import {
   PublicationContainer,
   UserInformation,
@@ -15,7 +15,7 @@ import {
 import Like from "./Interation/Like";
 import Comments from "./Interation/Comments";
 import Share from "./Interation/Share";
-import Toast from "../helper/Toast";
+import Toast from "../../helper/Toast";
 
 const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublication, descriptionPublication}) => {
   const [showMore, setShowMore] = useState(false);
@@ -83,15 +83,14 @@ const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublic
         <Share />
       </IconInteration>
 
-      <div>
-        <Description onClick={toggleContent} >
+
+      <Description onClick={toggleContent} >
           {showMore ? descriptionPublication : descriptionPublication.slice(0, 111)}
           {descriptionPublication.length > 111 && !showMore && ' ...'}
           {descriptionPublication.length > 111 && <ButtonShow>
             {showMore ? 'Ler Menos' : 'Ler Mais'}
           </ButtonShow>}
         </Description>
-      </div>
     </PublicationContainer>
   );
 };

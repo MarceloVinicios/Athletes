@@ -1,14 +1,21 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ContentContainer, ContentImg1, ContentListUl, ContentSpan, ContentText, ContentTitle1, Main, SideBySideContainer } from "./StyledHome"
+import {
+  ContentContainer,
+  ContentImg1,
+  ContentListUl,
+  ContentSpan,
+  ContentText,
+  ContentTitle1,
+} from "./StyledHome";
 
 const Home = () => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <Main>
+    <>
       <ContentContainer>
-        <SideBySideContainer>
+        <div>
           <ContentTitle1>
             DESCUBRA A PLATAFORMA DE
             <br />
@@ -24,7 +31,7 @@ const Home = () => {
             <ContentSpan> aprimorar suas habilidades </ContentSpan>e aprender
             com os melhores.
           </ContentText>
-        </SideBySideContainer>
+        </div>
         <ContentImg1
           src="src\assets\images\Winners-cuate 1.svg"
           alt="Seja o número 1"
@@ -32,8 +39,11 @@ const Home = () => {
       </ContentContainer>
 
       <ContentContainer>
-        <ContentImg1 src="src\assets\images\Component 1.svg" alt="Jogadas Incríveis"></ContentImg1>
-        <SideBySideContainer>
+        <ContentImg1
+          src="src\assets\images\Component 1.svg"
+          alt="Jogadas Incríveis"
+        ></ContentImg1>
+        <div>
           <ContentTitle1>
             <ContentSpan>O QUE OFERECEMOS</ContentSpan>
           </ContentTitle1>
@@ -74,33 +84,39 @@ const Home = () => {
               </ContentText>
             </li>
           </ContentListUl>
-        </SideBySideContainer>
+        </div>
       </ContentContainer>
 
       <ContentContainer>
-        <SideBySideContainer>
+        <div>
           <ContentTitle1>
             VENHA FAZER PARTE DO
             <ContentSpan>TIME</ContentSpan>
           </ContentTitle1>
           <ContentText>
-            Junte-se à nossa comunidade <ContentSpan>apaixonada de atletas</ContentSpan> e descubra um novo
+            Junte-se à nossa comunidade{" "}
+            <ContentSpan>apaixonada de atletas</ContentSpan> e descubra um novo
             mundo de aprendizado, motivação e crescimento esportivo. Este é o
             lugar onde sua jornada esportiva se torna uma experiência
             compartilhada!
           </ContentText>
           <br />
           <ContentText>
-            Pronto para Começar? <ContentSpan><a onClick={() => loginWithRedirect()} alt="redirecionamento para a página de cadastro">Registre-se</a></ContentSpan> agora e seja parte
-            da Plataforma de Rede Social para Atletas.
+            Pronto para Começar?{" "}
+            <ContentSpan>
+              <a
+                onClick={() => loginWithRedirect()}
+                alt="redirecionamento para a página de cadastro"
+              >
+                Registre-se
+              </a>
+            </ContentSpan>{" "}
+            agora e seja parte da Plataforma de Rede Social para Atletas.
           </ContentText>
-        </SideBySideContainer>
-        <ContentImg1
-          src="src\assets\images\Soccer.svg"
-          alt="Seja o número 1"
-        />
+        </div>
+        <ContentImg1 src="src\assets\images\Soccer.svg" alt="Seja o número 1" />
       </ContentContainer>
-    </Main>
+    </>
   );
 };
 

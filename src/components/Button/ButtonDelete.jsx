@@ -3,7 +3,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { Button } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
-import { DeletePublication } from "../../api/ApiPublication";
+import { DeletePublication } from "../../api/PublicationApi";
 
 const ButtonDelete = ({ id, urls, toastDelete, errorToast }) => {
   const { loading, error, request } = useFetch();

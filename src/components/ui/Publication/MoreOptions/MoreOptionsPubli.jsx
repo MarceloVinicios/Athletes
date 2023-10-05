@@ -11,9 +11,9 @@ import {
 } from "@chakra-ui/react";
 
 import { BsThreeDotsVertical } from "react-icons/bs";
-import ButtonDelete from "../../common/Button/ButtonDelete";
-import ButtonDenunciar from "../../common/Button/ButtonDenunciar";
-import ButtonCopy from "../../common/Button/ButtonCopy";
+import ButtonDelete from "../../../Button/ButtonDelete";
+import ButtonDenunciar from "../../../Button/ButtonDenunciar";
+import ButtonCopy from "../../../Button/ButtonCopy";
 
 export default function MoreOptionsPubli({
   userId,

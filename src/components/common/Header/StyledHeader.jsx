@@ -64,6 +64,7 @@ export const ButtonLoading = styled.a`
   border: 1px solid #f7f9f8;
   display: flex;
   border-radius: 5px;
+  cursor: pointer;
 
   &::before {
     content: "";

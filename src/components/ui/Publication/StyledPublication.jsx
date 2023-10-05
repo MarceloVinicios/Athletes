@@ -1,18 +1,14 @@
 import styled from "styled-components";
 
 export const PublicationContainer = styled.div`
-  max-width: 550px;
-  min-width: 550px;
+  max-width: 600px;
+  min-width: 600px;
   margin-top: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.445);
-  display: grid;
-  grid-template-areas:
-    "UserInformation"
-    "media"
-    "interation"
-    "description";
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 1000px) {
     max-width: 500px;
@@ -25,7 +21,6 @@ export const PublicationContainer = styled.div`
 `;
 
 export const UserInformation = styled.div`
-  grid-area: UserInformation;
   display: grid;
   grid-template-columns: 60px 1fr 1fr;
   align-items: center;
@@ -40,6 +35,7 @@ export const UserInformation = styled.div`
 
 export const NameUser = styled.span`
   font-weight: bold;
+  color: #000000;
 
   @media (max-width: 600px) {
     font-size: 14px;
@@ -61,12 +57,17 @@ export const TimePublication = styled.span`
   padding-right: 20px;
 `;
 
+export const ContainerButton = styled.div`
+  @media (max-width: 650px) {
+    display: none;
+  }
+`
+
 export const Media = styled.img`
-  grid-area: media;
   width: 100%;
   min-height: 100px;
+  max-height: 560px;
   object-fit: contain;
-  max-height: 570px;
   display: block;
 
   @media (max-width: 600px) {
@@ -76,7 +77,6 @@ export const Media = styled.img`
 `;
 
 export const IconInteration = styled.div`
-  grid-area: interation;
   display: flex;
   margin: 0 auto;
   padding: 10px 20px;
@@ -93,8 +93,8 @@ export const IconInteration = styled.div`
 `;
 
 export const Description = styled.div`
-  grid-area: description;
-  padding: 0 20px  10px 20px;
+  color: #000000;
+  padding: 0 20px 10px;
 `;
 
 export const ButtonShow = styled.button`
