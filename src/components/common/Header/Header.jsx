@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <Header>
       <NavbarLogo href="/feed">
-        <img src="src\assets\logos\Logo.svg" alt="logo" />
+        <img src="http://localhost:5173/src\assets\logos\Logo.svg" alt="logo" />
       </NavbarLogo>
 
       <Navigation aria-label="Login">

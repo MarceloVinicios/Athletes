@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   width: 100%;
+  position: relative;
   flex-direction: column;
   align-items: center;
 `;

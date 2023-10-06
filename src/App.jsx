@@ -6,7 +6,7 @@ import Feed from "./pages/Feed/Feed";
 import NotFound from "./routes/NotFound";
 import { Main } from "./StyledApp";
 import "./App.css"
-import RoutesPublication from "./components/ui/Publication/RoutesPublication";
+import RoutesPublication from "./pages/Feed/RoutesPublication";
 
 function App() {
   return (

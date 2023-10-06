@@ -10,7 +10,7 @@ const ButtonModal = () => {
   }
 
   return (
-    <div >
+    <div>
       <ButtonLoading onClick={handleClickModal}>
         Carregar
       </ButtonLoading>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Avatar, Image } from "@chakra-ui/react";
 import MoreOptionsPubli from "../../ui/Publication/MoreOptions/MoreOptionsPubli";
 import {
@@ -59,7 +59,7 @@ const Publication = ({ userId, pictureUser, nameUser, publicationId, mediaPublic
         <Avatar size="md">
           <Image src={pictureUser} alt={nameUser} borderRadius='full'/>
         </Avatar>
-        <NameUser>{nameUser}</NameUser>
+        <NameUser >{nameUser}</NameUser>
         <ContainerInformation>
           <TimePublication>há 30 minutos</TimePublication>
           <MoreOptionsPubli userId={userId} idPublication={publicationId} toastDelete={toastDelete} errorToast={errorToastShow}/>

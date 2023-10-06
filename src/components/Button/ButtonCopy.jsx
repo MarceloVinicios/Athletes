@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
 import { MdInsertLink } from "react-icons/md";
 
 const ButtonCopy = () => {
+
   const copyToClipboard = () => {
     const urlToCopy = window.location.href;
     navigator.clipboard.writeText(urlToCopy);

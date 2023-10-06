@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FormContainer,
   PreviewContainer,
@@ -13,6 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../../hooks/useFetch";
 import Loading from "../../../helper/Loading";
 import Successfully from "../../../helper/Successfully";
+import FeedContext  from "../../../../pages/Feed/FeedContext"
 
 const FormUpload = () => {
   const [successfully, setSucessfully] = useState(false);
@@ -20,6 +21,7 @@ const FormUpload = () => {
   const [preview, setPreview] = useState(null);
   const { loading, error, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
+  const dataFeedContext = useContext(FeedContext)
 
   const handleFileChange = ({ target }) => {
     const selectedFile = target.files[0];
@@ -47,16 +49,25 @@ const FormUpload = () => {
       const { response } = await request(url, options);
       if (response.status === 201) {
         setSucessfully(true);
+        dataFeedContext.reloadPublications();
       }
     }
   };
 
   if (loading) {
-    return <Loading />;
+    return (
+      <FormContainer>
+        <Loading />;
+      </FormContainer>
+    );
   }
 
   if (successfully) {
-    return <Successfully />;
+    return (
+      <FormContainer>
+        <Successfully />
+      </FormContainer>
+    );
   }
 
   return (

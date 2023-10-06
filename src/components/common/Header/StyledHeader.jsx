@@ -36,7 +36,7 @@ export const Search = styled.input`
     display: inline-block;
     width: 25px;
     height: 25px;
-    background-image: url("src/assets/images/More.svg");
+    background-image: url("http://localhost:5173/src/assets/images/More.svg");
     background-repeat: no-repeat;
     padding-right: 20px;
     margin-top: 2px;
@@ -71,7 +71,7 @@ export const ButtonLoading = styled.a`
     display: inline-block;
     width: 25px;
     height: 25px;
-    background-image: url("src/assets/images/More.svg");
+    background-image: url("http://localhost:5173/src/assets/images/More.svg");
     background-repeat: no-repeat;
     padding-right: 20px;
     margin-top: 2px;

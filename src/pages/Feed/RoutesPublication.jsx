@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Feed from "../../../pages/Feed/Feed";
-import NewPublicationModal from "../NewPublication/NewPublicationModal";
+import Feed from "./Feed";
+import NewPublicationModal from "../../components/ui/NewPublication/NewPublicationModal";
 
 const RoutesPublication = () => {
   return (

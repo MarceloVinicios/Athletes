@@ -3,7 +3,6 @@ import { styled, keyframes } from "styled-components";
 
 const Container = styled.div`
   color: #f7f9f8;
-  padding-bottom: 2rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,7 +14,6 @@ const Container = styled.div`
   gap: 20px;
 `;
 
-
 const spin = keyframes`
   from {
     transform: rotate(0deg);
@@ -26,9 +24,7 @@ const spin = keyframes`
 `;
 
 const AnimatedBall = styled.img`
-  width: 100px;
   height: 100px;
-
   animation: ${spin} 2s linear infinite;
 `;
 
@@ -90,7 +86,7 @@ const JumpDot3 = styled.span`
 const Loading = () => {
   return (
     <Container>
-      <AnimatedBall src="src\assets\animations\voleiLoading.svg" alt="" />
+      <AnimatedBall src="http://localhost:5173/src\assets\animations\voleiLoading.svg" alt="" />
       <TextLoading>
         Carregando
         <JumpDot>.</JumpDot>

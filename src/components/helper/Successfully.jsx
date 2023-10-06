@@ -3,10 +3,6 @@ import { styled } from "styled-components";
 
 const Container = styled.div`
   color: #f7f9f8;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +20,7 @@ const TextLoading = styled.p`
 const Loading = () => {
   return (
     <Container>
-      <AnimatedBall src="src\assets\images\Successfully.svg" alt="Sucesso ao publicar" />
+      <AnimatedBall src="http://localhost:5173/src\assets\images\Successfully.svg" alt="Sucesso ao publicar" />
       <TextLoading>
         Publicado com sucesso!
       </TextLoading>

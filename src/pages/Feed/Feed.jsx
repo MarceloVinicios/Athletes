@@ -6,35 +6,48 @@ import Publication from "../../components/ui/Publication/Publication";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/helper/Loading";
 import { ContainerPublication, NoContent } from "./StyledFeed";
+import FeedContext from "./FeedContext";
 
 const Feed = () => {
   const { getAccessTokenSilently } = useAuth0();
-  const { data, error, request } = useFetch();
+  const { loading, error, request } = useFetch();
   const [publications, setPublications] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     async function fetchPuliction() {
       const token = await getAccessTokenSilently();
-      const {url, options } = GetAllPublications(token);
+      const { url, options } = GetAllPublications(token);
       const { response, json } = await request(url, options);
       if (response.status === 200) {
         setPublications(json.publicationData);
-        console.log(data)
       }
 
       if (response.status === 204) {
-        setNoContentState("Sem conteúdo")
+        setNoContentState("Sem conteúdo");
       }
     }
     fetchPuliction();
-  }, [data, getAccessTokenSilently, request]);
+  }, [reload, getAccessTokenSilently, request]);
+
+  function reloadPublications() {
+    setReload(reload + 1);
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
-    <>
+    <FeedContext.Provider value={{ reloadPublications, reload }}>
       <SideBar />
       <ContainerPublication>
-        {noContentState && <NoContent><p>{noContentState}</p></NoContent>}
+        {noContentState && (
+          <NoContent>
+            <p>{noContentState}</p>
+          </NoContent>
+        )}
         {publications &&
           publications.map((publication) => (
             <Publication
@@ -48,11 +61,10 @@ const Feed = () => {
             />
           ))}
       </ContainerPublication>
-    </>
+    </FeedContext.Provider>
   );
 };
 
 export default withAuthenticationRequired(Feed, {
-  onRedirecting: () => <Loading/>,
+  onRedirecting: () => <Loading />,
 });
-

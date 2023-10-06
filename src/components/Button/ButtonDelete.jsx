@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { Button } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
 import { DeletePublication } from "../../api/PublicationApi";
+import FeedContext from "../../pages/Feed/FeedContext";
 
 const ButtonDelete = ({ id, urls, toastDelete, errorToast }) => {
-  const { loading, error, request } = useFetch();
+  const { request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
-
+  const dataFeedContext = useContext(FeedContext);
 
   async function onClickDelete() {
     const token = await getAccessTokenSilently();
@@ -16,10 +17,11 @@ const ButtonDelete = ({ id, urls, toastDelete, errorToast }) => {
     const { response } = await request(url, options);
 
     if (response.status == 200) {
-      toastDelete(true)
-    }else {
+      toastDelete(true);
+      dataFeedContext.reloadPublications();
+    } else {
       if (response.status == 500 || response.status == 404) {
-        errorToast(true)
+        errorToast(true);
       }
     }
   }

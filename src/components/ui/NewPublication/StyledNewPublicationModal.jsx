@@ -1,9 +1,18 @@
 import styled from "styled-components";
 
+export const ContainerModal = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #00000058;
+`
+
 export const ModalFather = styled.div`
   position: fixed;
   width: 80%;
-  height: 95%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -11,7 +20,7 @@ export const ModalFather = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 2;
+  z-index: 100;
 `;
 
 export const ModalHeader = styled.div`
