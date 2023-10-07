@@ -52,3 +52,18 @@ export const PreviewVideo = styled.video`
   object-fit: contain;
 `;
 
+export const DescriptionContainer = styled.div `
+  padding: 0;
+`
+export const LabelDescription = styled.label `
+  font-weight: bold;
+`
+export const DescriptionArea = styled.textarea `
+  background-color: #FFFFFF;
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+`
