@@ -7,6 +7,9 @@ import {
   FileInput,
   CustomButton,
   FileLabel,
+  DescriptionContainer,
+  LabelDescription,
+  DescriptionArea,
 } from "./StyledFormUpload";
 import { PostPublication } from "../../../../api/PublicationApi";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -18,6 +21,7 @@ import FeedContext  from "../../../../pages/Feed/FeedContext"
 const FormUpload = () => {
   const [successfully, setSucessfully] = useState(false);
   const [file, setFile] = useState(null);
+  const [description, setDescription] = useState('')
   const [preview, setPreview] = useState(null);
   const { loading, error, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
@@ -39,10 +43,10 @@ const FormUpload = () => {
   };
 
   const handleUpload = async () => {
-    if (file) {
+    if (file && description) {
       const formData = new FormData();
-      formData.append("description", "Atletas");
       formData.append("file", file);
+      formData.append("description", description);
 
       const token = await getAccessTokenSilently();
       const { url, options } = PostPublication(formData, token);
@@ -97,6 +101,16 @@ const FormUpload = () => {
           </>
         )}
       </PreviewContainer>
+      <DescriptionContainer>
+        <LabelDescription htmlFor="description">descrição:</LabelDescription>
+        <DescriptionArea
+        id='description'
+        name="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        rows="4"
+        cols="50"></DescriptionArea>
+      </DescriptionContainer>
       {file && (
         <CustomButton onClick={handleUpload}>Enviar Arquivo</CustomButton>
       )}
