@@ -1,15 +1,14 @@
-import React from 'react'
-import {  Button } from '@chakra-ui/react';
+import React from 'react';
+import { Button } from '@chakra-ui/react';
 import { AiOutlineComment } from "react-icons/ai";
 
-const Comments = () => {
+const Comments = ({ onCommentClick }) => {
   return (
-    <Button variant="ghost" justifySelf={"start"}>
-      <AiOutlineComment fontSize={"24px"}/>
+    <Button variant="ghost" justifySelf={"start"} onClick={onCommentClick}>
+      <AiOutlineComment fontSize={"24px"} />
       Comentários
     </Button>
-  )
+  );
 }
 
-export default Comments
-
+export default Comments;
