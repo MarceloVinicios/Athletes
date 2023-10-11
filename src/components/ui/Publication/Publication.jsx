@@ -16,10 +16,7 @@ import Like from "./Interation/Like";
 import CommentsInteration from "./Interation/Comments";
 import Share from "./Interation/Share";
 import Toast from "../../helper/Toast";
-import { useAuth0 } from "@auth0/auth0-react";
-import useFetch from "../../../hooks/useFetch";
-import { GetAllCommentOfPublication } from "../../../api/CommentApi";
-import CommentsList from "./Comments"
+import CommentsList from "./Comments/Comments"
 
 const Publication = ({
   userId,

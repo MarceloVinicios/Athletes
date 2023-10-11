@@ -101,31 +101,3 @@ export const ButtonShow = styled.button`
   color: blue;
   margin-left: 5px;
 `
-
-export const ContainerComments = styled.div`
-  margin: 0 auto;
-  width: 98%;
-  border-top: 1px solid #cec8c89d;
-`
-
-export const ContainerComment = styled.li `
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  padding: 10px;
-`
-
-export const Comment = styled.p`
-  color: #000000;
-`
-
-export const InputCommentPost = styled.input`
-  display: block;
-`
-
-export const NoContent = styled.p`
-  color: #000000;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-`
