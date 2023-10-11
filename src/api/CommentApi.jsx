@@ -14,16 +14,18 @@ export function GetAllCommentOfPublication(publication_id, token) {
 
 export function PostComment(body, token) {
   return {
-    url: API_URL + '/publication',
+    url: API_URL + '/comment',
     options: {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      body: body,
+      body: JSON.stringify(body),
     }
   };
 }
+
 
 export function UpdateComment(id, body, token) {
   return {
