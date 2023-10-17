@@ -10,13 +10,13 @@ import {
   Media,
   IconInteration,
   Description,
-  ButtonShow
+  ButtonShow,
 } from "./StyledPublication.jsx";
 import Like from "./Interation/Like";
 import CommentsInteration from "./Interation/Comments";
 import Share from "./Interation/Share";
-import Toast from "../../helper/Toast";
-import CommentsList from "./Comments/Comments"
+import CommentsList from "./Comments/Comments";
+import VideoPlayer from "../../Video/VideoPlayer";
 
 const Publication = ({
   userId,
@@ -27,8 +27,6 @@ const Publication = ({
   descriptionPublication,
 }) => {
   const [showMore, setShowMore] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [errorToast, setErrorToast] = useState(false);
   const [comments, setComments] = useState(false);
 
   const toggleContent = () => {
@@ -53,39 +51,12 @@ const Publication = ({
 
   const mediaType = mediaPublication ? getMediaType(mediaPublication) : null;
 
-  function toastDelete(status) {
-    setShowToast(status);
-  }
-
-  function errorToastShow(status) {
-    setErrorToast(status);
-  }
-
-  const handleCloseToast = () => {
-    setShowToast(false);
-    setErrorToast(false);
-  };
-
   async function commentsList() {
-    setComments(!comments)
+    setComments(!comments);
   }
 
   return (
     <PublicationContainer>
-      {(showToast && (
-        <Toast
-          message="Publicação Apagada"
-          onClose={handleCloseToast}
-          error={errorToast}
-        />
-      )) ||
-        (errorToast && (
-          <Toast
-            message="Erro ao Apagar Publicação"
-            onClose={handleCloseToast}
-            error={errorToast}
-          />
-        ))}
       <UserInformation>
         <Avatar size="md">
           <Image src={pictureUser} alt={nameUser} borderRadius="full" />
@@ -93,20 +64,12 @@ const Publication = ({
         <NameUser>{nameUser}</NameUser>
         <ContainerInformation>
           <TimePublication>há 30 minutos</TimePublication>
-          <MoreOptionsPubli
-            userId={userId}
-            idPublication={publicationId}
-            toastDelete={toastDelete}
-            errorToast={errorToastShow}
-          />
+          <MoreOptionsPubli userId={userId} idPublication={publicationId} />
         </ContainerInformation>
       </UserInformation>
 
       {mediaType === "video" && mediaPublication && (
-        <video controls autoPlay loop muted>
-          <source src={mediaPublication} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <VideoPlayer media={mediaPublication} />
       )}
 
       {mediaType === "image" && mediaPublication && (
@@ -114,8 +77,8 @@ const Publication = ({
       )}
 
       <IconInteration>
-        <Like/>
-        <CommentsInteration onCommentClick={commentsList}/>
+        <Like />
+        <CommentsInteration onCommentClick={commentsList} />
         <Share />
       </IconInteration>
 
@@ -129,7 +92,7 @@ const Publication = ({
         )}
       </Description>
 
-      {comments && <CommentsList publicationId={publicationId}/>}
+      {comments && <CommentsList publicationId={publicationId} />}
     </PublicationContainer>
   );
 };

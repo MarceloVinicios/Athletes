@@ -17,9 +17,7 @@ import ButtonCopy from "../../../Button/ButtonCopy";
 
 export default function MoreOptionsPubli({
   userId,
-  idPublication,
-  toastDelete,
-  errorToast,
+  idPublication
 }) {
   const { user } = useAuth0();
 
@@ -42,8 +40,7 @@ export default function MoreOptionsPubli({
               {user.sub == userId ? (
                 <ButtonDelete
                   id={idPublication}
-                  toastDelete={toastDelete}
-                  errorToast={errorToast}
+                  urls={"publication"}
                 />
               ) : (
                 <ButtonDenunciar />

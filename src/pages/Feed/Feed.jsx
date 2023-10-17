@@ -49,7 +49,7 @@ const Feed = () => {
             <p>{noContentState}</p>
           </NoContent>
         )}
-        {publications &&
+        {publications && !noContentState &&
           publications.map((publication) => (
             <Publication
               userId={publication.user?.id}

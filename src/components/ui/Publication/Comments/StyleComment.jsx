@@ -29,25 +29,21 @@ export const CommentList = styled.li`
   gap: 10px;
 `;
 
-export const ContainerComments = styled.div`
+export const ContainerComments = styled.ul`
   margin: 0 auto;
   width: 98%;
   border-top: 1px solid #cec8c89d;
 `;
 
 export const ContainerComment = styled.li`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   gap: 10px;
-  padding: 10px;
+  padding: 10px 20px;
 `;
 
 export const Comment = styled.p`
   color: #000000;
-`;
-
-export const InputCommentPost = styled.input`
-  display: block;
 `;
 
 export const NoContent = styled.p`

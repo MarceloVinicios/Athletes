@@ -29,7 +29,7 @@ export function PostComment(body, token) {
 
 export function UpdateComment(id, body, token) {
   return {
-    url: API_URL + `/publication/${id}`,
+    url: API_URL + `/comment/${id}`,
     options: {
       method: 'PUT',
       headers: {
@@ -42,7 +42,7 @@ export function UpdateComment(id, body, token) {
 
 export function DeleteComment(id, token) {
   return {
-    url: API_URL + `/publication/${id}`,
+    url: API_URL + `/comment/${id}`,
     options: {
       method: 'DELETE',
       headers: {
