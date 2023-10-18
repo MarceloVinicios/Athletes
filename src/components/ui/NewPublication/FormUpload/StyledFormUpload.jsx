@@ -78,7 +78,7 @@ export const SelectSport = styled.select`
   cursor: pointer;
   font-size: 16px;
   width: 100%;
-  margin-bottom: 10px; /* Adiciona um espaço abaixo do select */
+  margin-bottom: 10px;
 `;
 
 export const DescriptionContainer = styled.div`

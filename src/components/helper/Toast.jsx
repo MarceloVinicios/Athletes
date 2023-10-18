@@ -23,17 +23,7 @@ const Text = styled.p`
   gap: 10px;
 `;
 
-const Toast = ({ message, onClose, error }) => {
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onClose();
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [onClose]);
-
+const Toast = ({ message, error }) => {
   if (error) {
     return (
       <ToastContainer className="toast" style={{background: "#e93108"}}>

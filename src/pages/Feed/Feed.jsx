@@ -20,6 +20,7 @@ const Feed = () => {
       const token = await getAccessTokenSilently();
       const { url, options } = GetAllPublications(token);
       const { response, json } = await request(url, options);
+      console.log(token)
       if (response.status === 200) {
         setPublications(json.publicationData);
       }
@@ -48,7 +49,7 @@ const Feed = () => {
             <p>{noContentState}</p>
           </NoContent>
         )}
-        {publications &&
+        {publications && !noContentState &&
           publications.map((publication) => (
             <Publication
               userId={publication.user?.id}
