@@ -1,15 +1,21 @@
 import React, { useContext, useState } from "react";
 import {
   FormContainer,
+  FormHeader,
+  FormContent,
   PreviewContainer,
   PreviewImage,
   PreviewVideo,
+  FileContainer,
   FileInput,
   CustomButton,
   FileLabel,
+  SelectSport,
   DescriptionContainer,
   LabelDescription,
   DescriptionArea,
+
+
 } from "./StyledFormUpload";
 import { PostPublication } from "../../../../api/PublicationApi";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -17,12 +23,14 @@ import useFetch from "../../../../hooks/useFetch";
 import Loading from "../../../helper/Loading";
 import Successfully from "../../../helper/Successfully";
 import FeedContext  from "../../../../pages/Feed/FeedContext"
+import CropComponent from "./CropImage";
 
 const FormUpload = () => {
   const [successfully, setSucessfully] = useState(false);
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('')
   const [preview, setPreview] = useState(null);
+  const [category, setCategory] = useState('');
   const { loading, error, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
   const dataFeedContext = useContext(FeedContext)
@@ -76,46 +84,62 @@ const FormUpload = () => {
 
   return (
     <FormContainer>
-      <h1>Formulário</h1>
-      <form>
-        <div>
-          <FileInput
-            type="file"
-            accept="image/*,video/*"
-            id="fileInput"
-            onChange={handleFileChange}
-          />
-          <FileLabel htmlFor="fileInput">Selecionar Arquivo</FileLabel>
-        </div>
-      </form>
-      <PreviewContainer>
-        {file && preview && (
-          <>
-            {file.type.includes("image") ? (
-              <PreviewImage src={preview} alt="Preview" />
-            ) : (
-              <PreviewVideo controls>
-                <source src={preview} type={file.type} />
-              </PreviewVideo>
-            )}
-          </>
-        )}
-      </PreviewContainer>
+    <FormHeader>Formulário</FormHeader>
+    <FormContent>
+      <FileContainer>
+        <form>
+          <div>
+            <FileInput
+              type="file"
+              accept="image/*,video/*"
+              id="fileInput"
+              onChange={handleFileChange}
+            />
+            <FileLabel htmlFor="fileInput">Selecionar Arquivo</FileLabel>
+          </div>
+        </form>
+        <PreviewContainer>
+          {file && preview && (
+            <>
+              {file.type.includes("image") ? (
+                <PreviewImage src={preview} alt="Preview" />
+              ) : (
+                <PreviewVideo controls>
+                  <source src={preview} type={file.type} />
+                </PreviewVideo>
+              )}
+            </>
+          )}
+        </PreviewContainer>
+      </FileContainer>
       <DescriptionContainer>
-        <LabelDescription htmlFor="description">descrição:</LabelDescription>
+          <LabelDescription htmlFor="category">Categoria:</LabelDescription>
+          <SelectSport
+            id="category"
+            name="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="option1">Opção 1</option>
+            <option value="option2">Opção 2</option>
+            <option value="option3">Opção 3</option>
+          </SelectSport>
+        <LabelDescription htmlFor="description">Descrição:</LabelDescription>
         <DescriptionArea
-        id='description'
-        name="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        rows="4"
-        cols="50"></DescriptionArea>
+          id='description'
+          name="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows="4"
+          cols="50"
+        ></DescriptionArea>
+        {file && (
+          <CustomButton onClick={handleUpload}>Enviar Arquivo</CustomButton>
+        )}
       </DescriptionContainer>
-      {file && (
-        <CustomButton onClick={handleUpload}>Enviar Arquivo</CustomButton>
-      )}
-    </FormContainer>
-  );
-};
+    </FormContent>
+  </FormContainer>
+  )
+}
 
 export default FormUpload;

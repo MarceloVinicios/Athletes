@@ -3,8 +3,25 @@ import styled from 'styled-components';
 export const FormContainer = styled.div`
   width: 100%;
   position: relative;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const FormHeader = styled.h1`
+  width: 100%;
+  text-align: center;
+`;
+
+
+export const FormContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const FileContainer = styled.div`
+  flex: 1;
 `;
 
 export const FileInput = styled.input`
@@ -12,15 +29,14 @@ export const FileInput = styled.input`
 `;
 
 export const FileLabel = styled.label`
-background-color: #EFBB23;
-border: none;
-border-radius: 5px;
-color: #fff;
-cursor: pointer;
-font-size: 16px;
-padding: 10px 20px;
-margin: 20px;
-display: inline-block;
+  background-color: #EFBB23;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  display: inline-block;
 `;
 
 export const CustomButton = styled.button`
@@ -35,6 +51,7 @@ export const CustomButton = styled.button`
 `;
 
 export const PreviewContainer = styled.div`
+  flex: 1;
   margin-bottom: 20px;
 `;
 
@@ -52,13 +69,7 @@ export const PreviewVideo = styled.video`
   object-fit: contain;
 `;
 
-export const DescriptionContainer = styled.div `
-  padding: 0;
-`
-export const LabelDescription = styled.label `
-  font-weight: bold;
-`
-export const DescriptionArea = styled.textarea `
+export const SelectSport = styled.select`
   background-color: #FFFFFF;
   color: #000000;
   border: none;
@@ -66,4 +77,25 @@ export const DescriptionArea = styled.textarea `
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
-`
+  width: 100%;
+  margin-bottom: 10px; /* Adiciona um espaço abaixo do select */
+`;
+
+export const DescriptionContainer = styled.div`
+  flex: 1;
+  margin-left: 20px;
+`;
+export const LabelDescription = styled.label`
+  font-weight: bold;
+  display: block;
+`;
+export const DescriptionArea = styled.textarea`
+  background-color: #FFFFFF;
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+`;
