@@ -15,7 +15,6 @@ const ButtonPublicationModal = () => {
         Carregar
       </ButtonLoading>
       {isModalVisible ? <NewPublicationModal handleClickModal={handleClickModal}/> : null}
-
     </div>
 
   );

@@ -1,4 +1,4 @@
-/* import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import "./StyleVideo.css";
@@ -39,4 +39,4 @@ const VideoPlayer = ({ media }) => {
   );
 };
 
-export default VideoPlayer; */
+export default VideoPlayer; 
