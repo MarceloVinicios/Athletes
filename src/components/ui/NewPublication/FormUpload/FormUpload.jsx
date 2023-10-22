@@ -14,8 +14,6 @@ import {
   DescriptionContainer,
   LabelDescription,
   DescriptionArea,
-
-
 } from "./StyledFormUpload";
 import { PostPublication } from "../../../../api/PublicationApi";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -23,7 +21,6 @@ import useFetch from "../../../../hooks/useFetch";
 import Loading from "../../../helper/Loading";
 import Successfully from "../../../helper/Successfully";
 import FeedContext  from "../../../../pages/Feed/FeedContext"
-import CropComponent from "./CropImage";
 
 const FormUpload = () => {
   const [successfully, setSucessfully] = useState(false);

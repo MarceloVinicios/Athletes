@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { AiFillDelete } from "react-icons/ai";
 import { Button } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
@@ -8,7 +7,7 @@ import { DeleteComment } from "../../api/CommentApi"
 import FeedContext from "../../pages/Feed/FeedContext";
 import CommentContext from "../ui/Publication/Comments/CommentContext";
 
-const ButtonDelete = ({ id, urls }) => {
+const ConfirmDelete = ({ id, urls, children }) => {
   const { request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
   const dataFeedContext = useContext(FeedContext);
@@ -45,18 +44,18 @@ const ButtonDelete = ({ id, urls }) => {
 
   return (
     <Button
-      w="194px"
-      variant="ghost"
-      rightIcon={<AiFillDelete />}
-      justifyContent="space-between"
-      fontWeight="normal"
-      colorScheme="red"
-      fontSize="sm"
-      onClick={onClickDelete}
-    >
-      Apagar
-    </Button>
+    w="194px"
+    variant="ghost"
+    rightIcon={<AiFillDelete />}
+    justifyContent="space-between"
+    fontWeight="normal"
+    colorScheme="red"
+    fontSize="sm"
+    onClick={handleClickModal}
+  >
+    Apagar
+  </Button>
   );
 };
 
-export default ButtonDelete;
+export default ConfirmDelete;

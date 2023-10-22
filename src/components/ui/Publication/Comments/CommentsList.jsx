@@ -16,7 +16,7 @@ import { NameUser } from "../StyledPublication";
 import ButtonDenunciar from "../../../Button/ButtonDenunciar";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth0 } from "@auth0/auth0-react";
-import ButtonDelete from "../../../Button/ButtonDelete";
+import IconDelete from "../../../Button/IconDelete";
 
 const CommentsList = ({ comments, setReloadComments }) => {
   const { user } = useAuth0();
@@ -70,7 +70,7 @@ const CommentsList = ({ comments, setReloadComments }) => {
                       <Stack>
                         <ButtonDenunciar />
                         {user.sub == comment.user.id ? (
-                          <ButtonDelete
+                          <IconDelete
                             id={comment.id}
                             urls={"comment"}
                           />

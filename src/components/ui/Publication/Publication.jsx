@@ -16,7 +16,7 @@ import Like from "./Interation/Like";
 import CommentsInteration from "./Interation/Comments";
 import Share from "./Interation/Share";
 import CommentsList from "./Comments/Comments";
-import VideoPlayer from "../../Video/VideoPlayer";
+// import VideoPlayer from "../../Video/VideoPlayer";
 
 const Publication = ({
   userId,
@@ -69,7 +69,7 @@ const Publication = ({
       </UserInformation>
 
       {mediaType === "video" && mediaPublication && (
-        <VideoPlayer media={mediaPublication} />
+        <Media media={mediaPublication} />
       )}
 
       {mediaType === "image" && mediaPublication && (
