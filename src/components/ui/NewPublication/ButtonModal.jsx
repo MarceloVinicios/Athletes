@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ButtonLoading } from "../../common/Header/StyledHeader";
-import NewPublicationModal from "./NewPublicationModal";
+import NewPublicationModal from "./Modal";
 
-const ButtonModal = () => {
+const ButtonPublicationModal = () => {
   const [isModalVisible, setModalIsVisible] = useState(false);
 
   function handleClickModal() {
@@ -16,7 +16,8 @@ const ButtonModal = () => {
       </ButtonLoading>
       {isModalVisible ? <NewPublicationModal handleClickModal={handleClickModal}/> : null}
     </div>
+
   );
 };
 
-export default ButtonModal;
+export default ButtonPublicationModal;

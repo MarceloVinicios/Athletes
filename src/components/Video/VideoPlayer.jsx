@@ -39,4 +39,4 @@ const VideoPlayer = ({ media }) => {
   );
 };
 
-export default VideoPlayer;
+export default VideoPlayer; 

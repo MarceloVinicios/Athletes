@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/helper/Loading";
 import { ContainerPublication, NoContent } from "./StyledFeed";
 import FeedContext from "./FeedContext";
+import ModalConfirm from "../../components/helper/ModalConfirm/ModalConfirm";
 
 const Feed = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -14,13 +15,16 @@ const Feed = () => {
   const [publications, setPublications] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
   const [reload, setReload] = useState(0);
+  const [isModalVisible, setModalIsVisible] = useState(false);
+  const [publicationId, setPublicationId] = useState(null);
+  const [urls, setUrls] = useState(null);
 
   useEffect(() => {
     async function fetchPuliction() {
       const token = await getAccessTokenSilently();
       const { url, options } = GetAllPublications(token);
       const { response, json } = await request(url, options);
-      console.log(token)
+      console.log(token);
       if (response.status === 200) {
         setPublications(json.publicationData);
       }
@@ -36,20 +40,26 @@ const Feed = () => {
     setReload(reload + 1);
   }
 
+  function handleClickModal() {
+    setModalIsVisible(!isModalVisible);
+  }
+
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <FeedContext.Provider value={{ reloadPublications, reload }}>
+    <FeedContext.Provider value={{ reloadPublications, reload, handleClickModal, publicationId , setPublicationId, urls, setUrls}}>
       <SideBar />
       <ContainerPublication>
+        {isModalVisible && <ModalConfirm handleClickModal={handleClickModal} publicationId={publicationId}/>}
         {noContentState && (
           <NoContent>
             <p>{noContentState}</p>
           </NoContent>
         )}
-        {publications && !noContentState &&
+        {publications &&
+          !noContentState &&
           publications.map((publication) => (
             <Publication
               userId={publication.user?.id}

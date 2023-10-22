@@ -10,7 +10,7 @@ import {
 import FormUpload from "./FormUpload/FormUpload";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
-const NewPublicationModal = ({ handleClickModal }) => {
+const Modal = ({ handleClickModal }) => {
   return (
     <ContainerModal>
       <ModalFather>
@@ -28,4 +28,4 @@ const NewPublicationModal = ({ handleClickModal }) => {
   );
 };
 
-export default NewPublicationModal;
+export default Modal;

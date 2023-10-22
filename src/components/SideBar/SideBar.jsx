@@ -10,7 +10,7 @@ const SideBar = () => {
     <Container>
       <ListNotOrdered>
         <List>
-          <AiFillHome fontSize={"25px"} color={"#EBC556"}/> Início
+          <AiFillHome href='src\pages\Feed\Feed.jsx' fontSize={"25px"} color={"#EBC556"}/> Início
         </List>
         <List>
           <BiSolidMessageSquareDetail fontSize={"25px"} color={"#EBC556"}/> Mensagens
