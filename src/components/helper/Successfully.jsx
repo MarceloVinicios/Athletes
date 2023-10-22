@@ -17,12 +17,12 @@ const TextLoading = styled.p`
   font-size: 2rem;
 `;
 
-const Loading = () => {
+const Loading = ({msg}) => {
   return (
     <Container>
       <AnimatedBall src="http://localhost:5173/src\assets\images\Successfully.svg" alt="Sucesso ao publicar" />
       <TextLoading>
-        Publicado com sucesso!
+        {msg}
       </TextLoading>
     </Container>
   );

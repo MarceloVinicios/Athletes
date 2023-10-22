@@ -110,7 +110,7 @@ export const UploadLabel = styled.label`
 
 export const Button = styled.button`
   display: inline-block;
-  background-color: #FFCC00;
+  background-color: #ffcc00;
   color: #333;
   padding: 10px 20px;
   border: none;
@@ -119,4 +119,13 @@ export const Button = styled.button`
   cursor: pointer;
   margin-top: 20px;
   align-self: flex-end;
+`;
+
+export const Warning = styled.p`
+  font-weight: bold;
+  color: #ffff00;
+  background-color: #e70000;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 9px;
 `;

@@ -3,11 +3,10 @@ import { Container, Form, Title, Button, Image, FileInput, UploadLabel } from ".
 import InputContainer from "../../../components/common/Form/Input";
 import useForm from "../../../hooks/useForm";
 
-const PersonalData = ({ setPage, formUserData,  setPersonalData }) => {
+const PersonalData = ({ setPage, formUserData, setPersonalData }) => {
   const username = useForm();
-  const country = useForm();
-  const state = useForm();
-  const city = useForm();
+  const sport = useForm();
+  const goal = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -24,12 +23,12 @@ const PersonalData = ({ setPage, formUserData,  setPersonalData }) => {
   const handleNext = (event) => {
     event.preventDefault();
 
-    if (username.validate() && country.validate() && state.validate() && city.validate()) {
+    if (username.validate() && sport.validate() && goal.validate()) {
       const personalFormData = {
         name: username.value,
-        country: country.value,
-        state: state.value,
-        city: city.value,
+        picture: selectedFile,
+        goal: goal.value,
+        sport: sport.value,
       };
       setPersonalData(personalFormData)
     }
@@ -40,11 +39,10 @@ const PersonalData = ({ setPage, formUserData,  setPersonalData }) => {
       <Form>
         <Title>Dados Pessoais</Title>
         <InputContainer label="Nome" type="text" name="username" placeholder="Nome" {...username} />
-        <InputContainer label="País" type="text" name="country" placeholder="País" {...country}/>
-        <InputContainer label="Estado" type="text" name="state" placeholder="Estado" {...state}/>
-        <InputContainer label="Cidade" type="text" name="city" placeholder="Cidade" {...city}/>
+        <InputContainer label="Meta Esportiva" type="text" name="sportsGoal" placeholder="Meta Esportiva" {...goal} />
+        <InputContainer label="Esporte de Interesse" type="text" name="sport" placeholder="Esporte de Interesse" {...sport} />
         <div>
-          <FileInput type="file" id="fileInput" onChange={handleFileChange} />
+          <FileInput type="file" id="fileInput" onChange={handleFileChange} required/>
           <UploadLabel htmlFor="fileInput">
             <img src="src\assets\images\UploadUser.svg" alt="" width="70px" />
             <span>Inserir Foto de Perfil</span>
