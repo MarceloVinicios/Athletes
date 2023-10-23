@@ -4,8 +4,7 @@ import ProfessionalData from "./Professional/ProfessionalData";
 import useFetch from "../../hooks/useFetch";
 import { useAuth0 } from "@auth0/auth0-react";
 import { PostUser } from "../../api/UserApi";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [page, setPage] = useState(1);
@@ -17,40 +16,39 @@ const Register = () => {
   const [warning, setWarning] = useState(null);
 
   useEffect(() => {
+    const identificador = window.localStorage.getItem("identificador");
+    if (identificador === "true") {
+      navigate("/feed");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     if (formUserData && formContatoData) {
       const saveUserAndAddress = async () => {
         try {
           const token = await getAccessTokenSilently();
-          console.log(formUserData.picture)
-          const { url, options } = PostUser(
-            {
-              user: {
-                name: formUserData.name,
-                picture: formUserData.picture,
-                goal: formUserData.goal,
-                category_id: 1,
-              },
-              address: {
-                city: formContatoData.city,
-                state: formContatoData.state,
-                country: formContatoData.country,
-              },
-            },
-            token
-          );
+          const formData = new FormData();
+          formData.append("name", formUserData.name);
+          formData.append("goal", formUserData.goal);
+          formData.append("picture", formUserData.picture);
+          formData.append("category_id", "1");
+          formData.append("city", formContatoData.city);
+          formData.append("state", formContatoData.state);
+          formData.append("country", formContatoData.country);
 
+          const { url, options } = PostUser(formData, token);
           const { response } = await request(url, options);
           if (response.status === 201) {
-            setWarning(null)
-            return navigate('/feed');
+            setWarning(null);
+            return navigate("/feed");
           }
 
           if (response.status === 409) {
-            setWarning("O usuário já existe!")
+            setWarning("O usuário já existe!");
           }
 
           if (response.status === 500) {
-            setWarning("Falha ao cadastrar usuário!")
+            setWarning("Falha ao cadastrar usuário!");
           }
         } catch (error) {
           console.error("Erro ao salvar usuário e endereço");
@@ -59,7 +57,13 @@ const Register = () => {
 
       saveUserAndAddress();
     }
-  }, [formContatoData, formUserData, getAccessTokenSilently, request, navigate]);
+  }, [
+    formContatoData,
+    formUserData,
+    getAccessTokenSilently,
+    request,
+    navigate,
+  ]);
 
   return (
     <div>

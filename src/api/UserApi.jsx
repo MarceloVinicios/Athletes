@@ -30,10 +30,9 @@ export function PostUser(body, token) {
     options: {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(body),
+      body: body
     }
   };
 }

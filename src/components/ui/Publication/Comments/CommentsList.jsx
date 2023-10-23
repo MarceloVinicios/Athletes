@@ -44,6 +44,7 @@ const CommentsList = ({ comments, setReloadComments }) => {
                 src={comment.user.picture}
                 alt={comment.user.name}
                 borderRadius="full"
+                width="100000px" height="50px"
               />
             </Avatar>
             <div>
