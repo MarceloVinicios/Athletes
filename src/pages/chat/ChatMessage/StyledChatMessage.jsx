@@ -11,18 +11,20 @@ export const ChatContainer = styled.div`
 
 export const ChatBody = styled.div`
   padding: 10px;
-  min-height: 80vh;
+  min-height: 73vh;
   color: #000;
   display: flex;
   flex-direction: column;
 `;
 
 export const MessageContainer = styled.div`
+  max-width: 50%;
   background-color: lightgrey;
   margin-top: 10px;
   padding: 5px 10px;
   border-radius: 7px;
   align-self: start;
+  unicode-bidi: isolate;
 
   &.message-mine {
     align-self: end;
@@ -31,7 +33,11 @@ export const MessageContainer = styled.div`
 `;
 
 export const MessageText = styled.p`
-  display: inline;
+  text-justify: distribute;
+  display: block;
+  font-size: .9375rem;
+  line-height: 20px;
+  text-align: left;
   word-wrap: break-word;
 `;
 

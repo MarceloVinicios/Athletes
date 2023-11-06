@@ -3,7 +3,7 @@ import { RiSendPlane2Fill } from "react-icons/ri";
 import { Input } from "../ChatMessage/StyledChatMessage";
 import { ChatBody, ChatContainer, ChatFooter, MessageContainer, MessageText } from "./StyledChatMessage";
 
-export default function Chat({ socket, userData}) {
+export default function Chat({ socket, userData, dataUserMessage }) {
   const bottomRef = useRef();
   const messageRef = useRef();
   const [messageList, setMessageList] = useState([]);
@@ -11,7 +11,7 @@ export default function Chat({ socket, userData}) {
 
   useEffect(() => {
     if (socket) {
-      socket.emit("get_old_messages", "luiz", userData.id);
+      socket.emit("get_old_messages", dataUserMessage.name, userData.id);
     }
 
     if (socket) {
@@ -56,6 +56,7 @@ export default function Chat({ socket, userData}) {
 
     clearInput();
     focusInput();
+    console.log(message.authorId)
   };
 
   const clearInput = () => {
@@ -80,7 +81,7 @@ export default function Chat({ socket, userData}) {
         <ChatBody>
           {oldMessages.map((message) => (
             <MessageContainer
-              className={message.send_id_user === "luiz" ? "message-mine" : ""}
+              className={message.send_id_user === dataUserMessage.name ? "message-mine" : ""}
               key={message.id}
             >
               <div>

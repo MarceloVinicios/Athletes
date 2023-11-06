@@ -14,7 +14,7 @@ import {
 } from "./ChatStyled";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
-import { GetAllUsers } from "../../api/UserApi";
+import { GetAllUsers, GetUser } from "../../api/UserApi";
 import { ImageProfile } from "../../components/common/Header/StyledHeader";
 import io from "socket.io-client";
 import ChatMessage from "./ChatMessage/ChatMessage";
@@ -26,6 +26,7 @@ const Chat = () => {
   const [users, setUsers] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [dataUserMessage, setDataUserMessage] = useState(null);
 
   useEffect(() => {
     async function fetchPuliction() {
@@ -42,10 +43,23 @@ const Chat = () => {
     }
     fetchPuliction();
 
+    async function getUserDataMessage() {
+      const token = await getAccessTokenSilently();
+      const { url, options } = GetUser(token);
+      const { response, json } = await request(url, options);
+
+      if (response.status === 200) {
+        setDataUserMessage(json.response);
+      }
+
+      return json.response.name;
+    }
+
+
     async function getSocket() {
+      const responseGetUserMessage = await getUserDataMessage();
       const socket = await io.connect("http://localhost:4000");
-      const user = "luiz";
-      socket.emit("set_username", user.trim());
+      socket.emit("set_username", responseGetUserMessage);
       setSocket(socket);
     }
     getSocket();
@@ -68,7 +82,6 @@ const Chat = () => {
                 <UserName>{user.name}</UserName>
               </ContainerUserProfile>
             ))}
-            
         </ContainerListUser>
       </ContainerForUser>
       {selectedUser && (
@@ -92,7 +105,7 @@ const Chat = () => {
               />
             </ContainerCall>
           </HeaderUser>
-          <ChatMessage socket={socket} userData={selectedUser}/>
+          <ChatMessage socket={socket} userData={selectedUser} dataUserMessage={dataUserMessage}/>
         </ContainerChat>
       )}
     </Main>
