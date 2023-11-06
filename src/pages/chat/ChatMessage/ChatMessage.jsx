@@ -28,7 +28,7 @@ export default function Chat({ socket, userData, dataUserMessage }) {
         socket.off("error_old_messages");
       };
     }
-  }, [socket, userData.id]);
+  }, [socket, userData.id])
 
   useEffect(() => {
     if (socket) {
