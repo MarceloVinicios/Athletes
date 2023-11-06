@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         clientId={clientId}
         authorizationParams={{
 
-          redirect_uri: window.location.origin + "/register",
+          redirect_uri: window.location.origin + "/feed",
           ...(config.audience ? { audience: config.audience } : null)
         }}
       >

@@ -31,7 +31,7 @@ const VideoPlayer = ({ media }) => {
     <div className="container">
       <video
         ref={videoRef}
-        style={{maxWidth:"100%", maxHeight:"500px"}}
+        style={{minWidth:"100%", maxHeight:"500px"}}
         className="video-js vjs-custom-theme"
         playsInline
       ></video>
@@ -39,4 +39,4 @@ const VideoPlayer = ({ media }) => {
   );
 };
 
-export default VideoPlayer; 
+export default VideoPlayer;

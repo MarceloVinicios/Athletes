@@ -20,33 +20,6 @@ export const Header = styled.header`
   }
 `;
 
-export const Search = styled.input`
-  width: 300px;
-  border-radius: 100px;
-  padding: 7px 20px;
-  margin-right: 10px;
-  border: 2px solid #f7f9f8;
-  background: #263238;
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: center;
-
-  &::before {
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-image: url("http://localhost:5173/src/assets/images/More.svg");
-    background-repeat: no-repeat;
-    padding-right: 20px;
-    margin-top: 2px;
-  }
-
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-
 export const ContainerUser = styled.div`
   display: flex;
   align-items: center;
@@ -95,5 +68,7 @@ export const ContainerMenu = styled.div`
 export const ImageProfile = styled.img`
   min-width: 48px;
   max-width: 48px;
+  max-height: 50px;
+  min-height: 50px;
   border-radius: 50%;
 `;

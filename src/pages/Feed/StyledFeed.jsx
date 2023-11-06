@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerPublication = styled.div`
-  padding: 20px 20px;
+  padding: 0px 20px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@ export const ContainerPublication = styled.div`
 
   @media (max-width: 1200px) {
     align-items: end;
-    margin-right: 500px;
+    margin-right: 200px;
   }
 
   @media (max-width: 1100px) {

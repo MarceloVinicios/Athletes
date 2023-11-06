@@ -7,31 +7,36 @@ import { Main } from "./StyledApp";
 import RoutesPublication from "./pages/Feed/RoutesPublication";
 import Register from "./pages/Register/Register";
 import "./App.css";
-import { UserStorage } from "./UserContext";
 import ProtectedRoute from "./components/helper/ProtectedRoute";
+import ChatRoutes from "./pages/chat/ChatRoutes";
 
 function App() {
   return (
     <ChakraProvider>
       <BrowserRouter>
-        <UserStorage>
-          <Header />
-          <Main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="feed/*"
-                element={
-                  <ProtectedRoute>
-                    <RoutesPublication />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="register" element={<Register />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Main>
-        </UserStorage>
+        <Main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="feed/*"
+              element={
+                <ProtectedRoute>
+                  <RoutesPublication />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="chat/*"
+              element={
+                <ProtectedRoute>
+                  < ChatRoutes/>
+                </ProtectedRoute>
+              }
+            />
+            <Route path="register" element={<Register />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Main>
       </BrowserRouter>
     </ChakraProvider>
   );

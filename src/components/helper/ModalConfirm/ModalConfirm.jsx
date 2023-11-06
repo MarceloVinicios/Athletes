@@ -17,7 +17,7 @@ const ModalConfirm = () => {
   async function onClickDelete() {
     const token = await getAccessTokenSilently();
 
-    if (dataCommentContext.urls == "publication") {
+    if (dataFeedContext.urls == "publication") {
       const { url, options } = DeletePublication(
         dataFeedContext.publicationId,
         token,
@@ -29,7 +29,7 @@ const ModalConfirm = () => {
         dataFeedContext.handleClickModal();
       } else {
         if (response.status == 500 || response.status == 404) {
-          console.log("Error ao apagar publicação");
+          console.log(response.json);
         }
       }
     } else {

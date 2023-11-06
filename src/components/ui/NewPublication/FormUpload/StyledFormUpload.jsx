@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FormContainer = styled.div`
   width: 100%;
@@ -13,15 +13,19 @@ export const FormHeader = styled.h1`
   text-align: center;
 `;
 
-
 export const FormContent = styled.div`
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px auto 0 auto;
+  align-items: center;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const FileContainer = styled.div`
-  flex: 1;
+  padding-right: 20px;
 `;
 
 export const FileInput = styled.input`
@@ -29,7 +33,7 @@ export const FileInput = styled.input`
 `;
 
 export const FileLabel = styled.label`
-  background-color: #EFBB23;
+  background-color: #efbb23;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -40,7 +44,7 @@ export const FileLabel = styled.label`
 `;
 
 export const CustomButton = styled.button`
-  background-color: #EFBB23;
+  background-color: #efbb23;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -51,7 +55,6 @@ export const CustomButton = styled.button`
 `;
 
 export const PreviewContainer = styled.div`
-  flex: 1;
   margin-bottom: 20px;
 `;
 
@@ -60,6 +63,7 @@ export const PreviewImage = styled.img`
   min-height: 100px;
   max-height: 300px;
   object-fit: contain;
+  margin-top: 20px;
 `;
 
 export const PreviewVideo = styled.video`
@@ -67,10 +71,11 @@ export const PreviewVideo = styled.video`
   min-height: 100px;
   max-height: 300px;
   object-fit: contain;
+  margin-top: 20px;
 `;
 
 export const SelectSport = styled.select`
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #000000;
   border: none;
   border-radius: 10px;
@@ -81,16 +86,15 @@ export const SelectSport = styled.select`
   margin-bottom: 10px;
 `;
 
-export const DescriptionContainer = styled.div`
-  flex: 1;
-  margin-left: 20px;
-`;
+export const DescriptionContainer = styled.div``;
+
 export const LabelDescription = styled.label`
   font-weight: bold;
   display: block;
 `;
+
 export const DescriptionArea = styled.textarea`
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #000000;
   border: none;
   border-radius: 10px;

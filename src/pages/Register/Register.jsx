@@ -4,7 +4,8 @@ import ProfessionalData from "./Professional/ProfessionalData";
 import useFetch from "../../hooks/useFetch";
 import { useAuth0 } from "@auth0/auth0-react";
 import { PostUser } from "../../api/UserApi";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Main } from "./StyledRegister";
 
 const Register = () => {
   const [page, setPage] = useState(1);
@@ -14,13 +15,7 @@ const Register = () => {
   const { loading, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
   const [warning, setWarning] = useState(null);
-
-  useEffect(() => {
-    const identificador = window.localStorage.getItem("identificador");
-    if (identificador === "true") {
-      navigate("/feed");
-    }
-  }, [navigate]);
+  const [navToFeed, setNavToFeed] = useState(false);
 
   useEffect(() => {
     if (formUserData && formContatoData) {
@@ -31,7 +26,7 @@ const Register = () => {
           formData.append("name", formUserData.name);
           formData.append("goal", formUserData.goal);
           formData.append("picture", formUserData.picture);
-          formData.append("category_id", "1");
+          formData.append("category_id", formUserData.category);
           formData.append("city", formContatoData.city);
           formData.append("state", formContatoData.state);
           formData.append("country", formContatoData.country);
@@ -40,9 +35,9 @@ const Register = () => {
           const { response } = await request(url, options);
           if (response.status === 201) {
             setWarning(null);
-            return navigate("/feed");
+            window.localStorage.setItem('identificador', 'true');
+            setNavToFeed(true);
           }
-
           if (response.status === 409) {
             setWarning("O usuário já existe!");
           }
@@ -50,6 +45,7 @@ const Register = () => {
           if (response.status === 500) {
             setWarning("Falha ao cadastrar usuário!");
           }
+
         } catch (error) {
           console.error("Erro ao salvar usuário e endereço");
         }
@@ -65,8 +61,12 @@ const Register = () => {
     navigate,
   ]);
 
+  if (navToFeed) {
+    return <Navigate to="/feed" />;
+  }
+
   return (
-    <div>
+    <Main>
       {page === 1 && (
         <PersonalData
           setPage={setPage}
@@ -82,7 +82,7 @@ const Register = () => {
           warning={warning}
         />
       )}
-    </div>
+    </Main>
   );
 };
 

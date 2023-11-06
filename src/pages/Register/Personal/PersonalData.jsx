@@ -1,36 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { Container, Form, Title, Button, Image, FileInput, UploadLabel } from "../StyledRegister";
+import {
+  Container,
+  Form,
+  Title,
+  Button,
+  Image,
+  FileInput,
+  UploadLabel,
+  LabelDescription,
+  SelectSport,
+} from "../StyledRegister";
 import InputContainer from "../../../components/common/Form/Input";
 import useForm from "../../../hooks/useForm";
+import { GetAllCategory } from "../../../api/CategoryApi";
+import useFetch from "../../../hooks/useFetch";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const PersonalData = ({ setPage, formUserData, setPersonalData }) => {
   const username = useForm();
-  const sport = useForm();
   const goal = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
+  const [categoriesApi, setCategoriesApi] = useState([]);
+  const { loading, error, request } = useFetch();
+  const { getAccessTokenSilently } = useAuth0();
+  const [categoryResponse, SetCategoryResponse] = useState("");
+
+  useEffect(() => {
+    async function getAllCategoryOfApi() {
+      const token = await getAccessTokenSilently();
+      const { url, options } = GetAllCategory(token);
+      const { response, json } = await request(url, options);
+      if (response.status === 200) {
+        setCategoriesApi(json.categoriesData);
+      }
+    }
+    getAllCategoryOfApi();
+  }, [getAccessTokenSilently, request]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
 
-  useEffect(() => {
-    if (formUserData !== null) {
-      setPage(2)
-    }
-  }, [formUserData, setPage]);
-
   const handleNext = (event) => {
     event.preventDefault();
 
-    if (username.validate() && sport.validate() && goal.validate()) {
+    if (username.validate() && goal.validate()) {
       const personalFormData = {
         name: username.value,
         picture: selectedFile,
         goal: goal.value,
-        sport: sport.value,
+        category: Number(categoryResponse),
       };
-      setPersonalData(personalFormData)
+      setPersonalData(personalFormData);
+      setPage(2);
     }
   };
 
@@ -38,11 +61,41 @@ const PersonalData = ({ setPage, formUserData, setPersonalData }) => {
     <Container>
       <Form>
         <Title>Dados Pessoais</Title>
-        <InputContainer label="Nome" type="text" name="username" placeholder="Nome" {...username} />
-        <InputContainer label="Meta Esportiva" type="text" name="sportsGoal" placeholder="Meta Esportiva" {...goal} />
-        <InputContainer label="Esporte de Interesse" type="text" name="sport" placeholder="Esporte de Interesse" {...sport} />
+        <InputContainer
+          label="Nome"
+          type="text"
+          name="username"
+          placeholder="Nome"
+          {...username}
+        />
+        <InputContainer
+          label="Meta Esportiva"
+          type="text"
+          name="sportsGoal"
+          placeholder="Meta Esportiva"
+          {...goal}
+        />
+        <LabelDescription htmlFor="category">Categoria:</LabelDescription>
+        <SelectSport
+          id="category"
+          name="category"
+          value={categoryResponse}
+          onChange={(e) => SetCategoryResponse(e.target.value)}
+        >
+          {categoriesApi.map((category) => (
+            <option value={category.id} key={category.id}>
+              {category.category}
+            </option>
+          ))}
+        </SelectSport>
+
         <div>
-          <FileInput type="file" id="fileInput" onChange={handleFileChange} required/>
+          <FileInput
+            type="file"
+            id="fileInput"
+            onChange={handleFileChange}
+            required
+          />
           <UploadLabel htmlFor="fileInput">
             <img src="src\assets\images\UploadUser.svg" alt="" width="70px" />
             <span>Inserir Foto de Perfil</span>

@@ -1,5 +1,11 @@
 import { styled } from "styled-components";
 
+export const Main = styled.main `
+  background-color: #24292f;
+  color: #f7f9f8;
+  min-height: 100vh;
+`
+
 export const Container = styled.div`
   display: flex;
   padding: 10px;
@@ -71,6 +77,26 @@ export const Input = styled.input`
     width: 100%;
   }
 `;
+
+export const LabelDescription = styled.label`
+  display: block;
+  padding-top: 15px;
+  font-weight: 600;
+`
+
+export const SelectSport = styled.select`
+  background-color: #263238;
+  color: #ffffff;
+  width: 500px;
+  padding: 10px;
+  display: block;
+  border: 2px solid #ebc556;
+  border-radius: 10px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`
 
 export const Checkbox = styled.input`
   background-color: #263238;

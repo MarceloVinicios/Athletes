@@ -1,14 +1,34 @@
-import { useContext } from 'react';
-import { UserContext } from '../../UserContext';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
+import { GetUser } from '../../api/UserApi';
 
 const ProtectedRoute = ({ children }) => {
-  const { login } = useContext(UserContext);
-  const isIdentified = window.localStorage.getItem('identificador') === 'true';
+  const { getAccessTokenSilently } = useAuth0();
+  const { loading, request } = useFetch();
+  const [dataUser, setDataUser] = useState(null);
 
-  if (!login && isIdentified) {
-    return <Navigate to="/feed" />;
-  } else if (!login && !isIdentified) {
+  useEffect(() => {
+    async function getUserData() {
+      const token = await getAccessTokenSilently();
+      const { url, options } = GetUser(token);
+      const { response } = await request(url, options);
+
+      if (response.status === 200) {
+        setDataUser(true);
+      } else {
+        setDataUser(false);
+      }
+    }
+    getUserData();
+  }, [getAccessTokenSilently, request]);
+
+  if (loading) {
+    return null;
+  }
+
+  if (dataUser === false) {
     return <Navigate to="/register" />;
   }
 
