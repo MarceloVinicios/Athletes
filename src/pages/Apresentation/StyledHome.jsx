@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const Main = styled.div`
+  padding-top: 90px;
+  background-color: #24292f;
+  color: #f7f9f8;
+  min-height: 100vh;
+`
+
 export const ContentContainer = styled.article`
   max-width: 1800px;
   margin: 0 auto;

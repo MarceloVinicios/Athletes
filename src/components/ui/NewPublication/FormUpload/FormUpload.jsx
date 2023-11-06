@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FormContainer,
   FormHeader,
@@ -18,16 +18,18 @@ import {
 import { PostPublication } from "../../../../api/PublicationApi";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../../hooks/useFetch";
-import Loading from "../../../helper/Loading";
+import LoadingContainer from "../../../helper/LoadingContainer";
 import Successfully from "../../../helper/Successfully";
 import FeedContext  from "../../../../pages/Feed/FeedContext"
+import { GetAllCategory } from "../../../../api/CategoryApi";
 
 const FormUpload = () => {
   const [successfully, setSucessfully] = useState(false);
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('')
   const [preview, setPreview] = useState(null);
-  const [category, setCategory] = useState('');
+  const [categoryResponse, SetCategoryResponse] = useState('');
+  const [categoriesApi, setCategoriesApi] = useState([]);
   const { loading, error, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
   const dataFeedContext = useContext(FeedContext)
@@ -46,6 +48,18 @@ const FormUpload = () => {
       setPreview(null);
     }
   };
+
+  useEffect(() => {
+    async function getAllCategoryOfApi() {
+      const token = await getAccessTokenSilently();
+      const { url, options } = GetAllCategory(token);
+      const { response, json } = await request(url, options);
+      if (response.status === 200) {
+        setCategoriesApi(json.categoriesData)
+      }
+    }
+    getAllCategoryOfApi();
+  }, [getAccessTokenSilently, request]);
 
   const handleUpload = async () => {
     if (file && description) {
@@ -66,7 +80,7 @@ const FormUpload = () => {
   if (loading) {
     return (
       <FormContainer>
-        <Loading />;
+        <LoadingContainer />
       </FormContainer>
     );
   }
@@ -74,7 +88,7 @@ const FormUpload = () => {
   if (successfully) {
     return (
       <FormContainer>
-        <Successfully msg={"publicado com sucesso!"}/>
+        <Successfully />
       </FormContainer>
     );
   }
@@ -114,12 +128,12 @@ const FormUpload = () => {
           <SelectSport
             id="category"
             name="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={categoryResponse}
+            onChange={(e) => SetCategoryResponse(e.target.value)}
           >
-            <option value="option1">Opção 1</option>
-            <option value="option2">Opção 2</option>
-            <option value="option3">Opção 3</option>
+            {categoriesApi.map(category => (
+              <option value={category.id} key={category.id}>{category.category}</option>
+            ))}
           </SelectSport>
         <LabelDescription htmlFor="description">Descrição:</LabelDescription>
         <DescriptionArea

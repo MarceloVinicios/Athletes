@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Avatar, Image } from "@chakra-ui/react";
 import MoreOptionsPubli from "../../ui/Publication/MoreOptions/MoreOptionsPubli";
 import {
@@ -59,7 +59,13 @@ const Publication = ({
     <PublicationContainer>
       <UserInformation>
         <Avatar size="md">
-          <Image src={pictureUser} alt={nameUser} borderRadius="full"  width="100000px" height="50px"/>
+          <Image
+            src={pictureUser}
+            alt={nameUser}
+            borderRadius="full"
+            width="100000px"
+            height="50px"
+          />
         </Avatar>
         <NameUser>{nameUser}</NameUser>
         <ContainerInformation>
@@ -69,7 +75,7 @@ const Publication = ({
       </UserInformation>
 
       {mediaType === "video" && mediaPublication && (
-        <VideoPlayer media={mediaPublication} />
+        <VideoPlayer media={mediaPublication}/>
       )}
 
       {mediaType === "image" && mediaPublication && (

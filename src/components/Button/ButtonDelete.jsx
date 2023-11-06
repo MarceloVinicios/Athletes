@@ -9,7 +9,7 @@ const ButtonDelete = ({ id, urls }) => {
   useEffect(() => {
     dataFeedContext.setPublicationId(id)
     dataFeedContext.setUrls(urls)
-  }, [dataFeedContext, id, urls])
+  }, [dataFeedContext, id, urls]);
 
   return (
     <Button

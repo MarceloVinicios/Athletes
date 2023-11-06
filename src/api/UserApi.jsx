@@ -12,6 +12,18 @@ export function TOKEN_VALIDATE_POST(id, token) {
   };
 }
 
+export function GetAllUsers(token) {
+  return {
+    url: API_URL + `/users`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    },
+  };
+}
+
 export function GetUser(token) {
   return {
     url: API_URL + `/user`,

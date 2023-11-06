@@ -8,6 +8,7 @@ import Loading from "../../components/helper/Loading";
 import { ContainerPublication, NoContent } from "./StyledFeed";
 import FeedContext from "./FeedContext";
 import ModalConfirm from "../../components/helper/ModalConfirm/ModalConfirm";
+import { Main } from "../Apresentation/StyledHome";
 
 const Feed = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -49,29 +50,46 @@ const Feed = () => {
   }
 
   return (
-    <FeedContext.Provider value={{ reloadPublications, reload, handleClickModal, publicationId , setPublicationId, urls, setUrls}}>
-      <SideBar />
-      <ContainerPublication>
-        {isModalVisible && <ModalConfirm handleClickModal={handleClickModal} publicationId={publicationId}/>}
-        {noContentState && (
-          <NoContent>
-            <p>{noContentState}</p>
-          </NoContent>
-        )}
-        {publications &&
-          !noContentState &&
-          publications.map((publication) => (
-            <Publication
-              userId={publication.user?.id}
-              pictureUser={publication.user?.picture}
-              nameUser={publication.user?.name}
-              publicationId={publication.id}
-              mediaPublication={publication.url}
-              descriptionPublication={publication.description}
-              key={publication.id}
+    <FeedContext.Provider
+      value={{
+        reloadPublications,
+        reload,
+        handleClickModal,
+        publicationId,
+        setPublicationId,
+        urls,
+        setUrls,
+      }}
+    >
+      <Main>
+        <SideBar />
+        <ContainerPublication>
+          {isModalVisible && (
+            <ModalConfirm
+              handleClickModal={handleClickModal}
+              publicationId={publicationId}
             />
-          ))}
-      </ContainerPublication>
+          )}
+          {noContentState && (
+            <NoContent>
+              <p>{noContentState}</p>
+            </NoContent>
+          )}
+          {publications &&
+            !noContentState &&
+            publications.map((publication) => (
+              <Publication
+                userId={publication.user?.id}
+                pictureUser={publication.user?.picture}
+                nameUser={publication.user?.name}
+                publicationId={publication.id}
+                mediaPublication={publication.url}
+                descriptionPublication={publication.description}
+                key={publication.id}
+              />
+            ))}
+        </ContainerPublication>
+      </Main>
     </FeedContext.Provider>
   );
 };

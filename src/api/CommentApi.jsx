@@ -26,7 +26,6 @@ export function PostComment(body, token) {
   };
 }
 
-
 export function UpdateComment(id, body, token) {
   return {
     url: API_URL + `/comment/${id}`,

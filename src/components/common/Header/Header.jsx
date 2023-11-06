@@ -1,20 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginButton from "../../Button/auth/LoginButton";
 import SingUp from "../../Button/auth/SingUp";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ContainerMenu, ContainerUser, Header, ImageProfile, Search } from "./StyledHeader";
-import { LinkNavigation,
+import {
+  ContainerMenu,
+  ContainerUser,
+  Header,
+  ImageProfile
+} from "./StyledHeader";
+import {
+  LinkNavigation,
   LinkNavigationMenu,
   ListMenuNavigation,
   MenuActive,
   NavbarLinks,
-  NavbarLogo, Navigation } from "./StyledNavBar";
+  NavbarLogo,
+  Navigation,
+} from "./StyledNavBar";
 import ButtonModal from "../../ui/NewPublication/ButtonModal";
+import { GetUser } from "../../../api/UserApi";
+import useFetch from "../../../hooks/useFetch";
 
 const Navbar = () => {
-  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout, getAccessTokenSilently } = useAuth0();
   const [MenuActivite, setMenuActive] = useState(false);
+  const [dataUser, setDataUser] = useState(null);
+  const { loading, request } = useFetch();
+
+  useEffect(() => {
+    async function getUserData() {
+      const token = await getAccessTokenSilently();
+      const { url, options } = GetUser(token);
+      const { response, json } = await request(url, options);
+
+      if (response.status === 200) {
+        setDataUser(json.response);
+      }
+    }
+    getUserData();
+  }, [getAccessTokenSilently, request]);
+
+  if (window.location.href === "http://localhost:5173/register") {
+    return null;
+  }
 
   return (
     <Header>
@@ -32,15 +61,15 @@ const Navbar = () => {
           </LinkNavigation>
         </NavbarLinks>
       </Navigation>
-
-      {isAuthenticated && (
-        <Search type="text" name="search" placeholder="Buscar" />
-      )}
       {isAuthenticated && (
         <ContainerUser>
           <ButtonModal />
           <ContainerMenu>
-            <ImageProfile src={user.picture} alt="Perfil" />
+            {dataUser ? (
+              <ImageProfile src={dataUser.picture} alt="Perfil" />
+            ) : (
+              <ImageProfile src={user.picture} alt="Perfil" />
+            )}
             <MenuActive>
               <MdKeyboardArrowDown
                 size={"20px"}

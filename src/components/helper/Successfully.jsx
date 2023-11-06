@@ -4,9 +4,10 @@ import { styled } from "styled-components";
 const Container = styled.div`
   color: #f7f9f8;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 100%;
+  padding: 20px;
 `;
 
 const AnimatedBall = styled.img`
