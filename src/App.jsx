@@ -9,6 +9,7 @@ import Register from "./pages/Register/Register";
 import "./App.css";
 import ProtectedRoute from "./components/helper/ProtectedRoute";
 import ChatRoutes from "./pages/chat/ChatRoutes";
+import RoutesProfile from "./pages/Profile/RoutesProfile";
 
 function App() {
   return (
@@ -22,6 +23,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <RoutesPublication />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="profile/*"
+              element={
+                <ProtectedRoute>
+                  < RoutesProfile/>
                 </ProtectedRoute>
               }
             />
