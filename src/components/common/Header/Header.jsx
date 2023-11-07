@@ -80,7 +80,7 @@ const Navbar = () => {
                 <ListMenuNavigation
                   style={{ display: MenuActivite ? "block" : "none" }}
                 >
-                  <LinkNavigationMenu>Profile</LinkNavigationMenu>
+                <a href="/profile"><LinkNavigationMenu>Perfil</LinkNavigationMenu></a>
                   <LinkNavigationMenu>
                     <a onClick={() => logout()}>Logout</a>
                   </LinkNavigationMenu>
