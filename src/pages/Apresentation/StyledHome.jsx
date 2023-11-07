@@ -13,7 +13,7 @@ export const ContentContainer = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20rem;
+  gap: 10rem;
   padding: 2rem;
 
   @media (max-width: 1500px) {

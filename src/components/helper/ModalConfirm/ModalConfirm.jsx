@@ -40,8 +40,8 @@ const ModalConfirm = () => {
       const { response } = await request(url, options);
 
       if (response.status == 200) {
-        console.log("deletado com sucesso comentario");
         dataCommentContext.reloadCommentsList();
+        console.log("deletado com sucesso comentario");
       } else {
         if (response.status == 500 || response.status == 404) {
           console.log("error ao apagar comentário");

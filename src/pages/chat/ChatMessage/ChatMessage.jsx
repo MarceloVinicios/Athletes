@@ -11,7 +11,7 @@ export default function Chat({ socket, userData, dataUserMessage }) {
 
   useEffect(() => {
     if (socket) {
-      socket.emit("get_old_messages", dataUserMessage.name, userData.id);
+      socket.emit("get_old_messages", dataUserMessage.id, userData.id);
     }
 
     if (socket) {
@@ -81,7 +81,7 @@ export default function Chat({ socket, userData, dataUserMessage }) {
         <ChatBody>
           {oldMessages.map((message) => (
             <MessageContainer
-              className={message.send_id_user === dataUserMessage.name ? "message-mine" : ""}
+              className={message.send_id_user === dataUserMessage.id ? "message-mine" : ""}
               key={message.id}
             >
               <div>

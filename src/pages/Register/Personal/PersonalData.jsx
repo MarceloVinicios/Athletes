@@ -16,14 +16,14 @@ import { GetAllCategory } from "../../../api/CategoryApi";
 import useFetch from "../../../hooks/useFetch";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const PersonalData = ({ setPage, formUserData, setPersonalData }) => {
+const PersonalData = ({ setPage, setPersonalData }) => {
   const username = useForm();
   const goal = useForm();
   const [selectedFile, setSelectedFile] = useState(null);
   const [categoriesApi, setCategoriesApi] = useState([]);
   const { loading, error, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
-  const [categoryResponse, SetCategoryResponse] = useState("");
+  const [categoryResponse, SetCategoryResponse] = useState(1);
 
   useEffect(() => {
     async function getAllCategoryOfApi() {
@@ -52,6 +52,7 @@ const PersonalData = ({ setPage, formUserData, setPersonalData }) => {
         goal: goal.value,
         category: Number(categoryResponse),
       };
+      console.log(personalFormData.category);
       setPersonalData(personalFormData);
       setPage(2);
     }
@@ -97,7 +98,7 @@ const PersonalData = ({ setPage, formUserData, setPersonalData }) => {
             required
           />
           <UploadLabel htmlFor="fileInput">
-            <img src="src\assets\images\UploadUser.svg" alt="" width="70px" />
+            <img src="src\assets\images\UploadUser.svg" width="70px" />
             <span>Inserir Foto de Perfil</span>
           </UploadLabel>
         </div>

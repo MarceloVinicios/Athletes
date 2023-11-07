@@ -30,6 +30,7 @@ export const Container = styled.div`
 
 export const Image = styled.img`
   display: block;
+  margin: 20px;
   @media (max-width: 1250px) {
     width: 500px;
   }

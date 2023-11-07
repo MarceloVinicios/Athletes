@@ -18,7 +18,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth0 } from "@auth0/auth0-react";
 import ButtonDelete from "../../../Button/ButtonDelete";
 
-const CommentsList = ({ comments, setReloadComments }) => {
+const CommentsList = ({ comments }) => {
   const { user } = useAuth0();
   const [hoveredCommentId, setHoveredCommentId] = useState(null);
 

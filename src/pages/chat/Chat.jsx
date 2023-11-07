@@ -21,7 +21,7 @@ import ChatMessage from "./ChatMessage/ChatMessage";
 
 const Chat = () => {
   const [socket, setSocket] = useState(null);
-  const { getAccessTokenSilently } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const { loading, error, request } = useFetch();
   const [users, setUsers] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
@@ -29,7 +29,7 @@ const Chat = () => {
   const [dataUserMessage, setDataUserMessage] = useState(null);
 
   useEffect(() => {
-    async function fetchPuliction() {
+    async function fetchGetAllUsers() {
       const token = await getAccessTokenSilently();
       const { url, options } = GetAllUsers(token);
       const { response, json } = await request(url, options);
@@ -41,7 +41,7 @@ const Chat = () => {
         setNoContentState("Sem conteúdo");
       }
     }
-    fetchPuliction();
+    fetchGetAllUsers();
 
     async function getUserDataMessage() {
       const token = await getAccessTokenSilently();
@@ -52,9 +52,8 @@ const Chat = () => {
         setDataUserMessage(json.response);
       }
 
-      return json.response.name;
+      return json.response.id;
     }
-
 
     async function getSocket() {
       const responseGetUserMessage = await getUserDataMessage();
@@ -71,27 +70,26 @@ const Chat = () => {
         <Search type="text" name="search" placeholder="Pesquisar usuários" />
         <ContainerListUser>
           {users &&
-            users.map((user) => (
-              <ContainerUserProfile
-                key={user.id}
-                onClick={() => {
-                  setSelectedUser(user);
-                }}
-              >
-                <ImageProfile src={user.picture} alt="Perfil" />
-                <UserName>{user.name}</UserName>
-              </ContainerUserProfile>
-            ))}
+            users.map((userData) =>
+              userData.id != user.sub ? (
+                <ContainerUserProfile
+                  key={userData.id}
+                  onClick={() => {
+                    setSelectedUser(userData);
+                  }}
+                >
+                  <ImageProfile src={userData.picture} alt="Perfil" />
+                  <UserName>{userData.name}</UserName>
+                </ContainerUserProfile>
+              ) : null,
+            )}
         </ContainerListUser>
       </ContainerForUser>
       {selectedUser && (
         <ContainerChat>
           <HeaderUser>
             <DataUserSelected>
-              <ImageProfile
-                src={selectedUser.picture}
-                alt="Perfil"
-              />
+              <ImageProfile src={selectedUser.picture} alt="Perfil" />
               <UserName>{selectedUser.name}</UserName>
             </DataUserSelected>
             <ContainerCall>
@@ -105,7 +103,11 @@ const Chat = () => {
               />
             </ContainerCall>
           </HeaderUser>
-          <ChatMessage socket={socket} userData={selectedUser} dataUserMessage={dataUserMessage}/>
+          <ChatMessage
+            socket={socket}
+            userData={selectedUser}
+            dataUserMessage={dataUserMessage}
+          />
         </ContainerChat>
       )}
     </Main>

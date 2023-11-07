@@ -31,6 +31,7 @@ const Register = () => {
           formData.append("state", formContatoData.state);
           formData.append("country", formContatoData.country);
 
+          console.log(formData);
           const { url, options } = PostUser(formData, token);
           const { response } = await request(url, options);
           if (response.status === 201) {
