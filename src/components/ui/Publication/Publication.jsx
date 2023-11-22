@@ -83,7 +83,7 @@ const Publication = ({
       )}
 
       <IconInteration>
-        <Like />
+        <Like publication_id={publicationId}/>
         <CommentsInteration onCommentClick={commentsList} />
         <Share />
       </IconInteration>
