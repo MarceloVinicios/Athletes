@@ -66,6 +66,7 @@ const FormUpload = () => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("description", description);
+      formData.append("category", Number(categoryResponse));
 
       const token = await getAccessTokenSilently();
       const { url, options } = PostPublication(formData, token);

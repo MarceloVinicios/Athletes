@@ -10,6 +10,7 @@ import "./App.css";
 import ProtectedRoute from "./components/helper/ProtectedRoute";
 import ChatRoutes from "./pages/chat/ChatRoutes";
 import RoutesProfile from "./pages/Profile/RoutesProfile";
+import ExploreRoutes from "./pages/Explore/ExploreRoutes";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
               path="profile/*"
               element={
                 <ProtectedRoute>
-                  < RoutesProfile/>
+                  <RoutesProfile />
                 </ProtectedRoute>
               }
             />
@@ -38,7 +39,15 @@ function App() {
               path="chat/*"
               element={
                 <ProtectedRoute>
-                  < ChatRoutes/>
+                  <ChatRoutes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="explore/*"
+              element={
+                <ProtectedRoute>
+                  <ExploreRoutes />
                 </ProtectedRoute>
               }
             />

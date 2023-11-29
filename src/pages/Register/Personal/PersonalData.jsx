@@ -52,7 +52,6 @@ const PersonalData = ({ setPage, setPersonalData }) => {
         goal: goal.value,
         category: Number(categoryResponse),
       };
-      console.log(personalFormData.category);
       setPersonalData(personalFormData);
       setPage(2);
     }
