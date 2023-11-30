@@ -31,7 +31,7 @@ const VideoPlayer = ({ media }) => {
     <div className="container">
       <video
         ref={videoRef}
-        style={{minWidth:"100%", maxHeight:"500px"}}
+        style={{ maxWidth: "100%", maxHeight: "500px" }}
         className="video-js vjs-custom-theme"
         playsInline
       ></video>

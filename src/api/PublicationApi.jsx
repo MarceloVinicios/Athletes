@@ -12,6 +12,18 @@ export function GetAllPublications(token) {
   };
 }
 
+export function GetAllPublicationsByCategory(id, token) {
+  return {
+    url: API_URL + `/publication/${id}`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    },
+  };
+}
+
 export function PostPublication(body, token) {
   return {
     url: API_URL + '/publication',

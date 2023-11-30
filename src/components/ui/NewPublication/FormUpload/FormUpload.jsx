@@ -20,7 +20,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../../hooks/useFetch";
 import LoadingContainer from "../../../helper/LoadingContainer";
 import Successfully from "../../../helper/Successfully";
-import FeedContext from "../../../../pages/Feed/FeedContext";
 import { GetAllCategory } from "../../../../api/CategoryApi";
 
 const FormUpload = () => {
@@ -61,14 +60,11 @@ const FormUpload = () => {
   }, [getAccessTokenSilently, request]);
 
   const handleUpload = async () => {
-    console.log(categoryResponse)
     if (file && description && categoryResponse) {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("description", description);
-      formData.append("category", categoryResponse);
-      console.log(formData)
-      console.log(Number(categoryResponse));
+      formData.append("category", Number(categoryResponse));
 
       const token = await getAccessTokenSilently();
       const { url, options } = PostPublication(formData, token);
