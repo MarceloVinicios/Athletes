@@ -26,6 +26,7 @@ const Feed = () => {
       console.log(token)
       const { url, options } = GetAllPublications(token);
       const { response, json } = await request(url, options);
+
       if (response.status === 200) {
         setPublications(json.publicationData);
       }
@@ -86,6 +87,7 @@ const Feed = () => {
                 mediaPublication={publication.url}
                 descriptionPublication={publication.description}
                 key={publication.id}
+                likes={publication.likes}
               />
             ))}
         </ContainerPublication>

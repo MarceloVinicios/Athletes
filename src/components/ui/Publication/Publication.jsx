@@ -25,6 +25,7 @@ const Publication = ({
   publicationId,
   mediaPublication,
   descriptionPublication,
+  likes
 }) => {
   const [showMore, setShowMore] = useState(false);
   const [comments, setComments] = useState(false);
@@ -83,7 +84,7 @@ const Publication = ({
       )}
 
       <IconInteration>
-        <Like publication_id={publicationId}/>
+        <Like publication_id={publicationId} likes={likes}/>
         <CommentsInteration onCommentClick={commentsList} />
         <Share />
       </IconInteration>

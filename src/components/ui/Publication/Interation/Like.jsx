@@ -6,11 +6,16 @@ import useFetch from "../../../../hooks/useFetch";
 import { AddLike, DeleteLike } from "../../../../api/LikeApi";
 import debounce from "lodash/debounce";
 
-function Like({ publication_id }) {
+function Like({ publication_id, likes }) {
   const [liked, setLiked] = useState(false);
-  const [count, setCount] = useState(0);
-  const { getAccessTokenSilently } = useAuth0();
+  const [count, setCount] = useState(likes.length);
+  const { user, getAccessTokenSilently } = useAuth0();
   const { request } = useFetch();
+
+  useEffect(() => {
+    const isLiked = likes.some((like) => like.user_id === user.sub);
+    setLiked(isLiked);
+  }, [likes, user.sub]);
 
   const handleClick = debounce(async () => {
     setLiked(!liked);
