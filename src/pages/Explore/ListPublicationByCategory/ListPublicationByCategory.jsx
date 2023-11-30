@@ -24,9 +24,6 @@ const ListPublicationByCategory = () => {
       const { url, options } = GetAllPublicationsByCategory(Number(idCategory), token);
       const { response, json } = await request(url, options);
 
-      console.log(idCategory)
-      console.log(response.status)
-      console.log(json)
       if (response.status === 200) {
         setPublications(json.publicationData);
       }
