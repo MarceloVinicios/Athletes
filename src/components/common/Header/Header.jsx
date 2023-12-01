@@ -26,7 +26,7 @@ const Navbar = () => {
   const { user, isAuthenticated, isLoading, logout, getAccessTokenSilently } = useAuth0();
   const [MenuActivite, setMenuActive] = useState(false);
   const [dataUser, setDataUser] = useState(null);
-  const { loading, request } = useFetch();
+  const {request} = useFetch()
 
   useEffect(() => {
     async function getUserData() {
@@ -36,9 +36,26 @@ const Navbar = () => {
 
       if (response.status === 200) {
         setDataUser(json.response);
+        localStorage.setItem('userData', JSON.stringify(json.response));
       }
     }
-    getUserData();
+    const storedUserData = localStorage.getItem('userData');
+
+    if (storedUserData) {
+      try {
+        const parsedData = JSON.parse(storedUserData);
+
+        if (parsedData && parsedData.picture) {
+          setDataUser(parsedData);
+        } else {
+          getUserData();
+        }
+      } catch (error) {
+        getUserData();
+      }
+    } else {
+      getUserData();
+    }
   }, [getAccessTokenSilently, request]);
 
   if (window.location.href === "http://localhost:5173/register") {
@@ -80,7 +97,7 @@ const Navbar = () => {
                 <ListMenuNavigation
                   style={{ display: MenuActivite ? "block" : "none" }}
                 >
-                <a href="/profile"><LinkNavigationMenu>Perfil</LinkNavigationMenu></a>
+                  <a href="/profile"><LinkNavigationMenu>Perfil</LinkNavigationMenu></a>
                   <LinkNavigationMenu>
                     <a onClick={() => logout()}>Logout</a>
                   </LinkNavigationMenu>

@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch';
 import { GetUser } from '../../api/UserApi';
 
 const ProtectedRoute = ({ children }) => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
   const { loading, request } = useFetch();
   const [dataUser, setDataUser] = useState(null);
 
@@ -16,13 +16,14 @@ const ProtectedRoute = ({ children }) => {
       const { response } = await request(url, options);
 
       if (response.status === 200) {
-        setDataUser(true);
+        setDataUser(response.data);
+        localStorage.setItem('userData', JSON.stringify(response.data));
       } else {
         setDataUser(false);
       }
     }
     getUserData();
-  }, [getAccessTokenSilently, request]);
+  }, [getAccessTokenSilently, request, user]);
 
   if (loading) {
     return null;

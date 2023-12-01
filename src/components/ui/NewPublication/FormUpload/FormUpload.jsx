@@ -18,7 +18,7 @@ import {
 import { PostPublication } from "../../../../api/PublicationApi";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../../hooks/useFetch";
-import LoadingContainer from "../../../helper/LoadingContainer";
+import {LoadingContainer} from "../../../helper/LoadingContainer";
 import Successfully from "../../../helper/Successfully";
 import { GetAllCategory } from "../../../../api/CategoryApi";
 

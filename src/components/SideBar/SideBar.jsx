@@ -9,7 +9,7 @@ const SideBar = () => {
   return (
     <Container>
       <ListNotOrdered>
-        <a href="/">
+        <a href="/feed">
           <List>
             <AiFillHome
               href="src\pages\Feed\Feed.jsx"

@@ -81,10 +81,10 @@ const JumpDot3 = styled.span`
   animation: ${JumpDotAnimation3} 1.5s ease-in-out infinite;
 `;
 
-const Loading = () => {
+export const LoadingContainer = () => {
   return (
     <Container>
-      <AnimatedBall src="http://localhost:5173/src\assets\animations\voleiLoading.svg" alt="" />
+      <AnimatedBall src="http://localhost:5173/src/assets/animations/voleiLoading.svg" alt="" />
       <TextLoading>
         Carregando
         <JumpDot>.</JumpDot>
@@ -94,5 +94,3 @@ const Loading = () => {
     </Container>
   );
 };
-
-export default Loading;

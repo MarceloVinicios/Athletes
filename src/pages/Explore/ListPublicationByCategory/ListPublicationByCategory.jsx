@@ -68,6 +68,7 @@ const ListPublicationByCategory = () => {
               mediaPublication={publication.url}
               descriptionPublication={publication.description}
               key={publication.id}
+              likes={publication.likes}
             />
           ))}
       </ContainerPublication>

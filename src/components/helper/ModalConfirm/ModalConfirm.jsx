@@ -5,32 +5,36 @@ import { DeletePublication } from "../../../api/PublicationApi";
 import useFetch from "../../../hooks/useFetch";
 import CommentContext from "../../ui/Publication/Comments/CommentContext";
 import { DeleteComment } from "../../../api/CommentApi";
-import { ButtonCancel, ButtonDeleteModal, Container, ContainerButton, ContainerModal, Title } from "./StyledModalConfirm";
+import {
+  ButtonCancel,
+  ButtonDeleteModal,
+  Container,
+  ContainerButton,
+  ContainerModal,
+  Title,
+} from "./StyledModalConfirm";
+import { LoadingContainer } from "../LoadingContainer";
 
 const ModalConfirm = () => {
   const dataFeedContext = useContext(FeedContext);
 
-  const { request } = useFetch();
+  const { loading, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
-  const dataCommentContext = useContext(CommentContext)
+  const dataCommentContext = useContext(CommentContext);
 
   async function onClickDelete() {
     const token = await getAccessTokenSilently();
 
-    if (dataFeedContext.urls == "publication") {
+    if (dataFeedContext.urls === "publication") {
       const { url, options } = DeletePublication(
         dataFeedContext.publicationId,
         token,
       );
       const { response } = await request(url, options);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         dataFeedContext.reloadPublications();
         dataFeedContext.handleClickModal();
-      } else {
-        if (response.status == 500 || response.status == 404) {
-          console.log(response.json);
-        }
       }
     } else {
       const { url, options } = DeleteComment(
@@ -39,13 +43,8 @@ const ModalConfirm = () => {
       );
       const { response } = await request(url, options);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         dataCommentContext.reloadCommentsList();
-        console.log("deletado com sucesso comentario");
-      } else {
-        if (response.status == 500 || response.status == 404) {
-          console.log("error ao apagar comentário");
-        }
       }
     }
   }
@@ -53,13 +52,20 @@ const ModalConfirm = () => {
   return (
     <ContainerModal>
       <Container>
-        <Title>Excluir publicação</Title>
-        <ContainerButton>
-          <ButtonCancel onClick={dataFeedContext.handleClickModal}>
-            Cancelar
-          </ButtonCancel>
-          <ButtonDeleteModal onClick={onClickDelete}>Apagar</ButtonDeleteModal>
-        </ContainerButton>
+        {loading && <LoadingContainer />}
+        {!loading && (
+          <div>
+            <Title>Excluir publicação</Title>
+            <ContainerButton>
+              <ButtonCancel onClick={dataFeedContext.handleClickModal}>
+                Cancelar
+              </ButtonCancel>
+              <ButtonDeleteModal onClick={onClickDelete}>
+                Apagar
+              </ButtonDeleteModal>
+            </ContainerButton>
+          </div>
+        )}
       </Container>
     </ContainerModal>
   );
