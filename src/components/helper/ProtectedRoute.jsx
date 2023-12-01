@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import { GetUser } from '../../api/UserApi';
+import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ children }) => {
   const { getAccessTokenSilently, user } = useAuth0();
@@ -16,15 +17,20 @@ const ProtectedRoute = ({ children }) => {
       if (storedUserData) {
         setDataUser(JSON.parse(storedUserData));
       } else {
-        const token = await getAccessTokenSilently();
-        const { url, options } = GetUser(token);
-        const { response } = await request(url, options);
+        try {
+          const token = await getAccessTokenSilently();
+          const { url, options } = GetUser(token);
+          const { response } = await request(url, options);
 
-        if (response.status === 200) {
-          setDataUser(response.data);
-          localStorage.setItem('userData', JSON.stringify(response.data));
-        } else {
-          setDataUser(false);
+          if (response.status === 200) {
+            setDataUser(response.data);
+            Cookies.set('nomeDoCookie', 'valor', { sameSite: 'None', secure: true });
+            localStorage.setItem('userData', JSON.stringify(response.data));
+          } else {
+            setDataUser(false);
+          }
+        } catch (error) {
+          console.error('Erro ao obter dados do usuário:', error);
         }
       }
     }

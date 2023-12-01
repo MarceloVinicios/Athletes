@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// Importe o hook useContext do React
+import React, { useEffect, useState, useContext } from "react";
 import { ContainerComments, NoContent, PostInput } from "./StyleComment";
 import { Stack } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -8,14 +9,15 @@ import ErrorComment from "../../../helper/ErrorComment";
 import PostComments from "./PostComments";
 import { Skeleton } from "@chakra-ui/react";
 import CommentListOfPublication from "./CommentsList";
-import CommentContext from "./CommentContext";
+import FeedContext from "../../../../pages/Feed/FeedContext";
 
 const CommentsList = ({ publicationId }) => {
   const { getAccessTokenSilently } = useAuth0();
   const { loading, error, request } = useFetch();
   const [comments, setComments] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
-  const [reloadComments, setReloadComments] = useState(0);
+
+  const dataContextComent = useContext(FeedContext);
 
   useEffect(() => {
     async function commentsList() {
@@ -35,7 +37,7 @@ const CommentsList = ({ publicationId }) => {
     }
     commentsList();
   }, [
-    reloadComments,
+    dataContextComent.reloadComments,
     getAccessTokenSilently,
     request,
     publicationId,
@@ -43,7 +45,7 @@ const CommentsList = ({ publicationId }) => {
   ]);
 
   function reloadCommentsList() {
-    setReloadComments(() => reloadComments + 1);
+    dataContextComent.reloadCommentsList();
   }
 
   if (loading) {
@@ -62,7 +64,7 @@ const CommentsList = ({ publicationId }) => {
   }
 
   return (
-    <CommentContext.Provider value={{ reloadCommentsList }}>
+    <>
       <ContainerComments>
         <PostComments
           publicationId={publicationId}
@@ -75,7 +77,7 @@ const CommentsList = ({ publicationId }) => {
         )}
         {!noContentState && <CommentListOfPublication comments={comments} />}
       </ContainerComments>
-    </CommentContext.Provider>
+    </>
   );
 };
 

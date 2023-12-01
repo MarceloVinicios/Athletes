@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import FeedContext from "../../../pages/Feed/FeedContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { DeletePublication } from "../../../api/PublicationApi";
 import useFetch from "../../../hooks/useFetch";
-import CommentContext from "../../ui/Publication/Comments/CommentContext";
 import { DeleteComment } from "../../../api/CommentApi";
 import {
   ButtonCancel,
@@ -17,10 +16,8 @@ import { LoadingContainer } from "../LoadingContainer";
 
 const ModalConfirm = () => {
   const dataFeedContext = useContext(FeedContext);
-
   const { loading, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
-  const dataCommentContext = useContext(CommentContext);
 
   async function onClickDelete() {
     const token = await getAccessTokenSilently();
@@ -28,7 +25,7 @@ const ModalConfirm = () => {
     if (dataFeedContext.urls === "publication") {
       const { url, options } = DeletePublication(
         dataFeedContext.publicationId,
-        token,
+        token
       );
       const { response } = await request(url, options);
 
@@ -39,15 +36,24 @@ const ModalConfirm = () => {
     } else {
       const { url, options } = DeleteComment(
         dataFeedContext.publicationId,
-        token,
+        token
       );
       const { response } = await request(url, options);
 
       if (response.status === 200) {
-        dataCommentContext.reloadCommentsList();
+        dataFeedContext.reloadCommentsList();
+        dataFeedContext.handleClickModal();
       }
     }
   }
+
+  const onCancelClick = () => {
+    if (dataFeedContext.urls === "publication") {
+      dataFeedContext.handleClickModal();
+    } else {
+      dataFeedContext?.handleClickModal();
+    }
+  };
 
   return (
     <ContainerModal>
@@ -55,9 +61,13 @@ const ModalConfirm = () => {
         {loading && <LoadingContainer />}
         {!loading && (
           <div>
-            <Title>Excluir publicação</Title>
+            <Title>
+              {dataFeedContext.urls === "publication"
+                ? "Excluir publicação"
+                : "Excluir comentário"}
+            </Title>
             <ContainerButton>
-              <ButtonCancel onClick={dataFeedContext.handleClickModal}>
+              <ButtonCancel onClick={onCancelClick}>
                 Cancelar
               </ButtonCancel>
               <ButtonDeleteModal onClick={onClickDelete}>

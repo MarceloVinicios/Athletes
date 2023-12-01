@@ -21,6 +21,7 @@ const Feed = () => {
   const [isModalVisible, setModalIsVisible] = useState(false);
   const [publicationId, setPublicationId] = useState(null);
   const [urls, setUrls] = useState(null);
+  const [reloadComments, setReloadComments] = useState(0);
 
   useEffect(() => {
     const fetchPublications = async () => {
@@ -48,6 +49,10 @@ const Feed = () => {
     setReload(reload + 1);
   }
 
+  function reloadCommentsList() {
+    setReloadComments(() => reloadComments + 1);
+  }
+
   function handleClickModal() {
     setModalIsVisible(!isModalVisible);
   }
@@ -59,6 +64,8 @@ const Feed = () => {
   return (
     <FeedContext.Provider
       value={{
+        reloadComments,
+        reloadCommentsList,
         reloadPublications,
         reload,
         handleClickModal,
