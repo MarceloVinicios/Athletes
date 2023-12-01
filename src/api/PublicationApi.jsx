@@ -24,6 +24,18 @@ export function GetPublicationById(id, token) {
   };
 }
 
+export function GetAllUserLikedPublications(token) {
+  return {
+    url: API_URL + `/publication/likes`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    },
+  };
+}
+
 export function GetAllPublicationsByCategory(id, token) {
   return {
     url: API_URL + `/publication/category/${id}`,
