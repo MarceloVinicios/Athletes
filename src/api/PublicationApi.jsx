@@ -12,9 +12,21 @@ export function GetAllPublications(token) {
   };
 }
 
-export function GetAllPublicationsByCategory(id, token) {
+export function GetPublicationById(id, token) {
   return {
     url: API_URL + `/publication/${id}`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    },
+  };
+}
+
+export function GetAllPublicationsByCategory(id, token) {
+  return {
+    url: API_URL + `/publication/category/${id}`,
     options: {
       method: 'GET',
       headers: {

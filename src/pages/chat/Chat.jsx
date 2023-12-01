@@ -17,7 +17,7 @@ import useFetch from "../../hooks/useFetch";
 import { GetAllUsers, GetUser } from "../../api/UserApi";
 import { ImageProfile } from "../../components/common/Header/StyledHeader";
 import io from "socket.io-client";
-import ChatMessage from "./ChatMessage/ChatMessage";
+import ChatMessage from "../../components/ui/ChatMessage/ChatMessage";
 
 const Chat = () => {
   const [socket, setSocket] = useState(null);

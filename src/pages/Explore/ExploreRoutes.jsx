@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "../../components/common/Header/Header";
 import Explore from "./Explore";
-import ListPublicationByCategory from "./ListPublicationByCategory/ListPublicationByCategory";
+import ListPublicationByCategory from "../../components/ui/ListPublicationByCategory/ListPublicationByCategory";
 
 const ExploreRoutes = () => {
   return (

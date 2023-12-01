@@ -11,17 +11,24 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     async function getUserData() {
-      const token = await getAccessTokenSilently();
-      const { url, options } = GetUser(token);
-      const { response } = await request(url, options);
+      const storedUserData = localStorage.getItem('userData');
 
-      if (response.status === 200) {
-        setDataUser(response.data);
-        localStorage.setItem('userData', JSON.stringify(response.data));
+      if (storedUserData) {
+        setDataUser(JSON.parse(storedUserData));
       } else {
-        setDataUser(false);
+        const token = await getAccessTokenSilently();
+        const { url, options } = GetUser(token);
+        const { response } = await request(url, options);
+
+        if (response.status === 200) {
+          setDataUser(response.data);
+          localStorage.setItem('userData', JSON.stringify(response.data));
+        } else {
+          setDataUser(false);
+        }
       }
     }
+
     getUserData();
   }, [getAccessTokenSilently, request, user]);
 

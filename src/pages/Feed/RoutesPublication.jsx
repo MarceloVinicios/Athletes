@@ -10,7 +10,7 @@ const RoutesPublication = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Feed />} />
-        <Route path="post" element={<Modal />} />
+        <Route path="/publication/:id" element={<Feed />} />
       </Routes>
     </div>
   );

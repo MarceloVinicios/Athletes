@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PersonalData from "./Personal/PersonalData";
-import ProfessionalData from "./Professional/ProfessionalData";
+import PersonalData from "../../components/ui/Register/Personal/PersonalData";
+import ProfessionalData from "../../components/ui/Register/Professional/ProfessionalData";
 import useFetch from "../../hooks/useFetch";
 import { useAuth0 } from "@auth0/auth0-react";
 import { PostUser } from "../../api/UserApi";

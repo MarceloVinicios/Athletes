@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
-import { GetAllPublications } from "../../api/PublicationApi";
+import { GetPublicationById, GetAllPublications } from "../../api/PublicationApi";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Publication from "../../components/ui/Publication/Publication";
 import useFetch from "../../hooks/useFetch";
@@ -9,6 +9,7 @@ import { ContainerPublication, NoContent } from "./StyledFeed";
 import FeedContext from "./FeedContext";
 import ModalConfirm from "../../components/helper/ModalConfirm/ModalConfirm";
 import { Main } from "../Apresentation/StyledHome";
+import { useParams } from "react-router-dom";
 
 const Feed = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -20,23 +21,50 @@ const Feed = () => {
   const [publicationId, setPublicationId] = useState(null);
   const [urls, setUrls] = useState(null);
 
+  const { id: routeId } = useParams();
+
   useEffect(() => {
-    async function fetchPuliction() {
-      const token = await getAccessTokenSilently();
-      console.log(token)
-      const { url, options } = GetAllPublications(token);
-      const { response, json } = await request(url, options);
+    const fetchPublications = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+        const { url, options } = GetAllPublications(token);
+        const { response, json } = await request(url, options);
 
-      if (response.status === 200) {
-        setPublications(json.publicationData);
-      }
+        if (response.status === 200) {
+          setPublications(json.publicationData);
+        }
 
-      if (response.status === 204) {
-        setNoContentState("Sem conteúdo");
+        if (response.status === 204) {
+          setNoContentState("Sem conteúdo");
+        }
+      } catch (error) {
+        console.error("Erro ao obter publicações:", error);
       }
+    };
+
+    const fetchPublicationById = async (id) => {
+      try {
+        const token = await getAccessTokenSilently();
+        const { url, options } = GetPublicationById(id, token);
+        const { response, json } = await request(url, options);
+
+        if (response.status === 200) {
+          setPublications([json.publicationData]);
+        } else {
+          setNoContentState("Publicação não encontrada");
+        }
+      } catch (error) {
+        console.error("Erro ao obter publicação por ID:", error);
+      }
+    };
+
+
+    if (routeId) {
+      fetchPublicationById(routeId);
+    } else {
+      fetchPublications();
     }
-    fetchPuliction();
-  }, [reload, getAccessTokenSilently, request]);
+  }, [routeId, reload, request, getAccessTokenSilently]);
 
   function reloadPublications() {
     setReload(reload + 1);
