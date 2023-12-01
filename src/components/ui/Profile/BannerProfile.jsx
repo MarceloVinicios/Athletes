@@ -16,6 +16,7 @@ import {
   ListItemProfile,
   ContainerPublications,
   ProfileImage,
+  NoContent,
 } from "./StyledBannerProfile";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
@@ -41,14 +42,14 @@ const BannerProfile = () => {
 
         if (response.status === 200) {
           setDataUser(json.response);
-          localStorage.setItem('userData', JSON.stringify(json.response));
+          localStorage.setItem("userData", JSON.stringify(json.response));
         }
       } catch (error) {
         console.error("Erro ao obter dados do usuário:", error);
       }
     }
 
-    const storedUserData = localStorage.getItem('userData');
+    const storedUserData = localStorage.getItem("userData");
 
     if (storedUserData) {
       try {
@@ -96,7 +97,10 @@ const BannerProfile = () => {
       <SideBar />
       <ProfileContainer>
         <ProfileCard>
-          <ProfileImage src="https://thefans.com.br/wp-content/uploads/2022/08/Untitled-1-18-732x412.jpg" alt="plano de fundo" />
+          <ProfileImage
+            src="https://thefans.com.br/wp-content/uploads/2022/08/Untitled-1-18-732x412.jpg"
+            alt="plano de fundo"
+          />
           <ContainerOne>
             {dataUser && (
               <ContainerDataUser>
@@ -115,16 +119,27 @@ const BannerProfile = () => {
           <Line />
           <ListNoOrderContentProfile>
             <ListItemProfile onClick={() => setChooseData(1)}>
-              <img src="src\assets\images\MyPublications.svg" alt="Publicações" />
+              <img
+                src="src\assets\images\MyPublications.svg"
+                alt="Publicações"
+              />
               Publicações
             </ListItemProfile>
             <ListItemProfile onClick={() => setChooseData(2)}>
-              <img src="src\assets\images\MyPublications.svg" alt="Estatísticas" />
+              <img
+                src="src\assets\images\MyPublications.svg"
+                alt="Estatísticas"
+              />
               Estatísticas
             </ListItemProfile>
           </ListNoOrderContentProfile>
 
           <ContainerPublications>
+            {noContentState && (
+              <NoContent>
+                <p>{noContentState}</p>
+              </NoContent>
+            )}
             {publications &&
               publications.map(
                 (publication) =>
@@ -138,6 +153,7 @@ const BannerProfile = () => {
                       descriptionPublication={publication.description}
                       key={publication.id}
                       likes={publication.likes}
+                      publication_at={publication.publication_at}
                     />
                   ),
               )}

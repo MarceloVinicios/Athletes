@@ -17,6 +17,8 @@ import CommentsInteration from "./Interation/Comments";
 import Share from "./Interation/Share";
 import CommentsList from "./Comments/Comments";
 import VideoPlayer from "../../Video/VideoPlayer";
+import { formatDistanceToNow } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 const Publication = ({
   userId,
@@ -25,7 +27,8 @@ const Publication = ({
   publicationId,
   mediaPublication,
   descriptionPublication,
-  likes
+  likes,
+  publication_at,
 }) => {
   const [showMore, setShowMore] = useState(false);
   const [comments, setComments] = useState(false);
@@ -70,7 +73,7 @@ const Publication = ({
         </Avatar>
         <NameUser>{nameUser}</NameUser>
         <ContainerInformation>
-          <TimePublication>há 30 minutos</TimePublication>
+          <TimePublication>{formatDistanceToNow(new Date(publication_at), { addSuffix: true, locale: pt })}</TimePublication>
           <MoreOptionsPubli userId={userId} idPublication={publicationId} />
         </ContainerInformation>
       </UserInformation>
@@ -86,7 +89,7 @@ const Publication = ({
       <IconInteration>
         <Like publication_id={publicationId} likes={likes}/>
         <CommentsInteration onCommentClick={commentsList} />
-        <Share publicationI={publicationId}/>
+        <Share publicationId={publicationId}/>
       </IconInteration>
 
       <Description onClick={toggleContent}>

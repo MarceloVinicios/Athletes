@@ -94,6 +94,7 @@ const Feed = () => {
                 descriptionPublication={publication.description}
                 key={publication.id}
                 likes={publication.likes}
+                publication_at={publication.publication_at}
               />
             ))}
         </ContainerPublication>

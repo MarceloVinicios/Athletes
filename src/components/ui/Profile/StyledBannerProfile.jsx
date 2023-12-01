@@ -129,3 +129,9 @@ export const ContainerPublications = styled.div`
   align-items: center;
   padding: 0px 0 20px;
 `;
+
+export const NoContent = styled.h2`
+  margin-top: 50px;
+  font-size: 2rem;
+  font-weight: 600;
+`

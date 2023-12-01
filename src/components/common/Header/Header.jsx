@@ -97,7 +97,7 @@ const Navbar = () => {
                 <ListMenuNavigation
                   style={{ display: MenuActivite ? "block" : "none" }}
                 >
-                  <a href="/profile"><LinkNavigationMenu>Perfil</LinkNavigationMenu></a>
+                  <a href="/profile"><LinkNavigationMenu style={{color: "white"}}>Perfil</LinkNavigationMenu></a>
                   <LinkNavigationMenu>
                     <a onClick={() => logout()}>Logout</a>
                   </LinkNavigationMenu>
