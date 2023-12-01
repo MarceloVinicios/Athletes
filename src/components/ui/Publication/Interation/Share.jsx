@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/react';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { ContainerButton } from '../StyledPublication';
 
-const Share = () => {
+const Share = ({publicationId}) => {
   return (
     <ContainerButton>
       <Button className="share-button" variant="ghost" justifySelf="end">

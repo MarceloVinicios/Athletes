@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useParams } from 'react-router-dom';
-import Publication from '../../../components/ui/Publication/Publication';
-import { Main } from "../../Apresentation/StyledHome";
-import SideBar from '../../../components/SideBar/SideBar';
-import { ContainerPublication, NoContent } from '../../Feed/StyledFeed';
-import ModalConfirm from '../../../components/helper/ModalConfirm/ModalConfirm';
-import Loading from '../../../components/helper/Loading';
+import Publication from '../Publication/Publication';
+import { Main } from "../../../pages/Apresentation/StyledHome";
+import SideBar from '../../SideBar/SideBar';
+import { ContainerPublication, NoContent } from '../../../pages/Feed/StyledFeed';
+import ModalConfirm from '../../helper/ModalConfirm/ModalConfirm';
+import Loading from '../../helper/Loading';
 import useFetch from '../../../hooks/useFetch';
 import { GetAllPublicationsByCategory } from '../../../api/PublicationApi';
 

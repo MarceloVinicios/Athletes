@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Form, Title, Label, Button, Image, Warning } from "../StyledRegister";
-import InputContainer from "../../../components/common/Form/Input";
-import useForm from "../../../hooks/useForm";
+import { Container, Form, Title, Label, Button, Image, Warning } from "../../../../pages/Register/StyledRegister";
+import InputContainer from "../../../common/Form/Input";
+import useForm from "../../../../hooks/useForm";
 import { CircularProgress } from "@chakra-ui/react";
 
 const ProfessionalData = ({ setFormContatoData, warning, loading}) => {

@@ -36,7 +36,7 @@ export default function MoreOptionsPubli({
           <PopoverArrow />
           <PopoverBody>
             <Stack>
-              <ButtonCopy />
+              <ButtonCopy idPublication={idPublication}/>
               {user.sub == userId ? (
                 <ButtonDelete
                   id={idPublication}

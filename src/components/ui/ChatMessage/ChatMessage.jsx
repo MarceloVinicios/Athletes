@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { RiSendPlane2Fill } from "react-icons/ri";
-import { Input } from "../ChatMessage/StyledChatMessage";
+import { Input } from "./StyledChatMessage";
 import { ChatBody, ChatContainer, ChatFooter, MessageContainer, MessageText } from "./StyledChatMessage";
 
 export default function Chat({ socket, userData, dataUserMessage }) {

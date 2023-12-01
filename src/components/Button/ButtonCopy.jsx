@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "@chakra-ui/react";
 import { MdInsertLink } from "react-icons/md";
 
-const ButtonCopy = () => {
+const ButtonCopy = ({idPublication}) => {
 
   const copyToClipboard = () => {
-    const urlToCopy = window.location.href;
-    navigator.clipboard.writeText(urlToCopy);
+    navigator.clipboard.writeText(`http://localhost:5173/feed/publication/${idPublication}`);
   };
 
   return (

@@ -9,11 +9,11 @@ import {
   UploadLabel,
   LabelDescription,
   SelectSport,
-} from "../StyledRegister";
-import InputContainer from "../../../components/common/Form/Input";
-import useForm from "../../../hooks/useForm";
-import { GetAllCategory } from "../../../api/CategoryApi";
-import useFetch from "../../../hooks/useFetch";
+} from "../../../../pages/Register/StyledRegister";
+import InputContainer from "../../../common/Form/Input";
+import useForm from "../../../../hooks/useForm";
+import { GetAllCategory } from "../../../../api/CategoryApi";
+import useFetch from "../../../../hooks/useFetch";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const PersonalData = ({ setPage, setPersonalData }) => {
