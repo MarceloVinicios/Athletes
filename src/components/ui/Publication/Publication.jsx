@@ -17,8 +17,8 @@ import CommentsInteration from "./Interation/Comments";
 import Share from "./Interation/Share";
 import CommentsList from "./Comments/Comments";
 import VideoPlayer from "../../Video/VideoPlayer";
-import { formatDistanceToNow } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { formatDistanceToNow } from "date-fns";
+import pt from "date-fns/locale/pt";
 
 const Publication = ({
   userId,
@@ -62,24 +62,33 @@ const Publication = ({
   return (
     <PublicationContainer>
       <UserInformation>
-        <Avatar size="md">
-          <Image
-            src={pictureUser}
-            alt={nameUser}
-            borderRadius="full"
-            width="100000px"
-            height="50px"
-          />
-        </Avatar>
-        <NameUser>{nameUser}</NameUser>
+        <a href={`/profile/${userId}`}>
+          <Avatar size="md">
+            <Image
+              src={pictureUser}
+              alt={nameUser}
+              borderRadius="full"
+              width="100000px"
+              height="50px"
+            />
+          </Avatar>
+        </a>
+        <a href={`/profile/${userId}`}>
+          <NameUser>{nameUser}</NameUser>
+        </a>
         <ContainerInformation>
-          <TimePublication>{formatDistanceToNow(new Date(publication_at), { addSuffix: true, locale: pt })}</TimePublication>
+          <TimePublication>
+            {formatDistanceToNow(new Date(publication_at), {
+              addSuffix: true,
+              locale: pt,
+            })}
+          </TimePublication>
           <MoreOptionsPubli userId={userId} idPublication={publicationId} />
         </ContainerInformation>
       </UserInformation>
 
       {mediaType === "video" && mediaPublication && (
-        <VideoPlayer media={mediaPublication}/>
+        <VideoPlayer media={mediaPublication} />
       )}
 
       {mediaType === "image" && mediaPublication && (
@@ -87,9 +96,9 @@ const Publication = ({
       )}
 
       <IconInteration>
-        <Like publication_id={publicationId} likes={likes}/>
+        <Like publication_id={publicationId} likes={likes} />
         <CommentsInteration onCommentClick={commentsList} />
-        <Share publicationId={publicationId}/>
+        <Share publicationId={publicationId} />
       </IconInteration>
 
       <Description onClick={toggleContent}>

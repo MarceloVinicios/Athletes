@@ -7,7 +7,7 @@ import {
   ContainerMenu,
   ContainerUser,
   Header,
-  ImageProfile
+  ImageProfile,
 } from "./StyledHeader";
 import {
   LinkNavigation,
@@ -23,10 +23,11 @@ import { GetUser } from "../../../api/UserApi";
 import useFetch from "../../../hooks/useFetch";
 
 const Navbar = () => {
-  const { user, isAuthenticated, isLoading, logout, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout, getAccessTokenSilently } =
+    useAuth0();
   const [MenuActivite, setMenuActive] = useState(false);
   const [dataUser, setDataUser] = useState(null);
-  const {request} = useFetch()
+  const { request } = useFetch();
 
   useEffect(() => {
     async function getUserData() {
@@ -36,10 +37,10 @@ const Navbar = () => {
 
       if (response.status === 200) {
         setDataUser(json.response);
-        localStorage.setItem('userData', JSON.stringify(json.response));
+        localStorage.setItem("userData", JSON.stringify(json.response));
       }
     }
-    const storedUserData = localStorage.getItem('userData');
+    const storedUserData = localStorage.getItem("userData");
 
     if (storedUserData) {
       try {
@@ -97,9 +98,22 @@ const Navbar = () => {
                 <ListMenuNavigation
                   style={{ display: MenuActivite ? "block" : "none" }}
                 >
-                  <a href="/profile"><LinkNavigationMenu style={{color: "white"}}>Perfil</LinkNavigationMenu></a>
+                  <a href={`/profile/${dataUser?.id}`}>
+                    <LinkNavigationMenu style={{ color: "white" }}>
+                      Perfil
+                    </LinkNavigationMenu>
+                  </a>
                   <LinkNavigationMenu>
-                    <a onClick={() => logout()}>Logout</a>
+                    <LinkNavigationMenu>
+                      <a
+                        onClick={() => {
+                          logout();
+                          localStorage.removeItem("userData");
+                        }}
+                      >
+                        Logout
+                      </a>
+                    </LinkNavigationMenu>
                   </LinkNavigationMenu>
                 </ListMenuNavigation>
               </nav>

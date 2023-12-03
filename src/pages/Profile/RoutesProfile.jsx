@@ -8,7 +8,7 @@ const RoutesProfile = () => {
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<Profile />} />
+        <Route path="/:id" element={<Profile />} />
       </Routes>
     </div>
   );

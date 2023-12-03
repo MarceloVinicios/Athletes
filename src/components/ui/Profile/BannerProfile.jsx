@@ -20,10 +20,12 @@ import {
 } from "./StyledBannerProfile";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
-import { GetUser } from "../../../api/UserApi";
+import { GetUserById } from "../../../api/UserApi";
 import SideBar from "../../SideBar/SideBar";
 import { GetAllPublications } from "../../../api/PublicationApi";
 import Publication from "../Publication/Publication";
+import ProfileStats from "./ProfileStats/ProfileStats";
+import { useParams } from "react-router-dom";
 
 const BannerProfile = () => {
   const { user, getAccessTokenSilently } = useAuth0();
@@ -32,12 +34,19 @@ const BannerProfile = () => {
   const [ChooseData, setChooseData] = useState(1);
   const [noContentState, setNoContentState] = useState(null);
   const [publications, setPublications] = useState(null);
+  const [accesses, setAccesses] = useState(0);
+  const { id } = useParams();
+
+  useEffect(() => {
+    setAccesses(accesses + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     async function getUserData() {
       try {
         const token = await getAccessTokenSilently();
-        const { url, options } = GetUser(token);
+        const { url, options } = GetUserById(id, token);
         const { response, json } = await request(url, options);
 
         if (response.status === 200) {
@@ -49,24 +58,30 @@ const BannerProfile = () => {
       }
     }
 
-    const storedUserData = localStorage.getItem("userData");
+    if (id && user && user.sub) {
+      if (id == user.sub) {
+        const storedUserData = localStorage.getItem("userData");
 
-    if (storedUserData) {
-      try {
-        const parsedData = JSON.parse(storedUserData);
+        if (storedUserData) {
+          try {
+            const parsedData = JSON.parse(storedUserData);
 
-        if (parsedData && parsedData.picture) {
-          setDataUser(parsedData);
+            if (parsedData && parsedData.picture) {
+              setDataUser(parsedData);
+            } else {
+              getUserData();
+            }
+          } catch (error) {
+            getUserData();
+          }
         } else {
           getUserData();
         }
-      } catch (error) {
+      } else {
         getUserData();
       }
-    } else {
-      getUserData();
     }
-  }, [getAccessTokenSilently, request]);
+  }, [getAccessTokenSilently, request, id, user]);
 
   useEffect(() => {
     async function fetchPublication() {
@@ -120,43 +135,49 @@ const BannerProfile = () => {
           <ListNoOrderContentProfile>
             <ListItemProfile onClick={() => setChooseData(1)}>
               <img
-                src="src\assets\images\MyPublications.svg"
+                src="http://localhost:5173/src/assets/images/MyPublications.svg"
                 alt="Publicações"
               />
               Publicações
             </ListItemProfile>
             <ListItemProfile onClick={() => setChooseData(2)}>
               <img
-                src="src\assets\images\MyPublications.svg"
-                alt="Estatísticas"
+                src="http://localhost:5173/src/assets/images/Esta.svg"
+                alt="Publicações"
+                style={{marginTop: "9px"}}
               />
               Estatísticas
             </ListItemProfile>
           </ListNoOrderContentProfile>
-
           <ContainerPublications>
-            {noContentState && (
-              <NoContent>
-                <p>{noContentState}</p>
-              </NoContent>
+            {ChooseData === 1 ? (
+              <>
+                {noContentState && (
+                  <NoContent>
+                    <p>{noContentState}</p>
+                  </NoContent>
+                )}
+                {publications &&
+                  publications.map(
+                    (publication) =>
+                      user.sub === publication.user?.id && (
+                        <Publication
+                          userId={publication.user?.id}
+                          pictureUser={publication.user?.picture}
+                          nameUser={publication.user?.name}
+                          publicationId={publication.id}
+                          mediaPublication={publication.url}
+                          descriptionPublication={publication.description}
+                          key={publication.id}
+                          likes={publication.likes}
+                          publication_at={publication.publication_at}
+                        />
+                      ),
+                  )}
+              </>
+            ) : (
+              <ProfileStats accesses={accesses} />
             )}
-            {publications &&
-              publications.map(
-                (publication) =>
-                  user.sub === publication.user?.id && (
-                    <Publication
-                      userId={publication.user?.id}
-                      pictureUser={publication.user?.picture}
-                      nameUser={publication.user?.name}
-                      publicationId={publication.id}
-                      mediaPublication={publication.url}
-                      descriptionPublication={publication.description}
-                      key={publication.id}
-                      likes={publication.likes}
-                      publication_at={publication.publication_at}
-                    />
-                  ),
-              )}
           </ContainerPublications>
         </ProfileCard>
       </ProfileContainer>

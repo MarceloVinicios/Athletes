@@ -112,6 +112,7 @@ export const ListNoOrderContentProfile = styled.ul`
   gap: 30px;
   margin: 20px 0;
   justify-content: center;
+  align-items: center;
   font-weight: 600;
 `;
 
