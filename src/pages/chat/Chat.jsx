@@ -14,10 +14,11 @@ import {
 } from "./ChatStyled";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
-import { GetAllUsers, GetUser } from "../../api/UserApi";
+import { GetUser } from "../../api/UserApi";
 import { ImageProfile } from "../../components/common/Header/StyledHeader";
 import io from "socket.io-client";
 import ChatMessage from "../../components/ui/ChatMessage/ChatMessage";
+import { GetUserOfMyConnections } from "../../api/ConnectionApi";
 
 const Chat = () => {
   const [socket, setSocket] = useState(null);
@@ -31,19 +32,20 @@ const Chat = () => {
   useEffect(() => {
     async function fetchGetAllUsers() {
       const token = await getAccessTokenSilently();
-      const { url, options } = GetAllUsers(token);
+      const { url, options } = GetUserOfMyConnections(token);
       const { response, json } = await request(url, options);
       if (response.status === 200) {
         setUsers(json.response);
+        console.log(json.response);
       }
 
       if (response.status === 204) {
         setNoContentState("Sem conteúdo");
       }
     }
-    fetchGetAllUsers();
 
     async function getUserDataMessage() {
+      await fetchGetAllUsers();
       const token = await getAccessTokenSilently();
       const { url, options } = GetUser(token);
       const { response, json } = await request(url, options);

@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/helper/ProtectedRoute";
 import ChatRoutes from "./pages/chat/ChatRoutes";
 import RoutesProfile from "./pages/Profile/RoutesProfile";
 import ExploreRoutes from "./pages/Explore/ExploreRoutes";
+import ConnectionRoutes from "./pages/Connection/ConnectionRoutes";
 
 function App() {
   return (
@@ -48,6 +49,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ExploreRoutes />
+                </ProtectedRoute>
+              }
+            />
+              <Route
+              path="connections/*"
+              element={
+                <ProtectedRoute>
+                  <ConnectionRoutes />
                 </ProtectedRoute>
               }
             />

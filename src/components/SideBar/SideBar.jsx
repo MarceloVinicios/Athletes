@@ -3,6 +3,7 @@ import { MdTravelExplore } from "react-icons/md";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
 import { AiFillHome, AiFillStar } from "react-icons/ai";
 import { Container, List, ListNotOrdered } from "./StyledSideBar";
+import { FaUserFriends } from "react-icons/fa";
 
 const SideBar = () => {
   return (
@@ -18,15 +19,20 @@ const SideBar = () => {
             Início
           </List>
         </a>
+        <a href="/explore">
+          <List>
+            <MdTravelExplore fontSize={"25px"} color={"#EBC556"} /> Explorar
+          </List>
+        </a>
         <a href="/chat">
           <List>
             <BiSolidMessageSquareDetail fontSize={"25px"} color={"#EBC556"} />{" "}
             Mensagens
           </List>
         </a>
-        <a href="/explore">
+        <a href="/connections">
           <List>
-            <MdTravelExplore fontSize={"25px"} color={"#EBC556"} /> Explorar
+            <FaUserFriends  fontSize={"25px"} color={"#EBC556"} /> Conexões
           </List>
         </a>
         <a href="/feed/publications/likes">

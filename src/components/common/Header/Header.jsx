@@ -104,16 +104,14 @@ const Navbar = () => {
                     </LinkNavigationMenu>
                   </a>
                   <LinkNavigationMenu>
-                    <LinkNavigationMenu>
-                      <a
-                        onClick={() => {
-                          logout();
-                          localStorage.removeItem("userData");
-                        }}
-                      >
-                        Logout
-                      </a>
-                    </LinkNavigationMenu>
+                    <a
+                      onClick={() => {
+                        logout();
+                        localStorage.removeItem("userData");
+                      }}
+                    >
+                      Logout
+                    </a>
                   </LinkNavigationMenu>
                 </ListMenuNavigation>
               </nav>

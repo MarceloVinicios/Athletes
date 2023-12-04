@@ -57,6 +57,8 @@ export const LinkNavigationMenu = styled.li`
   }
 
   &:last-child {
+    margin-top: 5px; /* Adicionei um espaçamento superior ao último item do menu */
     color: #f83131f8;
   }
 `;
+
