@@ -28,6 +28,10 @@ export const ContainerUser = styled.div`
   grid-row: 1;
   justify-self: end;
   position: relative;
+
+  @media (max-width: 500px) {
+    gap: 1rem;
+  }
 `;
 
 export const ButtonLoading = styled.a`
@@ -56,7 +60,17 @@ export const ButtonLoading = styled.a`
   }
 
   @media (max-width: 500px) {
-    display: none;
+    padding: 5px 10px;
+
+    &::before {
+      padding-right: 0;
+    }
+  }
+
+  span {
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
 `;
 

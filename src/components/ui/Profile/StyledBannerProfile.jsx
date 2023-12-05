@@ -7,6 +7,11 @@ export const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 200px;
+
+  @media (max-width: 900px) {
+    margin-left: initial;
+  }
 `;
 
 export const ProfileCard = styled.div`
@@ -29,6 +34,18 @@ export const ContainerOne = styled.div`
   justify-content: space-between;
   padding: 0 20px;
   margin-top: 80px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 450px) {
+    margin-top: 106px;
+  }
+
+  @media (max-width: 320px) {
+    margin-top: 115px;
+  }
 `;
 
 export const ContainerDataUser = styled.div`
@@ -37,6 +54,10 @@ export const ContainerDataUser = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: -140px;
+
+  @media (max-width: 500px) {
+    align-self: start;
+  }
 `;
 
 export const AvatarProfile = styled.img`
@@ -45,19 +66,47 @@ export const AvatarProfile = styled.img`
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
+
+  @media (max-width: 450px) {
+    width: 100px;
+  height: 100px;
+  }
+
+  @media (max-width: 320px) {
+    width: 80px;
+  height: 80px;
+  }
 `;
 
-export const Name = styled.h1`
+export const Name = styled.span`
   font-size: 24px;
   font-weight: 600;
   margin-top: 5px;
   color: #ffffff;
+
+  @media (max-width: 320px) {
+    font-size: 18px;
+  }
 `;
 
 export const SportUser = styled.h2`
   font-size: 28px;
   font-weight: 600;
   margin-top: -130px;
+
+  @media (max-width: 500px) {
+    margin-left: 10px;
+    font-size: 22px;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 20px;
+    font-size: 22px;
+  }
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 export const ContainerGoal = styled.div`
@@ -65,6 +114,10 @@ export const ContainerGoal = styled.div`
   background-color: #263238;
   padding: 10px 20px;
   border-radius: 9px;
+
+  @media (max-width: 450px) {
+    margin-top: initial;
+  }
 `;
 
 export const SubTitleGoal = styled.h2`
@@ -114,6 +167,10 @@ export const ListNoOrderContentProfile = styled.ul`
   justify-content: center;
   align-items: center;
   font-weight: 600;
+
+  @media (max-width: 450px) {
+    gap: 20px;
+  }
 `;
 
 export const ListItemProfile = styled.li`
@@ -121,6 +178,10 @@ export const ListItemProfile = styled.li`
   align-items: center;
   gap: 10px;
   cursor: pointer;
+
+  @media (max-width: 450px) {
+    gap: 1px;
+  }
 `;
 
 export const ContainerPublications = styled.div`

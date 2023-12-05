@@ -12,7 +12,7 @@ const ButtonPublicationModal = () => {
   return (
     <div>
       <ButtonLoading onClick={handleClickModal}>
-        Carregar
+        <span>Carregar</span>
       </ButtonLoading>
       {isModalVisible ? <NewPublicationModal handleClickModal={handleClickModal}/> : null}
     </div>

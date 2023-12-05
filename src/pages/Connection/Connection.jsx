@@ -19,6 +19,7 @@ import {
   ContainerOfInformation,
   ContainerOptionConnection,
   ImageNotifications,
+  NoConnection,
   NumberRequest,
   RequestConnection,
   SubTitleConnections,
@@ -36,8 +37,10 @@ const Connection = () => {
   const [users, setUsers] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
   const [myConnections, setMyConnections] = useState(null);
+  const [noContentConnections, setNoContentConnections] = useState(null);
   const [requestConnection, setRequestConnection] = useState(null);
   const [requestsForMeNumber, setRequestsForMeNumber] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchGetAllUsers = async () => {
@@ -53,7 +56,7 @@ const Connection = () => {
         }
 
         if (response.status === 204) {
-          setNoContentState("Sem conteúdo");
+          setNoContentState("Nenhum usuário para se conectar");
         }
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
@@ -68,6 +71,10 @@ const Connection = () => {
 
         if (response.status === 200) {
           setMyConnections(json.response);
+        }
+
+        if (response.status === 204) {
+          setNoContentConnections("Nenhuma conexão feita");
         }
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
@@ -116,6 +123,10 @@ const Connection = () => {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -123,14 +134,20 @@ const Connection = () => {
   return (
     <Main>
       <ContainerForUser>
-        <SubTitleConnections>Minhas Conexões</SubTitleConnections>
+        {noContentConnections ? (
+          <NoConnection>{noContentConnections}</NoConnection>
+        ) : (
+          <SubTitleConnections>Minhas Conexões</SubTitleConnections>
+        )}
         <ContainerListUser>
           {myConnections &&
             myConnections.map((userData) => (
-              <ContainerUserProfile key={userData.id}>
-                <ImageProfile src={userData.picture} alt="Perfil" />
-                <UserName>{userData.name}</UserName>
-              </ContainerUserProfile>
+              <a href={`/profile/${userData.id}`}>
+                <ContainerUserProfile key={userData.id}>
+                  <ImageProfile src={userData.picture} alt="Perfil" />
+                  <UserName>{userData.name}</UserName>
+                </ContainerUserProfile>
+              </a>
             ))}
         </ContainerListUser>
       </ContainerForUser>
@@ -145,6 +162,7 @@ const Connection = () => {
           </NumberRequest>
         </RequestConnection>
         <ContainerList>
+          {noContentState && <p>{noContentState}</p>}
           {users &&
             users.map(
               (dataUser) =>
@@ -167,7 +185,7 @@ const Connection = () => {
                       </ButtonConnection>
                     </ContainerOptionConnection>
                   </ContainerItemUser>
-                )
+                ),
             )}
         </ContainerList>
       </ContainerForIfConect>

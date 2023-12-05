@@ -18,6 +18,16 @@ export const PublicationContainer = styled.div`
     max-width: 400px;
     min-width: 400px;
   }
+
+  @media (max-width: 440px) {
+    max-width: 300px;
+    min-width: 300px;
+  }
+
+  @media (max-width: 310px) {
+    max-width: 270px;
+    min-width: 270px;
+  }
 `;
 
 export const UserInformation = styled.div`
@@ -30,6 +40,16 @@ export const UserInformation = styled.div`
     padding: 5px 5px;
     max-width: 400px;
     min-width: 400px;
+  }
+
+  @media (max-width: 440px) {
+    max-width: 300px;
+    min-width: 300px;
+  }
+
+  @media (max-width: 310px) {
+    max-width: 270px;
+    min-width: 270px;
   }
 `;
 
@@ -89,6 +109,11 @@ export const IconInteration = styled.div`
   @media (max-width: 600px) {
     padding: 10px 10px;
     gap: 10px;
+  }
+
+  @media (max-width: 310px) {
+    gap: 2px;
+    padding: 10px 0px;
   }
 `;
 

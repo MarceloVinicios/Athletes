@@ -12,6 +12,12 @@ export const RequestConnection = styled.div`
   display: flex;
   align-items: end;
   gap: 4px;
+  cursor: pointer;
+`
+
+export const NoConnection = styled.span`
+  font-size: 1.2rem;
+  text-align: center;
 `
 
 export const ImageNotifications = styled.img`
@@ -36,6 +42,10 @@ export const ContainerList = styled.ul`
   align-items: center;
   margin: 50px 40px 40px;
   gap: 15px;
+
+  @media (max-width: 500px) {
+    margin: 50px 10px 40px;
+  }
 `
 export const ContainerItemUser = styled.li`
   list-style-type: none;
@@ -74,4 +84,16 @@ export const ButtonConnection = styled.button`
   border: 2px solid #ffff;
   padding: 10px 20px;
   color: #EBC556;
+
+  @media (max-width: 650px) {
+    padding: 5px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 10px 20px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 5px;
+  }
 `

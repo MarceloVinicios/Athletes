@@ -6,6 +6,10 @@ export const Main = styled.main`
   display: grid;
   grid-template-columns: auto 1fr;
   padding-top: 90px;
+
+  @media (max-width: 580px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const headerHeight = "90px";
@@ -13,7 +17,7 @@ const headerHeight = "90px";
 export const ContainerForUser = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 20px 10px;
   box-shadow: 1px 0 1px rgba(126, 126, 126, 0.3);
   width: 380px;
   height: calc(100vh - ${headerHeight});
@@ -26,6 +30,19 @@ export const ContainerForUser = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: #ebc556;
     border-radius: 10px;
+  }
+
+  @media (max-width: 1000px) {
+    width: 320px;
+  }
+
+  @media (max-width: 800px) {
+    width: 230px;
+  }
+
+
+  @media (max-width: 580px) {
+    display: none;
   }
 `;
 
@@ -43,6 +60,14 @@ export const Search = styled.input`
   &::placeholder {
     color: #ebc556;
   }
+
+  @media (max-width: 1000px) {
+    width: 280px;
+  }
+
+  @media (max-width: 800px) {
+    width: 200px;
+  }
 `;
 
 export const ContainerListUser = styled.ul`
@@ -51,6 +76,14 @@ export const ContainerListUser = styled.ul`
   flex-direction: column;
   gap: 20px;
   margin: 0 auto;
+
+  @media (max-width: 1000px) {
+    width: 280px;
+  }
+
+  @media (max-width: 800px) {
+    width: 200px;
+  }
 `;
 
 export const ContainerUserProfile = styled.li`
@@ -58,13 +91,26 @@ export const ContainerUserProfile = styled.li`
   display: flex;
   gap: 14px;
   align-items: center;
+
+  @media (max-width: 1000px) {
+    width: 280px;
+  }
+
+  @media (max-width: 800px) {
+    width: 180px;
+  }
 `;
 
 export const UserName = styled.span`
   font-weight: bold;
+
+  @media (max-width: 800px) {
+    font-size: 14px;
+  }
 `;
 
-export const ContainerChat = styled.div``;
+export const ContainerChat = styled.div`
+`;
 
 export const HeaderUser = styled.div`
   padding: 12px 20px;

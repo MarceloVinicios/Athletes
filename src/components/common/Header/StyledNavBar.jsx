@@ -45,6 +45,24 @@ export const ListMenuNavigation = styled.ul`
     top: 60px;
     left: -30px;
   }
+
+  a {
+    display: none;
+  }
+
+  a:last-child {
+    color: #f83131f8;
+  }
+
+  a:nth-last-child(-n+2) {
+      display: block;
+  }
+
+  @media (max-width: 500px) {
+    a {
+      display: block;
+    }
+  }
 `;
 
 export const LinkNavigationMenu = styled.li`
@@ -54,11 +72,6 @@ export const LinkNavigationMenu = styled.li`
 
   &:hover {
     background-color: #363a3a;
-  }
-
-  &:last-child {
-    margin-top: 5px; /* Adicionei um espaçamento superior ao último item do menu */
-    color: #f83131f8;
   }
 `;
 

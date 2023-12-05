@@ -98,8 +98,33 @@ const Navbar = () => {
                 <ListMenuNavigation
                   style={{ display: MenuActivite ? "block" : "none" }}
                 >
+                  <a href={`/feed`}>
+                    <LinkNavigationMenu>
+                      Início
+                    </LinkNavigationMenu>
+                  </a>
+                  <a href={`/explore`}>
+                    <LinkNavigationMenu>
+                      Explorar
+                    </LinkNavigationMenu>
+                  </a>
+                  <a href={`/chat`}>
+                    <LinkNavigationMenu>
+                      Mensagens
+                    </LinkNavigationMenu>
+                  </a>
+                  <a href={`/connections`}>
+                    <LinkNavigationMenu>
+                      Conexões
+                    </LinkNavigationMenu>
+                  </a>
+                  <a href={`/feed/publications/likes`}>
+                    <LinkNavigationMenu>
+                      Gostei
+                    </LinkNavigationMenu>
+                  </a>
                   <a href={`/profile/${dataUser?.id}`}>
-                    <LinkNavigationMenu style={{ color: "white" }}>
+                    <LinkNavigationMenu>
                       Perfil
                     </LinkNavigationMenu>
                   </a>

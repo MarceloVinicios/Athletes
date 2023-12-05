@@ -51,37 +51,14 @@ const BannerProfile = () => {
 
         if (response.status === 200) {
           setDataUser(json.response);
-          localStorage.setItem("userData", JSON.stringify(json.response));
         }
       } catch (error) {
         console.error("Erro ao obter dados do usuário:", error);
       }
     }
 
-    if (id && user && user.sub) {
-      if (id == user.sub) {
-        const storedUserData = localStorage.getItem("userData");
-
-        if (storedUserData) {
-          try {
-            const parsedData = JSON.parse(storedUserData);
-
-            if (parsedData && parsedData.picture) {
-              setDataUser(parsedData);
-            } else {
-              getUserData();
-            }
-          } catch (error) {
-            getUserData();
-          }
-        } else {
-          getUserData();
-        }
-      } else {
-        getUserData();
-      }
-    }
-  }, [getAccessTokenSilently, request, id, user]);
+    getUserData();
+  }, [getAccessTokenSilently, request, id]);
 
   useEffect(() => {
     async function fetchPublication() {
@@ -160,7 +137,7 @@ const BannerProfile = () => {
                 {publications &&
                   publications.map(
                     (publication) =>
-                      user.sub === publication.user?.id && (
+                      id === publication.user?.id && (
                         <Publication
                           userId={publication.user?.id}
                           pictureUser={publication.user?.picture}

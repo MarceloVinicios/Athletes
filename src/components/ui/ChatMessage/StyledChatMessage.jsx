@@ -25,10 +25,15 @@ export const MessageContainer = styled.div`
   border-radius: 7px;
   align-self: start;
   unicode-bidi: isolate;
+  width: 400px;
 
   &.message-mine {
     align-self: end;
     background-color: skyblue;
+  }
+
+  @media (max-width: 1000px) {
+    width: 300px;
   }
 `;
 
