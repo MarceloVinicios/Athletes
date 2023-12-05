@@ -11,7 +11,10 @@ import {
 } from "../chat/ChatStyled";
 import { ImageProfile } from "../../components/common/Header/StyledHeader";
 import {
+  ButtonAccept,
   ButtonConnection,
+  ButtonRefuse,
+  ContainerButtonConnection,
   ContainerDataUser,
   ContainerForIfConect,
   ContainerItemUser,
@@ -29,7 +32,101 @@ import {
   GetUserOfMyConnections,
   sendRequestConnection,
   GetRequestsForMe,
+  AccptingRequest,
 } from "../../api/ConnectionApi";
+import styled from "styled-components";
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalContent = styled.div`
+  background: #2d3e46;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+`;
+
+const CloseButton = styled.button`
+  background: #ebc556;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+`;
+
+const Modal = ({ handleClose, requestConnection }) => {
+  const { user, getAccessTokenSilently } = useAuth0();
+  const { loading, request } = useFetch();
+
+  const connectionAccepted = async (id) => {
+    try {
+      const token = await getAccessTokenSilently();
+      const { url, options } = AccptingRequest(id, token);
+      const { response } = await request(url, options);
+
+      if (response.status === 200) {
+        console.log("Conexao aceita");
+      } else {
+        console.log("Conexao recusada");
+      }
+    } catch (error) {
+      console.error("Error accepting connection:", error);
+    }
+  };
+
+  return (
+    <ModalOverlay>
+      <ModalContent>
+        <ContainerList>
+          {requestConnection &&
+            requestConnection.map(
+              (dataUser) =>
+                user.sub !== dataUser.sender_id && (
+                  <ContainerItemUser key={dataUser.sender_id}>
+                    <a href={`/profile/${dataUser.sender_id}`}>
+                      <ContainerDataUser>
+                        <ImageProfile
+                          src={dataUser.sender_picture}
+                          alt="Perfil"
+                        />
+                        <ContainerOfInformation>
+                          <UserName>{dataUser.sender_name}</UserName>
+                          <span>Futebol</span>
+                        </ContainerOfInformation>
+                      </ContainerDataUser>
+                    </a>
+                    <ContainerOptionConnection>
+                      <ContainerButtonConnection>
+                        <ButtonRefuse>Recusar</ButtonRefuse>
+                        <ButtonAccept
+                          onClick={() => connectionAccepted(dataUser.sender_id)}
+                        >
+                          CONECTAR
+                        </ButtonAccept>
+                      </ContainerButtonConnection>
+                    </ContainerOptionConnection>
+                  </ContainerItemUser>
+                ),
+            )}
+        </ContainerList>
+        <CloseButton onClick={handleClose}>Fechar</CloseButton>
+      </ModalContent>
+    </ModalOverlay>
+  );
+};
 
 const Connection = () => {
   const { user, getAccessTokenSilently } = useAuth0();
@@ -84,8 +181,6 @@ const Connection = () => {
     const fetchGetRequestsForme = async () => {
       try {
         await fetchGetAllUsers();
-        await fetchGetUsersOfMyConnections();
-
         const token = await getAccessTokenSilently();
         const { url, options } = GetRequestsForMe(token);
         const { response, json } = await request(url, options);
@@ -123,6 +218,10 @@ const Connection = () => {
     }
   };
 
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
   const handleCloseModal = () => {
     setModalVisible(false);
   };
@@ -152,7 +251,7 @@ const Connection = () => {
         </ContainerListUser>
       </ContainerForUser>
       <ContainerForIfConect>
-        <RequestConnection>
+        <RequestConnection onClick={handleOpenModal}>
           <ImageNotifications
             src="src\assets\images\Notification.svg"
             alt="Notifications"
@@ -161,6 +260,14 @@ const Connection = () => {
             {requestConnection ? requestConnection.length : 0}
           </NumberRequest>
         </RequestConnection>
+
+        {isModalVisible && (
+          <Modal
+            handleClose={handleCloseModal}
+            requestConnection={requestConnection}
+          />
+        )}
+
         <ContainerList>
           {noContentState && <p>{noContentState}</p>}
           {users &&

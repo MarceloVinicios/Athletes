@@ -49,3 +49,16 @@ export function sendRequestConnection(user_recipient, token) {
     },
   };
 }
+
+export function AccptingRequest(id, token) {
+  return {
+    url: API_URL + `/connection/${id}`,
+    options: {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    },
+  };
+}
+
