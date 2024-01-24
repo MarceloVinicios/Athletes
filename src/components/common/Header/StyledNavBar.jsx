@@ -41,6 +41,11 @@ export const ListMenuNavigation = styled.ul`
   display: flex;
   flex-direction: column;
 
+  @media (max-width: 900px) {
+    top: 60px;
+    left: 130px;
+  }
+
   @media (max-width: 500px) {
     top: 60px;
     left: -30px;
@@ -58,7 +63,7 @@ export const ListMenuNavigation = styled.ul`
       display: block;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 900px) {
     a {
       display: block;
     }
