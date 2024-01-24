@@ -6,40 +6,28 @@ import { Container, List, ListNotOrdered } from "./StyledSideBar";
 import { FaUserFriends } from "react-icons/fa";
 
 const SideBar = () => {
+  const iconSize = "25px";
+  const iconColor = "#EBC556";
+
+  const sidebarItems = [
+    { to: "/feed", icon: <AiFillHome fontSize={iconSize} color={iconColor} />, label: "Início" },
+    { to: "/explore", icon: <MdTravelExplore fontSize={iconSize} color={iconColor} />, label: "Explorar" },
+    { to: "/chat", icon: <BiSolidMessageSquareDetail fontSize={iconSize} color={iconColor} />, label: "Mensagens" },
+    { to: "/connections", icon: <FaUserFriends fontSize={iconSize} color={iconColor} />, label: "Conexões" },
+    { to: "/feed/publications/likes", icon: <AiFillStar fontSize={iconSize} color={iconColor} />, label: "Gostei" },
+  ];
+
   return (
     <Container>
       <ListNotOrdered>
-        <a href="/feed">
-          <List>
-            <AiFillHome
-              href="src\pages\Feed\Feed.jsx"
-              fontSize={"25px"}
-              color={"#EBC556"}
-            />
-            Início
-          </List>
-        </a>
-        <a href="/explore">
-          <List>
-            <MdTravelExplore fontSize={"25px"} color={"#EBC556"} /> Explorar
-          </List>
-        </a>
-        <a href="/chat">
-          <List>
-            <BiSolidMessageSquareDetail fontSize={"25px"} color={"#EBC556"} />{" "}
-            Mensagens
-          </List>
-        </a>
-        <a href="/connections">
-          <List>
-            <FaUserFriends  fontSize={"25px"} color={"#EBC556"} /> Conexões
-          </List>
-        </a>
-        <a href="/feed/publications/likes">
-          <List>
-            <AiFillStar fontSize={"25px"} color={"#EBC556"} /> Gostei
-          </List>
-        </a>
+        {sidebarItems.map((item, index) => (
+          <a key={index} href={item.to}>
+            <List>
+              {item.icon}
+              {item.label}
+            </List>
+          </a>
+        ))}
       </ListNotOrdered>
     </Container>
   );
