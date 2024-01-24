@@ -3,6 +3,9 @@ import LoginButton from "../../Button/auth/LoginButton";
 import SingUp from "../../Button/auth/SingUp";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
+import { GetUser } from "../../../api/UserApi";
+import useFetch from "../../../hooks/useFetch";
+import ButtonModal from "../../ui/NewPublication/ButtonModal";
 import {
   ContainerMenu,
   ContainerUser,
@@ -18,35 +21,38 @@ import {
   NavbarLogo,
   Navigation,
 } from "./StyledNavBar";
-import ButtonModal from "../../ui/NewPublication/ButtonModal";
-import { GetUser } from "../../../api/UserApi";
-import useFetch from "../../../hooks/useFetch";
 
 const Navbar = () => {
-  const { user, isAuthenticated, isLoading, logout, getAccessTokenSilently } =
-    useAuth0();
-  const [MenuActivite, setMenuActive] = useState(false);
+  const { user, isAuthenticated, logout, getAccessTokenSilently } = useAuth0();
+  const [menuActive, setMenuActive] = useState(false);
   const [dataUser, setDataUser] = useState(null);
   const { request } = useFetch();
 
   useEffect(() => {
     async function getUserData() {
-      const token = await getAccessTokenSilently();
-      const { url, options } = GetUser(token);
-      const { response, json } = await request(url, options);
+      try {
+        const token = await getAccessTokenSilently();
+        const { url, options } = GetUser(token);
+        const { response, json } = await request(url, options);
 
-      if (response.status === 200) {
-        setDataUser(json.response);
-        localStorage.setItem("userData", JSON.stringify(json.response));
+        if (response.status === 200) {
+          setDataUser(json.response);
+          localStorage.setItem("userData", JSON.stringify(json.response));
+        }
+      } catch (error) {
+        console.error("Erro ao obter dados do usuário", error);
       }
     }
+
     const storedUserData = localStorage.getItem("userData");
 
-    if (storedUserData) {
+    if (!storedUserData) {
+      getUserData();
+    } else {
       try {
         const parsedData = JSON.parse(storedUserData);
 
-        if (parsedData && parsedData.picture) {
+        if (parsedData?.picture) {
           setDataUser(parsedData);
         } else {
           getUserData();
@@ -54,14 +60,13 @@ const Navbar = () => {
       } catch (error) {
         getUserData();
       }
-    } else {
-      getUserData();
     }
   }, [getAccessTokenSilently, request]);
 
-  if (window.location.href === "http://localhost:5173/register") {
-    return null;
-  }
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem("userData");
+  };
 
   return (
     <Header>
@@ -79,6 +84,7 @@ const Navbar = () => {
           </LinkNavigation>
         </NavbarLinks>
       </Navigation>
+
       {isAuthenticated && (
         <ContainerUser>
           <ButtonModal />
@@ -91,52 +97,27 @@ const Navbar = () => {
             <MenuActive>
               <MdKeyboardArrowDown
                 size={"20px"}
-                onClick={() => setMenuActive(!MenuActivite)}
+                onClick={() => setMenuActive(!menuActive)}
                 style={{ cursor: "pointer" }}
               />
               <nav aria-label="Primaria">
                 <ListMenuNavigation
-                  style={{ display: MenuActivite ? "block" : "none" }}
+                  style={{ display: menuActive ? "block" : "none" }}
                 >
-                  <a href={`/feed`}>
-                    <LinkNavigationMenu>
-                      Início
-                    </LinkNavigationMenu>
-                  </a>
-                  <a href={`/explore`}>
-                    <LinkNavigationMenu>
-                      Explorar
-                    </LinkNavigationMenu>
-                  </a>
-                  <a href={`/chat`}>
-                    <LinkNavigationMenu>
-                      Mensagens
-                    </LinkNavigationMenu>
-                  </a>
-                  <a href={`/connections`}>
-                    <LinkNavigationMenu>
-                      Conexões
-                    </LinkNavigationMenu>
-                  </a>
-                  <a href={`/feed/publications/likes`}>
-                    <LinkNavigationMenu>
-                      Gostei
-                    </LinkNavigationMenu>
-                  </a>
-                  <a href={`/profile/${dataUser?.id}`}>
-                    <LinkNavigationMenu>
-                      Perfil
-                    </LinkNavigationMenu>
-                  </a>
-                  <LinkNavigationMenu>
-                    <a
-                      onClick={() => {
-                        logout();
-                        localStorage.removeItem("userData");
-                      }}
-                    >
-                      Logout
+                  {[
+                    { to: "/feed", label: "Início" },
+                    { to: "/explore", label: "Explorar" },
+                    { to: "/chat", label: "Mensagens" },
+                    { to: "/connections", label: "Conexões" },
+                    { to: "/feed/publications/likes", label: "Gostei" },
+                    { to: `/profile/${dataUser?.id}`, label: "Perfil" },
+                  ].map((item, index) => (
+                    <a key={index} href={item.to}>
+                      <LinkNavigationMenu>{item.label}</LinkNavigationMenu>
                     </a>
+                  ))}
+                  <LinkNavigationMenu>
+                    <a onClick={handleLogout}>Logout</a>
                   </LinkNavigationMenu>
                 </ListMenuNavigation>
               </nav>
