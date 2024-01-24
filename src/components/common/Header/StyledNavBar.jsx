@@ -31,7 +31,7 @@ export const MenuActive = styled.div`
 
 export const ListMenuNavigation = styled.ul`
   list-style: none;
-  padding: 10px 10px;
+  padding: 10px;
   margin-right: 10px;
   border-radius: 6px;
   position: absolute;

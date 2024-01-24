@@ -74,6 +74,12 @@ export const ButtonLoading = styled.a`
   }
 `;
 
+export const ContainerUserData = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 7px;
+`
+
 export const ContainerMenu = styled.div`
   display: flex;
   align-items: center;

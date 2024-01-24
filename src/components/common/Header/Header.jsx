@@ -7,11 +7,7 @@ import { GetUser } from "../../../api/UserApi";
 import useFetch from "../../../hooks/useFetch";
 import ButtonModal from "../../ui/NewPublication/ButtonModal";
 import ImageModal from "../../ui/ImageModal";
-import {
-  ContainerUser,
-  Header,
-  ImageProfile,
-} from "./StyledHeader";
+import { ContainerUser, ContainerUserData, Header, ImageProfile } from "./StyledHeader";
 import Modal from "react-modal";
 import {
   LinkNavigation,
@@ -115,40 +111,43 @@ const Navbar = () => {
       {isAuthenticated && (
         <ContainerUser>
           <ButtonModal />
-          <ImageProfile
-            src={dataUser ? dataUser.picture : user.picture}
-            alt="Perfil"
-            onClick={() => handleImageClick(dataUser ? dataUser.picture : user.picture)}
-          />
-
-          <MenuActive ref={menuRef}>
-            <MdKeyboardArrowDown
-              size={"20px"}
-              onClick={() => setMenuActive(!menuActive)}
-              style={{ cursor: "pointer" }}
+          <ContainerUserData>
+            <ImageProfile
+              src={dataUser ? dataUser.picture : user.picture}
+              alt="Perfil"
+              onClick={() =>
+                handleImageClick(dataUser ? dataUser.picture : user.picture)
+              }
             />
-            <nav aria-label="Primaria">
-              <ListMenuNavigation
-                style={{ display: menuActive ? "block" : "none" }}
-              >
-                {[
-                  { to: "/feed", label: "Início" },
-                  { to: "/explore", label: "Explorar" },
-                  { to: "/chat", label: "Mensagens" },
-                  { to: "/connections", label: "Conexões" },
-                  { to: "/feed/publications/likes", label: "Gostei" },
-                  { to: `/profile/${dataUser?.id}`, label: "Perfil" },
-                ].map((item, index) => (
-                  <a key={index} href={item.to}>
-                    <LinkNavigationMenu>{item.label}</LinkNavigationMenu>
-                  </a>
-                ))}
-                <LinkNavigationMenu>
-                  <a onClick={handleLogout}>Logout</a>
-                </LinkNavigationMenu>
-              </ListMenuNavigation>
-            </nav>
-          </MenuActive>
+            <MenuActive ref={menuRef}>
+              <MdKeyboardArrowDown
+                size={"20px"}
+                onClick={() => setMenuActive(!menuActive)}
+                style={{ cursor: "pointer" }}
+              />
+              <nav aria-label="Primaria">
+                <ListMenuNavigation
+                  style={{ display: menuActive ? "block" : "none" }}
+                >
+                  {[
+                    { to: "/feed", label: "Início" },
+                    { to: "/explore", label: "Explorar" },
+                    { to: "/chat", label: "Mensagens" },
+                    { to: "/connections", label: "Conexões" },
+                    { to: "/feed/publications/likes", label: "Gostei" },
+                    { to: `/profile/${dataUser?.id}`, label: "Perfil" },
+                  ].map((item, index) => (
+                    <a key={index} href={item.to}>
+                      <LinkNavigationMenu>{item.label}</LinkNavigationMenu>
+                    </a>
+                  ))}
+                  <LinkNavigationMenu>
+                    <a onClick={handleLogout}>Logout</a>
+                  </LinkNavigationMenu>
+                </ListMenuNavigation>
+              </nav>
+            </MenuActive>
+          </ContainerUserData>
         </ContainerUser>
       )}
 
