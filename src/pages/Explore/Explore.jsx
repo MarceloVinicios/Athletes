@@ -5,7 +5,6 @@ import { GetAllCategory } from "../../api/CategoryApi";
 import useFetch from "../../hooks/useFetch";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../../components/helper/Loading";
-import SideBar from "../../components/SideBar/SideBar";
 
 const StyledContainerCategory = styled(ContainerCategory)`
   background-size: cover;

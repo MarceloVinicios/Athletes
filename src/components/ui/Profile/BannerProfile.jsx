@@ -20,7 +20,7 @@ import {
 } from "./StyledBannerProfile";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
-import { GetUserById } from "../../../api/UserApi";
+import { GetUser } from "../../../api/UserApi";
 import SideBar from "../../SideBar/SideBar";
 import { GetAllPublications } from "../../../api/PublicationApi";
 import Publication from "../Publication/Publication";
@@ -28,7 +28,7 @@ import ProfileStats from "./ProfileStats/ProfileStats";
 import { useParams } from "react-router-dom";
 
 const BannerProfile = () => {
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const [dataUser, setDataUser] = useState(null);
   const { loading, request } = useFetch();
   const [ChooseData, setChooseData] = useState(1);
@@ -45,21 +45,27 @@ const BannerProfile = () => {
   useEffect(() => {
     async function getUserData() {
       try {
-        const token = await getAccessTokenSilently();
-        const { url, options } = GetUserById(id, token);
-        const { response, json } = await request(url, options);
+        const storedUserData = localStorage.getItem('userData');
 
-        if (response.status === 200) {
-          setDataUser(json.response);
+        if (storedUserData) {
+          const userData = JSON.parse(storedUserData);
+          setDataUser(userData)
+        } else {
+          const token = await getAccessTokenSilently();
+          const { url, options } = GetUser(token);
+          const { response, json } = await request(url, options);
+
+          if (response.status === 200) {
+            localStorage.setItem('userData', JSON.stringify(json.response));
+          }
         }
       } catch (error) {
-        console.error("Erro ao obter dados do usuário:", error);
+        console.error('Erro ao obter dados do usuário:');
       }
     }
 
     getUserData();
   }, [getAccessTokenSilently, request, id]);
-
   useEffect(() => {
     async function fetchPublication() {
       const token = await getAccessTokenSilently();

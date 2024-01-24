@@ -39,7 +39,7 @@ const Feed = () => {
           setNoContentState("Sem conteúdo");
         }
       } catch (error) {
-        console.error("Erro ao obter publicações:", error);
+        console.error("Erro ao obter publicações");
       }
     };
 
