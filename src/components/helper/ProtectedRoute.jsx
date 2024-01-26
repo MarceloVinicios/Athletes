@@ -28,8 +28,6 @@ const ProtectedRoute = ({ children }) => {
         } catch (error) {
           console.error("Erro ao obter dados do usuário:", error);
         }
-      } else {
-        localStorage.removeItem("userData");
       }
     }
 
@@ -46,7 +44,8 @@ const ProtectedRoute = ({ children }) => {
       }
     }
 
-    getUserData();
+
+    getUserData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, getAccessTokenSilently, request]);
 
