@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container, ContainerCategory, Category } from "./StyledExplore";
 import { GetAllCategory } from "../../api/CategoryApi";
 import useFetch from "../../hooks/useFetch";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../../components/helper/Loading";
 
 const StyledContainerCategory = styled(ContainerCategory)`
@@ -15,7 +15,7 @@ const StyledContainerCategory = styled(ContainerCategory)`
 
 const Explore = () => {
   const [categoriesApi, setCategoriesApi] = useState([]);
-  const { loading, error, request } = useFetch();
+  const { loading, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -50,4 +50,6 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default withAuthenticationRequired(Explore, {
+  onRedirecting: () => <Loading />,
+});
