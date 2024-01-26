@@ -26,6 +26,7 @@ import { GetAllPublications } from "../../../api/PublicationApi";
 import Publication from "../Publication/Publication";
 import ProfileStats from "./ProfileStats/ProfileStats";
 import { useParams } from "react-router-dom";
+import ImageModal from "../../ui/ImageModal";
 
 const BannerProfile = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -35,6 +36,7 @@ const BannerProfile = () => {
   const [noContentState, setNoContentState] = useState(null);
   const [publications, setPublications] = useState(null);
   const [accesses, setAccesses] = useState(0);
+  const [isImageModalOpen, setImageModalOpen] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -45,27 +47,28 @@ const BannerProfile = () => {
   useEffect(() => {
     async function getUserData() {
       try {
-        const storedUserData = localStorage.getItem('userData');
+        const storedUserData = localStorage.getItem("userData");
 
         if (storedUserData) {
           const userData = JSON.parse(storedUserData);
-          setDataUser(userData)
+          setDataUser(userData);
         } else {
           const token = await getAccessTokenSilently();
           const { url, options } = GetUser(token);
           const { response, json } = await request(url, options);
 
           if (response.status === 200) {
-            localStorage.setItem('userData', JSON.stringify(json.response));
+            localStorage.setItem("userData", JSON.stringify(json.response));
           }
         }
       } catch (error) {
-        console.error('Erro ao obter dados do usuário:');
+        console.error("Erro ao obter dados do usuário:");
       }
     }
 
     getUserData();
   }, [getAccessTokenSilently, request, id]);
+
   useEffect(() => {
     async function fetchPublication() {
       const token = await getAccessTokenSilently();
@@ -86,6 +89,10 @@ const BannerProfile = () => {
     }
   }, [ChooseData, getAccessTokenSilently, request]);
 
+  const handleImageClick = () => {
+    setImageModalOpen(true);
+  };
+
   if (loading) {
     return null;
   }
@@ -102,7 +109,7 @@ const BannerProfile = () => {
           <ContainerOne>
             {dataUser && (
               <ContainerDataUser>
-                <AvatarProfile src={dataUser.picture} alt="Perfil" />
+                <AvatarProfile src={dataUser.picture} alt="Perfil" onClick={handleImageClick}/>
                 <Name>{dataUser.name}</Name>
               </ContainerDataUser>
             )}
@@ -127,7 +134,7 @@ const BannerProfile = () => {
               <img
                 src="http://localhost:5173/src/assets/images/Esta.svg"
                 alt="Publicações"
-                style={{marginTop: "9px"}}
+                style={{ marginTop: "9px" }}
               />
               Estatísticas
             </ListItemProfile>
@@ -164,6 +171,13 @@ const BannerProfile = () => {
           </ContainerPublications>
         </ProfileCard>
       </ProfileContainer>
+      {dataUser && (
+        <ImageModal
+          isOpen={isImageModalOpen}
+          onRequestClose={() => setImageModalOpen(false)}
+          imageUrl={dataUser.picture}
+        />
+      )}
     </Container>
   );
 };

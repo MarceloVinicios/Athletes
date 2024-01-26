@@ -66,6 +66,7 @@ export const AvatarProfile = styled.img`
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
+  cursor: pointer;
 
   @media (max-width: 450px) {
     width: 100px;

@@ -91,4 +91,5 @@ export const ImageProfile = styled.img`
   max-height: 50px;
   min-height: 50px;
   border-radius: 50%;
+  cursor: pointer;
 `;

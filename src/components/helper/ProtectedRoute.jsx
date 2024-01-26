@@ -6,27 +6,31 @@ import { GetUser } from "../../api/UserApi";
 import Loading from "./Loading";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, user, isLoading } = useAuth0();
   const { loading, request } = useFetch();
   const [dataUser, setDataUser] = useState(null);
 
   useEffect(() => {
     async function getUserData() {
-      if (isAuthenticated) {
-        try {
-          const storedUserData = localStorage.getItem("userData");
-          if (!storedUserData) {
-            await getUserAPI();
-          } else {
-            const parsedUserData = JSON.parse(storedUserData);
-            setDataUser(parsedUserData);
-            if (parsedUserData && user.email !== parsedUserData.email) {
-              localStorage.removeItem("userData");
+      if (!isLoading) {
+        if (isAuthenticated) {
+          try {
+            const storedUserData = localStorage.getItem("userData");
+            if (!storedUserData) {
               await getUserAPI();
+            } else {
+              const parsedUserData = JSON.parse(storedUserData);
+              setDataUser(parsedUserData);
+              if (parsedUserData && user.email !== parsedUserData.email) {
+                localStorage.removeItem("userData");
+                await getUserAPI();
+              }
             }
+          } catch (error) {
+            console.error("Erro ao obter dados do usuário");
           }
-        } catch (error) {
-          console.error("Erro ao obter dados do usuário:", error);
+        } else {
+          localStorage.removeItem("userData");
         }
       }
     }
@@ -49,7 +53,7 @@ const ProtectedRoute = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, getAccessTokenSilently, request]);
 
-  if (loading) {
+  if (isLoading || loading) {
     return <Loading />;
   }
 
