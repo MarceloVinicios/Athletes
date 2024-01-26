@@ -3,19 +3,17 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { GetUser } from "../../api/UserApi";
-import Cookies from "js-cookie";
 import Loading from "./Loading";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const { loading, request } = useFetch();
   const [dataUser, setDataUser] = useState(null);
-  const [isAuthenticationChecked, setIsAuthenticationChecked] = useState(false);
 
   useEffect(() => {
     async function getUserData() {
-      try {
-        if (isAuthenticated) {
+      if (isAuthenticated) {
+        try {
           const storedUserData = localStorage.getItem("userData");
           if (!storedUserData) {
             await getUserAPI();
@@ -27,11 +25,11 @@ const ProtectedRoute = ({ children }) => {
               await getUserAPI();
             }
           }
+        } catch (error) {
+          console.error("Erro ao obter dados do usuário:", error);
         }
-        setIsAuthenticationChecked(true);
-      } catch (error) {
-        console.error("Erro ao obter dados do usuário:", error);
-        setIsAuthenticationChecked(true);
+      } else {
+        localStorage.removeItem("userData");
       }
     }
 
@@ -49,10 +47,10 @@ const ProtectedRoute = ({ children }) => {
     }
 
     getUserData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, getAccessTokenSilently, request]);
 
-  if (!isAuthenticationChecked || loading) {
+  if (loading) {
     return <Loading />;
   }
 

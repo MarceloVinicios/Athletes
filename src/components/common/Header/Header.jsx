@@ -49,23 +49,24 @@ const Navbar = () => {
     }
 
     const storedUserData = localStorage.getItem("userData");
+    if (isAuthenticated) {
+      if (!storedUserData) {
+        getUserData();
+      } else {
+        try {
+          const parsedData = JSON.parse(storedUserData);
 
-    if (!storedUserData) {
-      getUserData();
-    } else {
-      try {
-        const parsedData = JSON.parse(storedUserData);
-
-        if (parsedData?.picture) {
-          setDataUser(parsedData);
-        } else {
+          if (parsedData?.picture) {
+            setDataUser(parsedData);
+          } else {
+            getUserData();
+          }
+        } catch (error) {
           getUserData();
         }
-      } catch (error) {
-        getUserData();
       }
     }
-  }, [getAccessTokenSilently, request]);
+  }, [getAccessTokenSilently, request, isAuthenticated]);
 
   const handleLogout = () => {
     logout();
