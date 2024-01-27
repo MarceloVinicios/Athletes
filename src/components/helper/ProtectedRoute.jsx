@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { GetUser } from "../../api/UserApi";
+import { GetUserById } from "../../api/UserApi";
 import Loading from "./Loading";
 
 const ProtectedRoute = ({ children }) => {
@@ -37,7 +37,7 @@ const ProtectedRoute = ({ children }) => {
 
     async function getUserAPI() {
       const token = await getAccessTokenSilently();
-      const { url, options } = GetUser(token);
+      const { url, options } = GetUserById(user.sub, token);
       const { response } = await request(url, options);
 
       if (response.status === 200) {

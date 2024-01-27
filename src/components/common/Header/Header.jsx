@@ -3,7 +3,7 @@ import LoginButton from "../../Button/auth/LoginButton";
 import SingUp from "../../Button/auth/SingUp";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
-import { GetUser } from "../../../api/UserApi";
+import { GetUserById } from "../../../api/UserApi";
 import useFetch from "../../../hooks/useFetch";
 import ButtonModal from "../../ui/NewPublication/ButtonModal";
 import ImageModal from "../../ui/ImageModal";
@@ -36,7 +36,7 @@ const Navbar = () => {
     async function getUserData() {
       try {
         const token = await getAccessTokenSilently();
-        const { url, options } = GetUser(token);
+        const { url, options } = GetUserById(user.sub, token);
         const { response, json } = await request(url, options);
 
         if (response.status === 200) {

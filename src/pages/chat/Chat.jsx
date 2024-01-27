@@ -12,20 +12,21 @@ import {
   Search,
   UserName,
 } from "./ChatStyled";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
-import { GetUser } from "../../api/UserApi";
+import { GetUserById } from "../../api/UserApi";
 import { ImageProfile } from "../../components/common/Header/StyledHeader";
 import io from "socket.io-client";
 import ChatMessage from "../../components/ui/ChatMessage/ChatMessage";
 import { GetUserOfMyConnections } from "../../api/ConnectionApi";
+import Loading from "../../components/helper/Loading";
 
 const Chat = () => {
   const [socket, setSocket] = useState(null);
   const { user, getAccessTokenSilently } = useAuth0();
-  const { loading, error, request } = useFetch();
+  const { request } = useFetch();
   const [users, setUsers] = useState(null);
-  const [noContentState, setNoContentState] = useState(null);
+  const [ setNoContentState ] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [dataUserMessage, setDataUserMessage] = useState(null);
 
@@ -47,7 +48,7 @@ const Chat = () => {
     async function getUserDataMessage() {
       await fetchGetAllUsers();
       const token = await getAccessTokenSilently();
-      const { url, options } = GetUser(token);
+      const { url, options } = GetUserById(user.sub, token);
       const { response, json } = await request(url, options);
 
       if (response.status === 200) {
@@ -116,4 +117,6 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default withAuthenticationRequired(Chat, {
+  onRedirecting: () => <Loading />,
+});

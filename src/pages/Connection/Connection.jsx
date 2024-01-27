@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/helper/Loading";
 import {
@@ -136,7 +136,7 @@ const Connection = () => {
   const [myConnections, setMyConnections] = useState(null);
   const [noContentConnections, setNoContentConnections] = useState(null);
   const [requestConnection, setRequestConnection] = useState(null);
-  const [requestsForMeNumber, setRequestsForMeNumber] = useState(null);
+  const [ setRequestsForMeNumber] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -300,4 +300,7 @@ const Connection = () => {
   );
 };
 
-export default Connection;
+export default withAuthenticationRequired(Connection, {
+  onRedirecting: () => <Loading />,
+});
+

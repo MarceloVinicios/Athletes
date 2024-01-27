@@ -24,18 +24,6 @@ export function GetAllUsers(token) {
   };
 }
 
-export function GetUser(token) {
-  return {
-    url: API_URL + `/user`,
-    options: {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    },
-  };
-}
-
 export function GetUserById(id, token) {
   return {
     url: API_URL + `/user/${id}`,
