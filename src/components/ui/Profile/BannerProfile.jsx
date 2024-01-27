@@ -20,7 +20,7 @@ import {
 } from "./StyledBannerProfile";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
-import { GetUser } from "../../../api/UserApi";
+import { GetUserById } from "../../../api/UserApi";
 import SideBar from "../../SideBar/SideBar";
 import { GetAllPublications } from "../../../api/PublicationApi";
 import Publication from "../Publication/Publication";
@@ -29,7 +29,7 @@ import { useParams } from "react-router-dom";
 import ImageModal from "../../ui/ImageModal";
 
 const BannerProfile = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user, isLoading } = useAuth0();
   const [dataUser, setDataUser] = useState(null);
   const { loading, request } = useFetch();
   const [ChooseData, setChooseData] = useState(1);
@@ -46,28 +46,46 @@ const BannerProfile = () => {
 
   useEffect(() => {
     async function getUserData() {
-      try {
+      if (!isLoading) {
         const storedUserData = localStorage.getItem("userData");
-
         if (storedUserData) {
           const userData = JSON.parse(storedUserData);
-          setDataUser(userData);
-        } else {
-          const token = await getAccessTokenSilently();
-          const { url, options } = GetUser(token);
-          const { response, json } = await request(url, options);
-
-          if (response.status === 200) {
-            localStorage.setItem("userData", JSON.stringify(json.response));
+          if (user.sub == id) {
+            setDataUser(userData);
+          } else {
+            getUserApi();
           }
+        } else {
+          getUserApi();
         }
-      } catch (error) {
-        console.error("Erro ao obter dados do usuário:");
+      }
+    }
+
+    async function getUserApi() {
+      const token = await getAccessTokenSilently();
+      const { url, options } = GetUserById(id, token);
+      const { response, json } = await request(url, options);
+
+      if (response.status === 200) {
+        if (user.id == json.response.id) {
+          localStorage.setItem("userData", JSON.stringify(json.response));
+          setDataUser(json.response);
+        } else {
+          setDataUser(json.response);
+        }
       }
     }
 
     getUserData();
-  }, [getAccessTokenSilently, request, id]);
+  }, [
+    getAccessTokenSilently,
+    request,
+    id,
+    isLoading,
+    user.email,
+    user.sub,
+    user.id,
+  ]);
 
   useEffect(() => {
     async function fetchPublication() {
@@ -93,7 +111,7 @@ const BannerProfile = () => {
     setImageModalOpen(true);
   };
 
-  if (loading) {
+  if (isLoading || loading) {
     return null;
   }
 
@@ -109,7 +127,11 @@ const BannerProfile = () => {
           <ContainerOne>
             {dataUser && (
               <ContainerDataUser>
-                <AvatarProfile src={dataUser.picture} alt="Perfil" onClick={handleImageClick}/>
+                <AvatarProfile
+                  src={dataUser.picture}
+                  alt="Perfil"
+                  onClick={handleImageClick}
+                />
                 <Name>{dataUser.name}</Name>
               </ContainerDataUser>
             )}

@@ -36,6 +36,18 @@ export function GetUser(token) {
   };
 }
 
+export function GetUserById(id, token) {
+  return {
+    url: API_URL + `/user/${id}`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    },
+  };
+}
+
 export function PostUser(body, token) {
   return {
     url: API_URL + '/user',
