@@ -18,7 +18,7 @@ const SideBar = () => {
   ];
 
   return (
-    <Container>
+    <Container style={{paddingTop: '100px'}}>
       <ListNotOrdered>
         {sidebarItems.map((item, index) => (
           <a key={index} href={item.to}>

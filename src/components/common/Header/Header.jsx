@@ -1,15 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import LoginButton from "../../Button/auth/LoginButton";
 import SingUp from "../../Button/auth/SingUp";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAuth0 } from "@auth0/auth0-react";
-import { GetUserById } from "../../../api/UserApi";
 import useFetch from "../../../hooks/useFetch";
 import ButtonModal from "../../ui/NewPublication/ButtonModal";
 import ImageModal from "../../ui/ImageModal";
-import { ContainerUser, ContainerUserData, Header, ImageProfile } from "./StyledHeader";
-import Modal from "react-modal";
 import {
+  ContainerUser,
+  ContainerUserData,
+  Header,
+  ImageProfile,
   LinkNavigation,
   LinkNavigationMenu,
   ListMenuNavigation,
@@ -17,56 +18,23 @@ import {
   NavbarLinks,
   NavbarLogo,
   Navigation,
-} from "./StyledNavBar";
+} from "./StyledHeader";
+import Modal from "react-modal";
+import { UserContext } from "../../../Context/UserContext";
 
 Modal.setAppElement("#root");
 
 const Navbar = () => {
   const { user, isAuthenticated, logout, getAccessTokenSilently } = useAuth0();
   const [menuActive, setMenuActive] = useState(false);
-  const [dataUser, setDataUser] = useState(null);
+  const { dataUser } = useContext(UserContext);
   const { request } = useFetch();
-
   const menuRef = useRef(null);
 
   const [isImageModalOpen, setImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  useEffect(() => {
-    async function getUserData() {
-      try {
-        const token = await getAccessTokenSilently();
-        const { url, options } = GetUserById(user.sub, token);
-        const { response, json } = await request(url, options);
-
-        if (response.status === 200) {
-          setDataUser(json.response);
-          localStorage.setItem("userData", JSON.stringify(json.response));
-        }
-      } catch (error) {
-        console.error("Erro ao obter dados do usuário", error);
-      }
-    }
-
-    const storedUserData = localStorage.getItem("userData");
-    if (isAuthenticated) {
-      if (!storedUserData) {
-        getUserData();
-      } else {
-        try {
-          const parsedData = JSON.parse(storedUserData);
-
-          if (parsedData?.picture) {
-            setDataUser(parsedData);
-          } else {
-            getUserData();
-          }
-        } catch (error) {
-          getUserData();
-        }
-      }
-    }
-  }, [getAccessTokenSilently, request, isAuthenticated]);
+  useEffect(() => {}, [getAccessTokenSilently, request, isAuthenticated]);
 
   const handleLogout = () => {
     logout();

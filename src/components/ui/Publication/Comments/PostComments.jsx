@@ -1,13 +1,15 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { PostInput } from './StyleComment'
 import { useAuth0 } from '@auth0/auth0-react';
 import useFetch from '../../../../hooks/useFetch';
 import { PostComment } from '../../../../api/CommentApi';
+import { PublicationContext } from '../../../../Context/PublicationContext';
 
-const PostComments = ({publicationId, reloadCommentsList}) => {
+const PostComments = ({publicationId}) => {
   const [valueComment, setValueComment] = useState("");
   const { getAccessTokenSilently } = useAuth0();
   const { request } = useFetch();
+  const {reloadCommentsList} = useContext(PublicationContext);
 
   async function saveComment(event) {
     event.preventDefault();

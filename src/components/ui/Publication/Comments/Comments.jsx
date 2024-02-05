@@ -9,7 +9,7 @@ import ErrorComment from "../../../helper/ErrorComment";
 import PostComments from "./PostComments";
 import { Skeleton } from "@chakra-ui/react";
 import CommentListOfPublication from "./CommentsList";
-import FeedContext from "../../../../pages/Feed/FeedContext";
+import { PublicationContext } from "../../../../Context/PublicationContext";
 
 const CommentsList = ({ publicationId }) => {
   const { getAccessTokenSilently } = useAuth0();
@@ -17,7 +17,7 @@ const CommentsList = ({ publicationId }) => {
   const [comments, setComments] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
 
-  const dataContextComent = useContext(FeedContext);
+  const {reloadCommentsList} = useContext(PublicationContext);
 
   useEffect(() => {
     async function commentsList() {
@@ -37,16 +37,12 @@ const CommentsList = ({ publicationId }) => {
     }
     commentsList();
   }, [
-    dataContextComent.reloadComments,
+    reloadCommentsList,
     getAccessTokenSilently,
     request,
     publicationId,
     noContentState,
   ]);
-
-  function reloadCommentsList() {
-    dataContextComent.reloadCommentsList();
-  }
 
   if (loading) {
     return (
@@ -68,7 +64,6 @@ const CommentsList = ({ publicationId }) => {
       <ContainerComments>
         <PostComments
           publicationId={publicationId}
-          reloadCommentsList={reloadCommentsList}
         />
         {noContentState && (
           <ContainerComments>

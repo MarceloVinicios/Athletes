@@ -1,55 +1,37 @@
 import styled from "styled-components";
 
-export const ContainerModal = styled.div`
+export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const Container = styled.div`
-  position: fixed;
-  width: 80%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+export const ModalContainer = styled.div`
   background-color: #1c2c33;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: -1;
 `;
-export const Title = styled.h1`
+
+export const ModalTitle = styled.h1`
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
 `;
 
-export const ContainerButton = styled.div`
-  padding: 40px;
+export const ButtonContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
+  justify-content: space-around;
+  margin-top: 20px;
 `;
 
-export const ButtonCancel = styled.button`
-  font-weight: bold;
-  padding: 10px 20px;
-  border: 1px solid #ffffff6f;
-  border-radius: 9px;
-  cursor: pointer;
-
-  &:hover {
-    transition: 0.3s;
-    background-color: #bbbbbb42;
-  }
-`;
-
-export const ButtonDeleteModal = styled.button`
+export const ConfirmButton = styled.button`
   background-color: #ff3535;
   color: #ffffff;
   border: 1px solid #ffffff86;
@@ -59,7 +41,18 @@ export const ButtonDeleteModal = styled.button`
   cursor: pointer;
 
   &:hover {
-    transition: 0.3s;
     background-color: #ff353547;
+  }
+`;
+
+export const CancelButton = styled.button`
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 1px solid #ffffff6f;
+  border-radius: 9px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #bbbbbb42;
   }
 `;

@@ -1,39 +1,39 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useParams } from 'react-router-dom';
-import Publication from '../Publication/Publication';
-import { Main } from "../../../pages/Apresentation/StyledHome";
-import SideBar from '../../SideBar/SideBar';
-import { ContainerPublication, NoContent } from '../../../pages/Feed/StyledFeed';
-import Loading from '../../helper/Loading';
-import useFetch from '../../../hooks/useFetch';
-import { GetAllPublicationsByCategory } from '../../../api/PublicationApi';
-import { PublicationContext } from '../../../Context/PublicationContext';
+import React, { useContext, useEffect, useState } from "react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { GetAllPublications } from "../../api/PublicationApi";
+import useFetch from "../../hooks/useFetch";
+import Loading from "../../components/helper/Loading";
+import Publication from "../../components/ui/Publication/Publication";
+import { ContainerPublication, NoContent } from "../Feed/StyledFeed";
+import { Main } from "../Apresentation/StyledHome";
+import { PublicationContext } from "../../Context/PublicationContext";
 
-const ListPublicationByCategory = () => {
-  const { getAccessTokenSilently } = useAuth0();
+const PublicationLikes = () => {
+  const { user, getAccessTokenSilently } = useAuth0();
   const { loading, request } = useFetch();
   const [publications, setPublications] = useState(null);
   const [noContentState, setNoContentState] = useState(null);
-  const { idCategory } = useParams();
   const {reload} = useContext(PublicationContext)
 
   useEffect(() => {
-    async function fetchPulication() {
+    const fetchUserLikedPublications = async () => {
       const token = await getAccessTokenSilently();
-      const { url, options } = GetAllPublicationsByCategory(Number(idCategory), token);
+      const { url, options } = GetAllPublications(token);
       const { response, json } = await request(url, options);
 
       if (response.status === 200) {
-        setPublications(json.publicationData);
-      }
+        const likedPublications = json.publicationData.filter((publication) =>
+          publication.likes.some((like) => like.user_id === user.sub),
+        );
 
-      if (response.status === 204) {
-        setNoContentState("Sem conteúdo");
+        setPublications(likedPublications);
+      } else {
+        setNoContentState("Sem publicações curtidas");
       }
-    }
-    fetchPulication();
-  }, [getAccessTokenSilently, request, idCategory, reload]);
+    };
+
+    fetchUserLikedPublications();
+  }, [request, getAccessTokenSilently, user.sub, reload]);
 
   if (loading) {
     return <Loading />;
@@ -41,7 +41,6 @@ const ListPublicationByCategory = () => {
 
   return (
     <Main>
-      <SideBar />
       <ContainerPublication>
         {noContentState && (
           <NoContent>
@@ -68,4 +67,6 @@ const ListPublicationByCategory = () => {
   );
 };
 
-export default ListPublicationByCategory;
+export default withAuthenticationRequired(PublicationLikes, {
+  onRedirecting: () => <Loading />,
+});

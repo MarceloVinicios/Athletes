@@ -16,7 +16,7 @@ import { NameUser } from "../StyledPublication";
 import ButtonDenunciar from "../../../Button/ButtonDenunciar";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth0 } from "@auth0/auth0-react";
-import ButtonDelete from "../../../Button/ButtonDelete";
+import ButtonDeleteComment from "../../../Button/ButtonDeleteComment";
 
 const CommentsList = ({ comments }) => {
   const { user } = useAuth0();
@@ -44,7 +44,8 @@ const CommentsList = ({ comments }) => {
                 src={comment.user.picture}
                 alt={comment.user.name}
                 borderRadius="full"
-                width="100000px" height="50px"
+                width="100000px"
+                height="50px"
               />
             </Avatar>
             <div>
@@ -69,12 +70,8 @@ const CommentsList = ({ comments }) => {
                     <PopoverArrow />
                     <PopoverBody>
                       <Stack>
-                        <ButtonDenunciar />
                         {user.sub == comment.user.id ? (
-                          <ButtonDelete
-                            id={comment.id}
-                            urls={"comment"}
-                          />
+                          <ButtonDeleteComment id={comment.id} />
                         ) : (
                           <ButtonDenunciar />
                         )}

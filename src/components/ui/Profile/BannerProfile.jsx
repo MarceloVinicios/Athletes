@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import {
   ProfileContainer,
   ProfileCard,
@@ -21,16 +22,20 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
 import { GetUserById } from "../../../api/UserApi";
-import SideBar from "../../SideBar/SideBar";
 import { GetAllPublications } from "../../../api/PublicationApi";
 import Publication from "../Publication/Publication";
 import ProfileStats from "./ProfileStats/ProfileStats";
 import { useParams } from "react-router-dom";
 import ImageModal from "../../ui/ImageModal";
+import { UserContext } from "../../../Context/UserContext";
+import Loading from "../../helper/Loading";
+import { PublicationContext } from "../../../Context/PublicationContext";
 
 const BannerProfile = () => {
   const { getAccessTokenSilently, user, isLoading } = useAuth0();
-  const [dataUser, setDataUser] = useState(null);
+  const [dataUserProfile, setDataUserProfile] = useState(null);
+  const { dataUser } = useContext(UserContext);
+  const {reload} = useContext(PublicationContext)
   const { loading, request } = useFetch();
   const [ChooseData, setChooseData] = useState(1);
   const [noContentState, setNoContentState] = useState(null);
@@ -41,20 +46,13 @@ const BannerProfile = () => {
 
   useEffect(() => {
     setAccesses(accesses + 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     async function getUserData() {
       if (!isLoading) {
-        const storedUserData = localStorage.getItem("userData");
-        if (storedUserData) {
-          const userData = JSON.parse(storedUserData);
-          if (user.sub == id) {
-            setDataUser(userData);
-          } else {
-            getUserApi();
-          }
+        if (user.sub == id) {
+          setDataUserProfile(dataUser);
         } else {
           getUserApi();
         }
@@ -67,24 +65,20 @@ const BannerProfile = () => {
       const { response, json } = await request(url, options);
 
       if (response.status === 200) {
-        if (user.id == json.response.id) {
-          localStorage.setItem("userData", JSON.stringify(json.response));
-          setDataUser(json.response);
-        } else {
-          setDataUser(json.response);
-        }
+        setDataUserProfile(json.response);
+      } else {
+        setDataUserProfile(false)
       }
     }
 
     getUserData();
   }, [
+    dataUser,
     getAccessTokenSilently,
-    request,
     id,
     isLoading,
-    user.email,
-    user.sub,
-    user.id,
+    request,
+    user.sub
   ]);
 
   useEffect(() => {
@@ -105,19 +99,18 @@ const BannerProfile = () => {
     if (ChooseData === 1) {
       fetchPublication();
     }
-  }, [ChooseData, getAccessTokenSilently, request]);
+  }, [reload, getAccessTokenSilently, request]);
 
   const handleImageClick = () => {
     setImageModalOpen(true);
   };
 
   if (isLoading || loading) {
-    return null;
+    return <Loading />;
   }
 
   return (
     <Container>
-      <SideBar />
       <ProfileContainer>
         <ProfileCard>
           <ProfileImage
@@ -125,23 +118,25 @@ const BannerProfile = () => {
             alt="plano de fundo"
           />
           <ContainerOne>
-            {dataUser && (
+            {dataUserProfile && (
               <ContainerDataUser>
                 <AvatarProfile
-                  src={dataUser.picture}
+                  src={dataUserProfile.picture}
                   alt="Perfil"
                   onClick={handleImageClick}
                 />
-                <Name>{dataUser.name}</Name>
+                <Name>{dataUserProfile.name}</Name>
               </ContainerDataUser>
             )}
-            {dataUser && dataUser.category && dataUser.category[0] && (
-              <SportUser>{dataUser.category[0].category}</SportUser>
-            )}
+            {dataUserProfile &&
+              dataUserProfile.category &&
+              dataUserProfile.category[0] && (
+                <SportUser>{dataUserProfile.category[0].category}</SportUser>
+              )}
           </ContainerOne>
           <ContainerGoal>
             <SubTitleGoal>Objetivo:</SubTitleGoal>
-            <Goal>{dataUser && dataUser.goal}</Goal>
+            <Goal>{dataUserProfile && dataUserProfile.goal}</Goal>
           </ContainerGoal>
           <Line />
           <ListNoOrderContentProfile>
@@ -193,11 +188,11 @@ const BannerProfile = () => {
           </ContainerPublications>
         </ProfileCard>
       </ProfileContainer>
-      {dataUser && (
+      {dataUserProfile && (
         <ImageModal
           isOpen={isImageModalOpen}
           onRequestClose={() => setImageModalOpen(false)}
-          imageUrl={dataUser.picture}
+          imageUrl={dataUserProfile.picture}
         />
       )}
     </Container>

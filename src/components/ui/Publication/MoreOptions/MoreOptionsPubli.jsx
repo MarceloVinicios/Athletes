@@ -1,3 +1,6 @@
+// MoreOptionsPubli.jsx
+
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   Popover,
@@ -13,13 +16,23 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ButtonDenunciar from "../../../Button/ButtonDenunciar";
 import ButtonCopy from "../../../Button/ButtonCopy";
-import ButtonDelete from "../../../Button/ButtonDelete";
+import ButtonDeletePublication from "../../../Button/ButtonDeletePublication";
+import ButtonDeletePublicationModal from "../../../helper/ButtonDeletePublicationModal";
 
 export default function MoreOptionsPubli({
   userId,
   idPublication
 }) {
   const { user } = useAuth0();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteButtonClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
 
   return (
     <Flex justifyContent="center" mt={4}>
@@ -37,10 +50,11 @@ export default function MoreOptionsPubli({
           <PopoverBody>
             <Stack>
               <ButtonCopy idPublication={idPublication}/>
-              {user.sub == userId ? (
-                <ButtonDelete
+              {user.sub === userId ? (
+                <ButtonDeletePublication
                   id={idPublication}
                   urls={"publication"}
+                  onOpenDeleteModal={handleDeleteButtonClick}
                 />
               ) : (
                 <ButtonDenunciar />
@@ -49,6 +63,12 @@ export default function MoreOptionsPubli({
           </PopoverBody>
         </PopoverContent>
       </Popover>
+      {showDeleteModal && (
+        <ButtonDeletePublicationModal
+          id={idPublication}
+          onCloseDeleteModal={handleCloseDeleteModal}
+        />
+      )}
     </Flex>
   );
 }

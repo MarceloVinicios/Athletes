@@ -75,6 +75,10 @@ export const TimePublication = styled.span`
   font-size: 0.8em;
   padding-top: 12px;
   padding-right: 20px;
+
+  @media (max-width: 400px) {
+    display: none;
+  }
 `;
 
 export const ContainerButton = styled.div`

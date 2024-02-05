@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import "./StyleVideo.css";
+
 const VideoPlayer = ({ media }) => {
   const videoRef = useRef(null);
 
@@ -28,12 +29,12 @@ const VideoPlayer = ({ media }) => {
   }, [media]);
 
   return (
-    <div className="container">
+    <div className="container" style={{ position: "relative", paddingBottom: "56.25%", height: "500px" }}>
       <video
         ref={videoRef}
-        style={{ minWidth: "100%", maxHeight: "500px" }}
-        className="video-js vjs-custom-theme"
+        className="video-js vjs-custom-theme vjs-big-play-centered"
         playsInline
+        style={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%" }}
       ></video>
     </div>
   );

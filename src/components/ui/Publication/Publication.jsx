@@ -74,14 +74,14 @@ const Publication = ({
           </Avatar>
         </a>
         <a href={`/profile/${userId}`}>
-          <NameUser>{nameUser}</NameUser>
+          <NameUser>{nameUser.slice(0, 7)}</NameUser>
         </a>
         <ContainerInformation>
           <TimePublication>
             {formatDistanceToNow(new Date(publication_at), {
               addSuffix: true,
               locale: pt,
-            })}
+            }).replace("aproximadamente", "")}
           </TimePublication>
           <MoreOptionsPubli userId={userId} idPublication={publicationId} />
         </ContainerInformation>

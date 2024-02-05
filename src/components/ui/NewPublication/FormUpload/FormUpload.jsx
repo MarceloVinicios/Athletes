@@ -21,6 +21,7 @@ import useFetch from "../../../../hooks/useFetch";
 import {LoadingContainer} from "../../../helper/LoadingContainer";
 import Successfully from "../../../helper/Successfully";
 import { GetAllCategory } from "../../../../api/CategoryApi";
+import { PublicationContext } from "../../../../Context/PublicationContext";
 
 const FormUpload = () => {
   const [successfully, setSuccessfully] = useState(false);
@@ -29,8 +30,9 @@ const FormUpload = () => {
   const [preview, setPreview] = useState(null);
   const [categoryResponse, setCategoryResponse] = useState(1);
   const [categoriesApi, setCategoriesApi] = useState([]);
-  const { loading, error, request } = useFetch();
+  const { loading, request } = useFetch();
   const { getAccessTokenSilently } = useAuth0();
+  const {reloadPublications} = useContext(PublicationContext)
 
   const handleFileChange = ({ target }) => {
     const selectedFile = target.files[0];
@@ -71,6 +73,7 @@ const FormUpload = () => {
       const { response } = await request(url, options);
       if (response.status === 201) {
         setSuccessfully(true);
+        reloadPublications();
       }
     }
   };
@@ -144,7 +147,7 @@ const FormUpload = () => {
             rows="4"
             cols="50"
           ></DescriptionArea>
-          {file && (
+          {file && !loading &&(
             <CustomButton onClick={handleUpload}>Enviar Arquivo</CustomButton>
           )}
         </DescriptionContainer>
