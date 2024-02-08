@@ -1,14 +1,13 @@
 import React from 'react'
 import BannerProfile from '../../components/ui/Profile/BannerProfile'
-import { Container } from '../Profile/StyledProfile'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import Loading from '../../components/helper/Loading'
 
 function Profile() {
   return (
-    <Container>
+    <>
       <BannerProfile />
-    </Container>
+    </>
   )
 }
 

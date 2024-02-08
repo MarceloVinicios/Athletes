@@ -8,7 +8,6 @@ import {
   SportUser,
   ContainerDataUser,
   ContainerOne,
-  Container,
   ContainerGoal,
   Goal,
   SubTitleGoal,
@@ -110,7 +109,7 @@ const BannerProfile = () => {
   }
 
   return (
-    <Container>
+    <>
       <ProfileContainer>
         <ProfileCard>
           <ProfileImage
@@ -195,7 +194,7 @@ const BannerProfile = () => {
           imageUrl={dataUserProfile.picture}
         />
       )}
-    </Container>
+    </>
   );
 };
 

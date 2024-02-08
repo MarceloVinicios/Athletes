@@ -17,13 +17,15 @@ export const UserStorage = ({children}) => {
     async function getUserData() {
       if (!isLoading) {
         if (isAuthenticated) {
-            if (wasDataUser === false) {
-              const response = await getUserAPI();
-              if (response === false) {
-                setWasDataUser(false)
-                navigate("/register")
-              } else {
-                setWasDataUser(response)
+            if (!dataUser) {
+              if (wasDataUser === false) {
+                const response = await getUserAPI();
+                if (response === false) {
+                  setWasDataUser(false)
+                  navigate("/register")
+                } else {
+                  setWasDataUser(true)
+                }
               }
             }
         } else {

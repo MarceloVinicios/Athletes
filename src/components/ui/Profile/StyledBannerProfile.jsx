@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
-
 export const ProfileContainer = styled.div`
-  padding: 0 20px;
+  padding: 90px 20px 0 20px;
   display: flex;
   justify-content: center;
   align-items: center;

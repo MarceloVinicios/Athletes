@@ -28,13 +28,10 @@ const Navbar = () => {
   const { user, isAuthenticated, logout, getAccessTokenSilently } = useAuth0();
   const [menuActive, setMenuActive] = useState(false);
   const { dataUser } = useContext(UserContext);
-  const { request } = useFetch();
   const menuRef = useRef(null);
 
   const [isImageModalOpen, setImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
-  useEffect(() => {}, [getAccessTokenSilently, request, isAuthenticated]);
 
   const handleLogout = () => {
     logout();

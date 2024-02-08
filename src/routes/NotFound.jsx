@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from "styled-components";
-import Loading from '../components/helper/Loading';
 
 const Main = styled.main`
   background-color: #24292f;

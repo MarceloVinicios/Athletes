@@ -1,46 +1,23 @@
 import styled from "styled-components";
 
-export const SubTitleConnections = styled.h2`
-  margin-left: 37px;
-  font-size: 1.4rem;
-`;
-
-export const RequestConnection = styled.div`
-  position: absolute;
-  right: 50px;
-  display: flex;
-  align-items: end;
-  gap: 4px;
-  cursor: pointer;
-`;
-
-export const NoConnection = styled.span`
-  font-size: 1.2rem;
-  text-align: center;
-`;
-
-export const ImageNotifications = styled.img`
-  width: 40px;
-`;
-
-export const NumberRequest = styled.span`
-  font-size: 1.2rem;
-  color: #ebc556;
-`;
+export const Container = styled.div`
+`
 
 export const ContainerForIfConect = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
   margin-top: 10px;
+  padding-top: 70px;
 `;
 
 export const ContainerList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 40px 40px;
+  margin: 80px 40px 40px;
   gap: 15px;
+  padding-top: 20px;
 
   @media (max-width: 500px) {
     margin: 50px 10px 40px;
@@ -93,6 +70,12 @@ export const ButtonConnection = styled.button`
   padding: 10px 20px;
   color: #ebc556;
 
+  &:hover {
+    transition: 0.4s;
+    background-color: #0000004c;
+    border: 2px solid #5e5959;
+  }
+
   @media (max-width: 650px) {
     padding: 5px;
   }
@@ -106,49 +89,15 @@ export const ButtonConnection = styled.button`
   }
 `;
 
-export const ContainerButtonConnection = styled.div`
+export const ContainerNotification = styled.div`
+  position: absolute;
+  top: 100px;
+  right: 40px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-`;
+  gap: 1px;
+  cursor: pointer;
 
-export const ButtonAccept = styled.button`
-  padding: 10px 20px;
-  color: white;
-  background-color: green;
-  border-radius: 9px;
-  font-weight: 600;
-
-  @media (max-width: 650px) {
-    padding: 5px;
+  span {
+    align-self: end;
   }
-
-  @media (max-width: 500px) {
-    padding: 10px 20px;
-  }
-
-  @media (max-width: 500px) {
-    padding: 5px;
-  }
-`;
-
-export const ButtonRefuse = styled.button`
-  padding: 10px 20px;
-  color: white;
-  background-color: red;
-  border-radius: 9px;
-  font-weight: 600;
-
-  @media (max-width: 650px) {
-    padding: 5px;
-  }
-
-  @media (max-width: 500px) {
-    padding: 10px 20px;
-  }
-
-  @media (max-width: 500px) {
-    padding: 5px;
-  }
-`;
+`

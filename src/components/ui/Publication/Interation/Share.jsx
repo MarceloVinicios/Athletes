@@ -26,13 +26,13 @@ const Share = ({ publicationId }) => {
   };
 
   const handleCopyLink = () => {
-    const linkToCopy = `http://localhost:5173/feed/publication/${publicationId}`;
+    const linkToCopy = window.location.href+ '/publication/' + publicationId;
     navigator.clipboard.writeText(linkToCopy);
     handleCloseModal();
   };
 
   const handleShareWhatsApp = () => {
-    const linkToShare = `http://localhost:5173/feed/publication/${publicationId}`;
+    const linkToShare = window.location.href+ '/publication/' + publicationId;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
       linkToShare,
     )}`;
