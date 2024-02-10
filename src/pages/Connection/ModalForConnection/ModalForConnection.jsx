@@ -5,7 +5,6 @@ import {
   ModalCloseButton,
   ListContainer,
   ListItem,
-  ButtonRecused,
   NoContent,
 } from "./StyledModalForConnection";
 import { ImageProfile } from "../../../components/common/Header/StyledHeader";
@@ -15,13 +14,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
 import ButtonAcceptConnection from "../../../components/Button/ButtonAcceptConnection";
 import { PublicationContext } from "../../../Context/PublicationContext";
+import ButtonRejectConnection from "../../../components/Button/ButtonRejectConnection";
 
 const ModalForConnection = ({ isOpen, toggleModal }) => {
   const [users, setUsers] = useState(null);
   const [noContent, setNoContent] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const { request } = useFetch();
-  const {reload, reloadPublications} = useContext(PublicationContext)
+  const { reload, reloadPublications } = useContext(PublicationContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -66,7 +66,11 @@ const ModalForConnection = ({ isOpen, toggleModal }) => {
                           setUsers={setUsers}
                           reloadPublications={reloadPublications}
                         />
-                        <ButtonRecused>Recusar</ButtonRecused>
+                        <ButtonRejectConnection
+                          user={user}
+                          setUsers={setUsers}
+                          reloadPublications={reloadPublications}
+                        />
                       </div>
                     </ListItem>
                   </div>

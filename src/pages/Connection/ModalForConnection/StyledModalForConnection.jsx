@@ -93,7 +93,7 @@ export const ButtonAccepted = styled.button`
   }
 `
 
-export const ButtonRecused = styled.button`
+export const ButtonReject = styled.button`
   background-color: #d81010;
   padding: 10px 20px;
   border-radius: 9px;

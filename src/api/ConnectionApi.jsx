@@ -62,3 +62,16 @@ export function AccptingRequest(id, token) {
   };
 }
 
+export function RejectRequest(id, token) {
+  return {
+    url: API_URL + `/connection/${id}`,
+    options: {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    },
+  };
+}
+
+
