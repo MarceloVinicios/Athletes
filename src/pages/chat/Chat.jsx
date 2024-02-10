@@ -37,7 +37,6 @@ const Chat = () => {
       const { response, json } = await request(url, options);
       if (response.status === 200) {
         setUsers(json.response);
-        console.log(json.response);
       }
 
       if (response.status === 204) {

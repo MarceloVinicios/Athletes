@@ -96,6 +96,7 @@ export const ContainerNotification = styled.div`
   display: flex;
   gap: 1px;
   cursor: pointer;
+  position: fixed;
 
   span {
     align-self: end;

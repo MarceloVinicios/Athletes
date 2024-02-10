@@ -80,7 +80,11 @@ const Connection = () => {
         <IoIosNotifications size="30px" />
         <span>Pedidos 1</span>
       </ContainerNotification>
-      <ModalForConnection isOpen={modalOpen} toggleModal={toggleModal} users={users}/>
+      <ModalForConnection
+        isOpen={modalOpen}
+        toggleModal={toggleModal}
+        users={users}
+      />
       <ContainerForIfConect>
         <ContainerList>
           {noContentState && <p>{noContentState}</p>}
@@ -99,14 +103,22 @@ const Connection = () => {
                       </ContainerDataUser>
                     </a>
                     <ContainerOptionConnection>
-                      <ButtonConnection
-                        onClick={() => {
-                          toggleModal();
-                          handleConnection(dataUser.id);
-                        }}
-                      >
-                        CONECTAR
-                      </ButtonConnection>
+                      {loading ? (
+                        <ButtonConnection
+                          disabled
+                        >
+                          CONNECTANDO
+                        </ButtonConnection>
+                      ) : (
+                        <ButtonConnection
+                          onClick={() => {
+                            toggleModal();
+                            handleConnection(dataUser.id);
+                          }}
+                        >
+                          CONECTAR
+                        </ButtonConnection>
+                      )}
                     </ContainerOptionConnection>
                   </ContainerItemUser>
                 ),

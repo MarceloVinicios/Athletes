@@ -19,6 +19,7 @@ export const ForConnections = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
+  margin: 0 20px;
 `;
 
 export const ModalCloseButton = styled.button`
@@ -34,6 +35,27 @@ export const ModalCloseButton = styled.button`
 
 export const ListContainer = styled.ul`
   margin-top: 35px;
+  max-height: 500px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #EBC556;
+    border-radius: 9px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    transition: 0.3;
+    background: #ebc6569e;
+  }
 `;
 
 export const ListItem = styled.li`
@@ -45,11 +67,17 @@ export const ListItem = styled.li`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
+  margin-right: 20px;
 
   div {
     display: flex;
     align-items: center;
     gap: 20px;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 `;
 

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   ForConnections,
   ModalCloseButton,
   ListContainer,
   ListItem,
-  ButtonAccepted,
   ButtonRecused,
   NoContent,
 } from "./StyledModalForConnection";
@@ -14,11 +13,15 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { GetRequestsForMe } from "../../../api/ConnectionApi";
 import { useAuth0 } from "@auth0/auth0-react";
 import useFetch from "../../../hooks/useFetch";
+import ButtonAcceptConnection from "../../../components/Button/ButtonAcceptConnection";
+import { PublicationContext } from "../../../Context/PublicationContext";
 
 const ModalForConnection = ({ isOpen, toggleModal }) => {
   const [users, setUsers] = useState(null);
+  const [noContent, setNoContent] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const { request } = useFetch();
+  const {reload, reloadPublications} = useContext(PublicationContext)
 
   useEffect(() => {
     if (isOpen) {
@@ -29,13 +32,15 @@ const ModalForConnection = ({ isOpen, toggleModal }) => {
 
         if (response.status === 200) {
           setUsers(json.response);
+          setNoContent(null);
         } else {
           setUsers(null);
+          setNoContent("Nenhum pedido de conexão");
         }
       };
       fetchGetAllUsers();
     }
-  }, [getAccessTokenSilently, isOpen, request]);
+  }, [getAccessTokenSilently, isOpen, request, reload]);
 
   return (
     <>
@@ -47,24 +52,26 @@ const ModalForConnection = ({ isOpen, toggleModal }) => {
             </ModalCloseButton>
 
             <ListContainer>
-              {users ? (
+              {users &&
                 users.map((user) => (
-                  <ListItem key={user.sender_id}>
-                    <div>
-                      <ImageProfile src={user.sender_picture} alt="Perfil" />
-                      <span>{user.sender_name.slice(0, 8)}</span>
-                    </div>
-                    <div>
-                      <ButtonAccepted>Aceitar</ButtonAccepted>
-                      <ButtonRecused>Recusar</ButtonRecused>
-                    </div>
-                  </ListItem>
-                ))
-              ) : (
-                <NoContent>
-                  Você não tem recebido nenhum pedido para conexão
-                </NoContent>
-              )}
+                  <div key={user.sender_id}>
+                    <ListItem>
+                      <div>
+                        <ImageProfile src={user.sender_picture} alt="Perfil" />
+                        <span>{user.sender_name.slice(0, 8)}</span>
+                      </div>
+                      <div>
+                        <ButtonAcceptConnection
+                          user={user}
+                          setUsers={setUsers}
+                          reloadPublications={reloadPublications}
+                        />
+                        <ButtonRecused>Recusar</ButtonRecused>
+                      </div>
+                    </ListItem>
+                  </div>
+                ))}
+              {noContent && <NoContent>{noContent}</NoContent>}
             </ListContainer>
           </ForConnections>
         </Container>
