@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Apresentation/Home";
+import Header from "./components/common/Header/Header";
+import NotFound from "./routes/NotFound";
+import RoutesPublication from "./routes/RoutesPublication";
+import Register from "./pages/Register/Register";
+import "./App.css";
+import ProtectedRoute from "./components/helper/ProtectedRoute";
+import ChatRoutes from "./routes/ChatRoutes";
+import RoutesProfile from "./routes/RoutesProfile";
+import ExploreRoutes from "./routes/ExploreRoutes";
+import ConnectionRoutes from "./routes/ConnectionRoutes";
+import { UserStorage } from "./Context/UserContext";
+import { PublicationStorage } from "./Context/PublicationContext";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ChakraProvider>
+      <BrowserRouter>
+        <UserStorage>
+          <PublicationStorage>
+          <Header />
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="feed/*"
+                element={
+                  <ProtectedRoute>
+                    <RoutesPublication />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="profile/*"
+                element={
+                  <ProtectedRoute>
+                    <RoutesProfile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="chat/*"
+                element={
+                  <ProtectedRoute>
+                    <ChatRoutes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="explore/*"
+                element={
+                  <ProtectedRoute>
+                    <ExploreRoutes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="connections/*"
+                element={
+                  <ProtectedRoute>
+                    <ConnectionRoutes />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="register" element={<Register />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          </PublicationStorage>
+        </UserStorage>
+      </BrowserRouter>
+    </ChakraProvider>
+  );
 }
 
-export default App
+export default App;

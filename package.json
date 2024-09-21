@@ -10,13 +10,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.2.1",
+    "@auth0/auth0-react": "^2.2.0",
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.1",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-avatar-edit": "^1.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0",
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.17.0",
+    "react-video-js-player": "^1.1.1",
+    "reactstrap": "^9.2.0",
+    "socket.io-client": "^4.7.2",
+    "styled-components": "^6.0.7",
+    "victory": "^36.7.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -26,6 +41,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "prettier": "^3.0.0-alpha.6",
     "vite": "^4.4.5"
   }
 }
